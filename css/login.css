@@ -1,0 +1,75 @@
+header {
+	text-align: right;
+}
+.main{
+	display: flex;
+  	border: 1px solid black;
+  	padding: 20px 0;
+  	height: 85vh;
+ }
+ .cancel{
+ 	margin: 10px;
+ 	padding: 5px;
+ } 	
+.left {
+	border: 1px solid black;
+	width: 50%;
+	margin: 10px;
+	text-align: center;
+	vertical-align: middle;
+	height: 85%; 
+	line-height: 450px;
+	
+}
+.right {
+	width: 50%;
+	margin: 10px;
+	height:85%;	
+	vertical-align: middle;
+
+}
+.faculty  {
+	font-size: 50px;
+	text-align: center;
+}
+.username {
+	display: flex;
+	width: 100%;
+	text-align: center;
+}
+.password {
+	display: flex;
+	width: 100%;
+	text-align: center;
+}
+.login-button{
+	text-align: center;
+
+}
+.login{
+	width: 20%;
+}
+.div {
+	margin: 20px;
+}
+
+.right-div {
+	border: 1px solid black;
+	margin: 30px;
+	padding: 0 40px;
+
+}
+.reset-pass {
+	text-align: center;
+}
+.cancel-button{
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	color: black;
+	background-color: #EFEFEF;
+}
+
+	
+
+

@@ -1,0 +1,79 @@
+.div-main{
+	display: flex;
+}
+.left {
+	border: 1px solid black;
+	width: 50%;
+	height: 80%; 
+	padding: 0 10px 20px 10px;
+}
+.right {
+	border: 1px solid black;
+}
+p {
+	text-align: center;
+	margin-top: 0;
+	font-weight: bold;
+}	
+.fname-lname {
+	display: flex;
+}
+.course-section {
+	display: flex;
+}
+.div-line{
+	margin-right: 10px;
+}
+.form-row{
+	margin:5px 0;
+	width: 100%;
+}
+input[type="text"],
+input[type="email"]{
+	width: 100%;
+}
+input[name="student-companion"]{
+	width: 50px;
+}
+.form-straight{
+	width: 50%;
+}
+.submit-cancel button {
+	margin: 10px;
+	padding: 5px 15px 5px 15px;
+	border: 1px solid black;
+}
+.submit-cancel{
+	text-align: center;
+}
+.companion-FLname{
+	display: flex;
+}
+.companion-line{
+	margin: 8px;
+}
+.ok-button{
+	text-align: center;
+	padding: 10px;
+}
+.OK-button{
+	padding: 5px 15px 5px 15px;
+}
+.top-info{
+	border: 1px solid black;
+	padding: 5px;
+}
+.right-fname{
+	margin-right: 10px;
+}
+.cancel-button{
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	color: black;
+	background-color: #EFEFEF;
+}
+.required{
+	color: red;
+}
+

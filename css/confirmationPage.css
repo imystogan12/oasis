@@ -1,0 +1,48 @@
+.main {
+	border: 1px solid black;
+	width: 50%;
+	margin: 0 auto;
+}
+.sub-main {
+	border: 1px solid black;
+}
+.header {
+	text-align: center;
+	padding: 10px;
+}
+.table {
+	 border-spacing:0
+}
+.data {
+	text-align: left;
+	padding: 10px;
+}
+.data:first-child {
+	width: 71%;
+	padding-left: 20px;
+	border-right: 2px solid black;
+}
+.data:nth-child(2) {
+	width: 29%;
+	padding-left: 30px;
+}
+.box {
+	margin: 10px;
+}
+.button {
+	display: flex;
+	padding: 10px;
+	margin-top: 5px;
+	width: 50%;
+	text-align: center;
+	display: inline-block;
+}
+.button-div {
+	margin: 0 auto;
+	text-align: center;
+}
+.note {
+	text-align: center;
+	font-style: italic;
+	margin: 5px;
+}

@@ -1,0 +1,49 @@
+header {
+	text-align: right;
+}
+/*body {
+	height: 100vh;
+}*/
+.main{
+	display: flex;
+  	border: 1px solid black;
+  	padding: 20px 0;
+  	height: 85vh;
+}
+.login{
+	margin: 10px;
+}
+.left {
+	border: 1px solid black;
+	width: 50%;
+	margin: 10px;
+	text-align: center;
+	vertical-align: middle;
+	height: 85%; 
+	line-height: 450px;
+	
+}
+.right {
+	width: 50%;
+	margin: 10px;
+	height:85%;
+	text-align: center;
+	vertical-align: middle;
+		
+}
+.sub-right {
+	line-height: 65px;
+	padding-top: 150px
+}
+.question {
+	font-weight: bold;
+	font-size: 50px;
+}
+.choice-button{
+	margin: 15px;
+	padding: 15px;
+	font-size: 20px;
+}
+.or {
+	font-size: 25px;	
+}

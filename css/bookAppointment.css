@@ -1,0 +1,62 @@
+header {
+	border: 1px solid black;
+	padding: 10px;
+	font-size: 30px;
+}
+body {
+	border: 1px solid black;
+}
+
+.selected {
+	background-color: #d1ed73;
+}
+
+.main {
+	display: flex;
+}
+.left {
+	padding: 10px;
+	width: 30%;
+}
+.right{
+	width: 70%;
+}
+.div{
+	margin: 20px 0;
+}
+
+.dept {
+	width: 80%;
+}
+.reason {
+	width: 80%;
+}
+.faculty {
+	width: 80%;
+}
+.submit-cancel button{
+	margin: 10px;
+	padding: 10px 20px 10px 20px;
+}
+.box {
+	border: 1px solid black;
+}
+table { 
+	border-collapse: collapse; border: 1px solid black; 
+}
+.time {
+	width: 100%;
+	padding: 15px 0;
+}
+.more {
+	width: 100%;
+}
+.time-pm{
+	display: none;
+}
+.bold {
+	font-weight: bold;
+}
+
+
+
