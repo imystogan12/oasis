@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	echo "<pre>";
-	var_dump($_SESSION);
-	echo "</pre>";
 	$_SESSION['session_type'] = "guest";
+	if (empty($_SESSION['guest_comp_count'])) {
+		$_SESSION['guest_comp_count'] = 0;
+	}
 	$comp_count = $_SESSION['guest_comp_count'];
 	$_SESSION['guest_comp_count'] = 0;
 

@@ -7,6 +7,12 @@ body {
 	border: 1px solid black;
 }
 
+.full {
+	color: black;
+	font-weight: bold;
+	background-color: red;
+}
+
 .selected {
 	background-color: #d1ed73;
 }

@@ -4,9 +4,10 @@
 	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="css/HomePage.css">
 
-<header>
-	<a href="login.php"><button class="login">Login</button></a>
-</header>
+<div class="header-div">
+	<p class="oasis">OASIS</p>
+	<a href="login.php"><button class="login">Faculty and staff login</button></a>
+</div>
 <body>
 	<div class="main">
 	<div class="left">
@@ -19,9 +20,15 @@
 			<div class="question">Are you a?</div>
 		
 			<div>
-				<a href="studentUI.php"><button class="choice-button">Student</button></a> 
-				<span class="or">Or</span>
-				<a href="guestUI.php"><button class="choice-button">Guest/Visitor</button></a>
+				<div>
+					<a href="studentUI.php"><button class="choice-button">Student</button></a> 
+				</div>
+				<div>
+					<span class="or">Or</span>
+				</div>
+				<div>
+					<a href="guestUI.php"><button class="choice-button2">Visitor</button></a>
+				</div>	
 			</div>
 		</div>
 	</div>
