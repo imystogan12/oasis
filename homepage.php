@@ -17,9 +17,9 @@
 
 	<div class="right">
 		<div class="sub-right">
-			<div class="question">Are you a?</div>
-		
 			<div>
+				<div class="question">Are you a?</div>
+
 				<div>
 					<a href="studentUI.php"><button class="choice-button">Student</button></a> 
 				</div>
@@ -30,6 +30,7 @@
 					<a href="guestUI.php"><button class="choice-button2">Visitor</button></a>
 				</div>	
 			</div>
+			
 		</div>
 	</div>
 	</div>

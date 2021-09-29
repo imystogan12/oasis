@@ -21,9 +21,6 @@
 		$saturday = date('m-d-Y', strtotime( 'saturday this week' ) );
 	}
 	
-
-
-
 	if (isset($_POST['next']) || isset($_POST['prev'])) {
 		$monday_timestamp = DateTime::createFromFormat('m-d-Y', $monday)->getTimestamp();
    		$tuesday_timestamp = DateTime::createFromFormat('m-d-Y', $tuesday)->getTimestamp();

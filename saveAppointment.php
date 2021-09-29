@@ -31,8 +31,8 @@
 	   		$last_id = $conn->insert_id;
 
 	   		//$_SESSION['student']['student_id'] = $last_id;
-
-	   		for ($i = 0; $i < count($_SESSION['student']['companion']); $i++) {
+	   		if (!empty($_SESSION['student']['companion'])) {
+	   			for ($i = 0; $i < count($_SESSION['student']['companion']); $i++) {
 
 				$sql = "INSERT INTO student_companion (sCompanion_fname, sCompanion_lname, sCompanion_email, sCompanion_number, created_at) 
 				VALUES ('" . $_SESSION['student']['companion'][$i]['sCompanion_fname'] . "' , '" 
@@ -49,11 +49,13 @@
 				
 				}
 			}
+	   		}
+	   		
 
 			$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['student']['appointment']['date_time']);
 
-			$sql = "INSERT INTO appointment (department, reason, user_id, student_id, date_time) 
-			VALUES ('" . $_SESSION['student']['appointment']['department'] . "' , '" . $_SESSION['student']['appointment']['reason'] . "' , '" . $_SESSION['student']['appointment']['user_id'] . "' , '" . $last_id . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
+			$sql = "INSERT INTO appointment (department, reason, user_id, student_id, faculty, date_time) 
+			VALUES ('" . $_SESSION['student']['appointment']['department'] . "' , '" . $_SESSION['student']['appointment']['reason'] . "' , '" . $_SESSION['student']['appointment']['user_id'] . "' , '" . $last_id . "' , '" . $_SESSION['student']['appointment']['faculty_name'] . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
 
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
@@ -102,8 +104,8 @@
 
 			$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['guest']['appointment']['date_time']);
 
-			$sql = "INSERT INTO appointment (department, reason, user_id, guest_id, date_time) 
-			VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
+			$sql = "INSERT INTO appointment (department, reason, user_id, guest_id, faculty, date_time) 
+			VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , '" .  $_SESSION['guest']['appointment']['faculty_name'] . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
 
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
