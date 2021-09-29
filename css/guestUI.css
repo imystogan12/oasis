@@ -1,14 +1,50 @@
+
+.guest {
+	font-size: 50px;
+	color: #25548d;
+	font-family: helvetica;
+	font-style: italic;
+	text-align: center;
+	margin-top: 20px;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #25548d;
+	border-top: 10px solid #eed15c;
+}
+
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
 .div-main{
 	display: flex;
+	background-image: url("https://i.imgur.com/qlAvUvr.png");
+	background-size: 20%;
+	background-repeat: repeat;
+	height: 100%;
 }
 .left {
-	border: 1px solid black;
 	width: 50%;
 	height: 80%; 
 	padding: 0 10px 20px 10px;
+	margin: 60px;
+	margin-top: 65px;
+	background: #F5F5F5;
+	border-bottom: 8px solid #25548D;
+	height: fit-content;
 }
 .right {
-	border: 1px solid black;
+	margin-top: 65px;
+	background: #e5e5e5;
+	background: #F5F5F5;
+	border-bottom: 8px solid #25548D;
+	height: fit-content;
 }
 p {
 	text-align: center;
@@ -42,38 +78,67 @@ input[name="student-companion"]{
 	margin: 10px;
 	padding: 5px 15px 5px 15px;
 	border: 1px solid black;
+	width: 75px;
+	font-family: Tahoma;
+	background-color: #25548d; 
+	color: white;
 }
 .submit-cancel{
 	text-align: center;
+	font-family: Tahoma;
+	font-size: 13px;
+}
+ 
+.right-fname{
+	margin-right: 10px;
 }
 .companion-FLname{
 	display: flex;
 }
 .companion-line{
 	margin: 8px;
+
 }
 .ok-button{
 	text-align: center;
 	padding: 10px;
+
 }
-.OK-button{
+.OK-btn{
 	padding: 5px 15px 5px 15px;
+	background-color: #25548d;
+	color: white;
+
 }
 .top-info{
-	border: 1px solid black;
 	padding: 5px;
+	font-size: 50px;
+	color: #25548d;
+	font-family: helvetica;
+	font-style: italic;
+	text-align: center;
+	margin-top: 20px;
+
 }
-.right-fname{
-	margin-right: 10px;
+.word {
+	font-style: italic;
+}
+.word-note{
+	font-weight: bold;
 }
 .cancel-button{
 	text-decoration: none;
 	border: 1px solid black;
 	padding: 5px 15px 5px 15px;
-	color: black;
-	background-color: #EFEFEF;
+	background-color: #25548d; 
+	color: white;
 }
 .required{
 	color: red;
 }
+.text {
+	font-size: 16px;
+}
+
+
 
