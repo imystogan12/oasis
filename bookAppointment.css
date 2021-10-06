@@ -1,0 +1,102 @@
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #25548d;
+	border-top: 10px solid #eed15c;
+}
+
+
+.cancel{
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 10px 20px 10px 20px;
+	background-color: #25548d; 
+	color: white;
+}
+header {
+	padding: 10px;
+	font-size: 30px;
+}
+body {
+	/*border: 1px solid black;*/
+}
+
+.full {
+	color: black;
+	font-weight: bold;
+	background-color: red;
+}
+
+.selected {
+	background-color: #d1ed73;
+}
+
+.main {
+	display: flex;
+  	padding: 20px 0;
+  	height: 80vh;
+  	background-image: url("https://i.imgur.com/qlAvUvr.png");
+  	background-size: 20%;
+  	background-repeat: repeat;
+}
+.left {
+	padding: 10px;
+	width: 30%;
+	height: 70%;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+}
+.right{
+	width: 50%;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+}
+.div{
+	margin: 20px 0;
+}
+
+.dept {
+	width: 80%;
+}
+.reason {
+	width: 80%;
+}
+.faculty {
+	width: 80%;
+}
+.submit-cancel button{
+	margin: 10px;
+	padding: 10px 20px 10px 20px;
+}
+.box {
+	border: 1px solid black;
+}
+table { 
+	border-collapse: collapse; border: 1px solid black; 
+}
+.time {
+	width: 100%;
+	padding: 15px 0;
+}
+.more {
+	width: 100%;
+}
+.time-pm{
+	display: none;
+}
+.bold {
+	font-weight: bold;
+}
+
+
+
