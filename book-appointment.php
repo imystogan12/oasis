@@ -135,8 +135,37 @@
 
 		$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['appointment']['schedule']);
 		
+
 		$user_id = null;
-		$faculty_name = '';
+		$faculty_name = 'N/A';
+		
+		switch ($_SESSION['appointment']['department']) {
+			case 'cashier':
+				$user_id = 1;
+				break;
+			case 'registrar':
+				$user_id = 2;
+				break;
+			case 'admission':
+				$user_id = 3;
+				break;
+			case 'guidance':
+				$user_id = 4;
+				break;
+			case 'clinic':
+				$user_id = 5;
+				break;
+			case 'ojt':
+				$user_id = 6;
+				break;
+			case 'prowear':
+				$user_id = 7;
+				break;
+
+			default:
+				break;
+		}
+
 		switch ($_SESSION['appointment']['faculty']) {
 			case 'christian-torres':
 				$user_id = 8;
@@ -150,7 +179,7 @@
 				$user_id = 8;
 				$faculty_name="Reynaldo Merced";
 				break;
-			case 'allan-badillo':
+			case 'allan-badilla':
 				$user_id = 10;
 				$faculty_name="Allan Badilla";
 				break;
@@ -213,10 +242,11 @@
 	// var_dump($_SESSION);
 	echo "</pre>";
 ?>
-
-<div>
-	<header> Book Appointment </header>
+<div class="header-div">
+	<p class="oasis">OASIS</p>
 </div>
+
+
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
@@ -283,10 +313,14 @@
 </script>
 
 <link rel="stylesheet" type="text/css" href="css/bookAppointment.css">
+
 <body>
 	<form action="book-appointment.php" method="POST">
 	<div class="main">
 	<div class="left">
+	<div>
+		<header> Book Appointment </header>
+	</div>
 		<div class="div">
 		<div><label for="choice">Department</label>
 		</div>
@@ -423,9 +457,9 @@
 				<option value="reynaldo-merced"
 					<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "reynaldo-merced")) echo " selected" ?>
 				>Reynaldo Merced</option>
-				<option value="allan-badillo"
-					<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "allan-badillo")) echo " selected" ?>
-				>Allan Badillo</option>
+				<option value="allan-badilla"
+					<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "allan-badilla")) echo " selected" ?>
+				>Allan Badilla</option>
 				<option value="romeo-olympia"
 					<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "romeo-olympia")) echo " selected" ?>
 				>Romeo Olympia</option>
@@ -442,7 +476,7 @@
 	</div>
 		<div class="submit-cancel">
 		<button name="submit">Submit</button>
-		<a href="<?php echo $transaction_type  ?>UI.php">Cancel</a>
+		<a href="<?php echo $transaction_type  ?>UI.php" class="cancel">Cancel</a>
 		</div>	
 	</div>
 

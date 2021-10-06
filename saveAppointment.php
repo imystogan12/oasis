@@ -60,6 +60,8 @@
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
 	  			// unset($_SESSION['appointment']);
+	  			unset($_SESSION['appointment']);
+	  			unset($_SESSION['student']);
 
 			}else {
 	  			echo "Error: " . $sql . "<br>" . $conn->error;
@@ -84,7 +86,8 @@
 	  		echo "New record created successfully";
 	   		$last_id = $conn->insert_id;
 
-	   		for ($i = 0; $i < count($_SESSION['guest']['companion']); $i++) {
+	   		if (!empty($_SESSION['guest']['companion'])) {
+	   			for ($i = 0; $i < count($_SESSION['guest']['companion']); $i++) {
 
 				$sql = "INSERT INTO guest_companion (gCompanion_fname, gCompanion_lname, gCompanion_email, gCompanion_number, created_at) 
 				VALUES ('" . $_SESSION['guest']['companion'][$i]['gCompanion_fname'] . "' , '" 
@@ -100,6 +103,8 @@
 		  			echo "Error: " . $sql . "<br>" . $conn->error;
 				
 				}
+	   		}
+	   		
 			}
 
 			$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['guest']['appointment']['date_time']);
@@ -110,6 +115,7 @@
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
 	  			unset($_SESSION['appointment']);
+	  			unset($_SESSION['guest']);
 
 			}else {
 	  			echo "Error: " . $sql . "<br>" . $conn->error;

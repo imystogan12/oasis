@@ -6,7 +6,7 @@
 		// echo "</pre>";
 
 		// $submitValue = $_POST['btn'];
-		$submitValue = '32-accepted';
+		$submitValue = '78-accepted';
 		$explode = explode("-",$submitValue);
 
 		$servername = "localhost";
@@ -32,7 +32,7 @@
 		// $conn->close();
 		$appointmentData = null;
 
-		$sql = "SELECT department, reason, faculty, student_fname, student_lname, student_num 
+		$sql = "SELECT department, reason, faculty, student_fname, student_lname, student_num, 				student_email 
 				FROM appointment  
 				INNER JOIN student ON student.id=appointment.student_id
 				WHERE appointment.id=" . $explode[0];
@@ -53,6 +53,58 @@
 				var_dump($appointmentData);
 				echo "</pre>";
 
+				$transaction_type = !empty($appointmentData['student_fname']) ? 'student' : 'guest';
+
+			require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
+
+				$text = "Hello from Oasis! We are awesome!!!!";
+				$file3 = "public/qrcode/qr-" . $explode[0] . ".png";
+  
+$ecc = 'H';
+$pixel_size = 10;
+$frame_size = 5;
+  
+// Generates QR Code and Save as PNG
+QRcode::png($text, $file3, $ecc, $pixel_size, $frame_size);
+  
+// Displaying the stored QR code if you want
+  echo "<div><img src='".$file3."'></div>";
+
+//   // Upload to AWS S3
+
+//   require 'vendor/autoload.php';
+
+// use Aws\S3\S3Client;
+// use Aws\S3\Exception\S3Exception;
+
+// $bucket = 'oasis-appointment-group';
+// $keyname = "qrcode/qr-" . $explode[0] . ".png";
+                        
+// $s3 = new S3Client([
+//     'version' => 'latest',
+//     'region'  => 'ap-southeast-1',
+//     'credentials' => [
+//     	'key' => 'AKIAXD6T7WYHYBG2LXHO',
+//     	'secret' => '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',
+//     ]
+// ]);
+
+$s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
+
+// try {
+//     // Upload data.
+//     $result = $s3->putObject([
+//         'Bucket' => $bucket,
+//         'Key'    => $keyname,
+//         'SourceFile'   => $file3,
+//         'ContentType' => "image/png",
+//         'ACL'    => 'public-read'
+//     ]);
+
+//     $s3QrcodeURL = $result['ObjectURL'];
+// } catch (S3Exception $e) {
+//     echo $e->getMessage() . PHP_EOL;
+// }
  
 
 		require dirname(__FILE__) . '/lib/PHPMailer/src/PHPMailer.php';
@@ -73,21 +125,43 @@
 		$mail->Password   = "Aldrino12";
 
 		$mail->IsHTML(true);
-		$mail->AddAddress("garcia.135106@stamaria.sti.edu.ph", "Paula");
+		$mail->AddAddress($appointmentData['student_email'], $appointmentData['student_fname'] . " " .	$appointmentData['student_lname']);
 		//$mail->AddAddress("nicole.lopez@mailinator.com", "Aldrino");
-		$mail->SetFrom("oasis.appointment.group.2021@stamaria.sti.edu.ph", "Oasis");
+		$mail->SetFrom("oasis.appointment.group.2021@mailinator.com", "Oasis");
 		// $mail->AddReplyTo("reply-to-email@domain", "reply-to-name");
 		// $mail->AddCC("cc-recipient-email@domain", "cc-recipient-name");
-		$mail->Subject = "Test is Test Email sent via Gmail SMTP Server using PHP Mailer";
+		$mail->Subject = "STI College Sta. Maria Appointment Notice";
 		$content = "
 		<div>
-			<b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b> 
-			<br><h2>Appointment Details:</h2>
-			<br><b>Email:</b>
-			<br><b>Student ID number:</b>
-			<br><b>Chosen Department:</b>
-			<br><b>Reason:</b>
-			<br><b>Faculty:(if chosen)</b>
+			
+			<div>
+				<b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b> 
+			</div>
+			<div>
+				<br><h2>Appointment Details:</h2>
+			</div>
+			<div>
+				<br><b>Your name:</b> " . $appointmentData['student_fname'] . " " .
+					$appointmentData['student_lname'] . "
+			</div>
+			<div>
+				<br><b>Email:</b> " . $appointmentData['student_email'] . "
+			</div>
+			<div>
+				<br><b>" . ($transaction_type === "guest" ? "Contact" : "Student") . " Number:</b> " . ($transaction_type === "guest" ? $appointmentData['guest_number'] : $appointmentData['student_num']) . "
+			</div>
+			<div>
+				<br><b>Chosen Department:</b> " . ucwords($appointmentData['department']) ."
+			</div>
+			<div>
+				<br><b>Reason:</b> " . ucwords($appointmentData['reason']) ."
+			</div>
+			<div>
+				<br><b>Faculty:</b> " . ucwords($appointmentData['faculty']) ."
+			</div>
+			<div>
+				<img src='" . $s3QrcodeURL. "'/>
+			</div>
 		</div>";
 
 		$mail->MsgHTML($content); 
@@ -98,10 +172,6 @@
   		echo "Email sent successfully";
 		}
 
-		header("Location: dashboard.php");
-		exit();
-	
-
-		
-
+		// header("Location: dashboard.php");
+		// exit();
 ?>

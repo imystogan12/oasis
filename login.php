@@ -44,9 +44,10 @@
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/login.css">
-<header>
+<div class="header-div">
+	<p class="oasis">OASIS</p>
 	<a href="homepage.php"><button class="cancel">Cancel</button></a>
-</header>
+</div>
 <body>
 	<div class="main">
 	<div class="left">
@@ -55,19 +56,19 @@
 
 	<div class="right">
 		<div class="right-div">
-			<h1 class="faculty">Faculty and Staff</h1>
+			<div class="faculty">FACULTY/STAFF</div>
 			<form action="login.php" method="post">
 				<div class="div">
-					<label>Username:</label>
+					<label class="text">Username:</label>
 					<input type="text" name="username" class="username">
 				</div>
 
 				<div class="div">
-					<label>Password:</label>
+					<label class="text">Password:</label>
 					<input type="password" name="password" class="password">
 				</div>
-				<p class="reset-pass div"><a href="resetPasswordUI.php">Reset Password</a></p>
-				<div class="login-button div"><button class="login" name="login">Login</button></div>
+				<p class="reset-pass div text"><a href="resetPasswordUI.php">Reset Password</a></p>
+				<div class="login-button div text"><button class="login" name="login">Login</button></div>
 
 			</form>
 		</div>

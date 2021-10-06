@@ -14,7 +14,19 @@
 	}
 	.logoutBTN {
 		padding: 5px;
+		margin-top: 10px;
+		margin-right: 15px;
+		font-family:  tahoma;
+		font-style: bold;
+		position: absolute;
+		right: 0;
+		font-size: 12px;
+		padding: 10px 5px 10px 5px;
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: bold;
 	}
+
 
 </style>
 <div class="logout">
