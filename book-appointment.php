@@ -207,24 +207,6 @@
 				break;
 		}
 
-
-		// echo date('Y-m-d H:i:s', strtotime('$dateTimeStamp'));
-
-		// $sql = "INSERT INTO appointment (department, reason, user_id, student_id, date_time) 
-		// VALUES ('" . $_SESSION['appointment']['department'] . "' , '" . $_SESSION['appointment']['reason'] . "' , '" . $user_id . "' , '" . $_SESSION['student']['student_id'] . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
-
-		// if ($conn->query($sql) === TRUE) {
-  // 		echo "New record created successfully";
-  // 		unset($_SESSION['appointment']);
-
-		// } else {
-  // 			echo "Error: " . $sql . "<br>" . $conn->error;
-		// }
-
-		// $conn->close();
-
-
-
    		$_SESSION[$transaction_type]['appointment'] = [
 			'department' => $_SESSION['appointment']['department'],
 			'reason' => $_SESSION['appointment']['reason'],
