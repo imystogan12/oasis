@@ -1,0 +1,17 @@
+{
+    "name": "aldrino/oasis",
+    "autoload": {
+        "psr-4": {
+            "Aldrino\\Oasis\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aldrin John Lopez",
+            "email": "lopezaldrinjohn4@gmail.com"
+        }
+    ],
+    "require": {
+        "aws/aws-sdk-php": "^3.196"
+    }
+}

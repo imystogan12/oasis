@@ -83,6 +83,10 @@ QRcode::png($text, $file3, $ecc, $pixel_size, $frame_size);
 // $s3 = new S3Client([
 //     'version' => 'latest',
 //     'region'  => 'ap-southeast-1',
+//     'credentials' => [
+//     	'key' => 'enter AWS key here',
+//     	'secret' => 'enter AWS secret here',
+//     ]
 // ]);
 
 $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
