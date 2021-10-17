@@ -34,11 +34,6 @@ body {
 	font-weight: bold;
 	background-color: red;
 }
-
-.selected {
-	background-color: #d1ed73;
-}
-
 .main {
 	display: flex;
   	justify-content: center;
@@ -117,6 +112,9 @@ table {
 	height: 100%;
 	background-color: #25548d;
 	color: white;	
+}
+.selected {
+	background-color: #eed15c;
 }
 .prev-btn {
 	background-color: #25548d;

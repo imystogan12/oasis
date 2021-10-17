@@ -71,6 +71,7 @@ h2 {
 	text-align: left;
 	padding: 10px;
 	font-family: helvetica;
+	font-weight: bold;
 }
 .data:first-child {
 	width: 71%;
@@ -85,7 +86,7 @@ h2 {
 	margin: 10px;
 	}
 .ui-dialog {
-	width: 550px !important;
+	width: 600px !important;
 	height: auto !important;
 	top: 140px !important;
     left: 400px !important;
@@ -95,4 +96,13 @@ h2 {
 	font-family: Tahoma;
 	text-transform: uppercase;
 	font-weight: bold;
+}
+.style {
+	width: 600px;
+}
+.ui-button .ui-icon {
+    background-image: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-512.png") !important;
+    background-repeat: no-repeat;
+    background-size: 17px 17px;
+    background-position: center;
 }

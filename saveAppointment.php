@@ -71,6 +71,7 @@
 	  		echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 	} else {
+		// Guest appointment
 		echo "Connected successfully";
 	 	$sql = "INSERT INTO guest (guest_fname, guest_lname, guest_address, guest_number, guest_email, guest_companion, created_at) 
 	 	VALUES ('" . $_SESSION['guest']['guest_fname'] . "' , '"

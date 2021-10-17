@@ -1,12 +1,12 @@
 <?php 
 	session_start();
-	//if (isset($_POST['btn'])) {
-		// echo "<pre>";
-		// var_dump($_POST);
-		// echo "</pre>";
+	if (isset($_POST['btn'])) {
+		echo "<pre>";
+		var_dump($_POST);
+		echo "</pre>";
 
-		// $submitValue = $_POST['btn'];
-		$submitValue = '78-accepted';
+		$submitValue = $_POST['btn'];
+	// 	$submitValue = '78-accepted';
 		$explode = explode("-",$submitValue);
 
 		$servername = "localhost";
@@ -172,6 +172,10 @@ $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/
   		echo "Email sent successfully";
 		}
 
-		// header("Location: dashboard.php");
-		// exit();
+
+		$URL="http://localhost/oasis/dashboard.php";
+		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+		exit();
+	}
 ?>

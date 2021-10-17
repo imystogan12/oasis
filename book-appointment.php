@@ -297,7 +297,7 @@
 <link rel="stylesheet" type="text/css" href="css/bookAppointment.css">
 
 <body>
-	<!-- <form action="book-appointment.php" method="POST"> -->
+	<form action="book-appointment.php" method="POST">
 		<div class="main">
 			<div class='content'>
 				<div class="head">
@@ -1374,5 +1374,5 @@
 				</div>
 			</div>
 		</div>
-	<!-- </form> -->
+	</form>
 </body>
