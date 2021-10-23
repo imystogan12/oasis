@@ -42,17 +42,17 @@
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script>
   $( function() {
-    $( "#dialog" ).dialog({
-      autoOpen: false,
-      show: {
-        effect: "blind",
-        duration: 1000
-      },
-      hide: {
-        effect: "explode",
-        duration: 1000
-      }
-    });
+    // $( "#dialog" ).dialog({
+    //   autoOpen: false,
+    //   show: {
+    //     effect: "blind",
+    //     duration: 1000
+    //   },
+    //   hide: {
+    //     effect: "explode",
+    //     duration: 1000
+    //   }
+    // });
  
  	 $( '.dialog' ).dialog({
  	 	autoOpen: false

@@ -57,7 +57,8 @@
 
 			require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
 
-				$text = "Hello from Oasis! We are awesome!!!!";
+				$text = <div>"Full Name: ". $appointmentData['student_fname'] . " " .
+					$appointmentData['student_lname'] . ""</div>
 				$file3 = "public/qrcode/qr-" . $explode[0] . ".png";
   
 $ecc = 'H';

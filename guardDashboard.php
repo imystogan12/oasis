@@ -32,7 +32,62 @@
 		}
 ?>
 
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="css/guardDashboard.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+
+
+<script type="text/javascript">
+	/* $( function() {
+	 	 $( '.dialogpopup' ).dialog({
+	 	 	autoOpen: false
+	 	 });
+	 	 $( ".view-btn" ).on( "click", function(e) {
+	    	e.preventDefault();
+	      // 	$( ".dialogpopup" ).dialog( "close" );
+	      	$( '.dialogpopup' ).dialog( "open" );
+	    });*/
+
+	 	var barcode = '';
+		var interval;
+		document.addEventListener('keydown', function (evt) {
+			console.log(evt.key);
+			if (interval) {
+				clearInterval(interval);
+			}
+			if (evt.code == 'Enter') {
+				if (barcode) 
+					handleBarcode(barcode);
+				barcode = '';
+				return;
+			}
+			if (evt.key != 'Shift') {
+				barcode  += evt.key;
+				interval = setInterval(function () {
+					barcode = ''
+				}, 20); 
+			}
+		});
+
+		function handleBarcode (scanned_barcode) {
+			// $( ".dialogpopup" ).dialog( "close" );
+			
+			document.querySelector('.dialogpopup').innerHTML = scanned_barcode;
+			//$( '.dialogpopup' ).dialog( "open" );
+			// $( '.ui-dialog' ).css('display', 'block');
+			
+			// $( '.dialogpopup' ).dialog( "open" );
+			//$('.view-btn').trigger('click');
+		}
+//	  } );
+
+
+
+	
+
+</script>
+
 <div class="head1">
 	<header>Appointment Details</header>
 </div>
@@ -44,6 +99,17 @@
 <div class="div1">
 	<form action="updateAppointment.php" method="POST">
 	<table class="details info">
+		<tr>
+			<td colspan=8>
+				<div> 
+					<div>Scanned appointment details will show here:</div>
+				<div class="dialogpopup" title="Appointment Details" >
+					
+				</div>
+				<button class="view-btn" >Set as scanned</button>
+				<div>
+			</td>
+		</tr>
 		<tr>
 			<th>Last Name</th>
 			<th>First Name</th>
@@ -77,4 +143,5 @@
 		<?php endforeach; ?>
 	</table>
 	</form>
+	
 </div>
