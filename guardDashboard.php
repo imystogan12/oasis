@@ -1,8 +1,8 @@
 <?php 
 	session_start();
-	echo "<pre>";
-	var_dump($_SESSION);
-	echo "</pre>";
+	// echo "<pre>";
+	// var_dump($_SESSION);
+	// echo "</pre>";
 
 	$servername = "localhost";
 		$username = "root";
@@ -13,11 +13,12 @@
 		if ($conn->connect_error) {
   			die("Connection failed: " . $conn->connect_error);
 		}
-		echo "Connected successfully";
-		$sql = 'SELECT apt.user_id, apt.reason, apt.date_time, s.student_lname, s.student_fname, s.student_email, apt.faculty, apt.status, apt.id as appointment_id' .
+		// echo "Connected successfully";
+		$sql = 'SELECT apt.user_id, apt.reason, apt.date_time, s.student_lname, s.student_fname, s.student_email, s.student_num, s.student_companion, s.student_course, s.student_section, g.guest_address, g.guest_companion, g.guest_fname, g.guest_lname, g.guest_email, g.guest_number, apt.department, apt.faculty, apt.status, apt.scanned_at, apt.id as appointment_id' .
 				' FROM appointment apt' .
-				' LEFT JOIN student s ON apt.student_id = s.id ' ;
-				// ' WHERE apt.user_id="' . $_SESSION['user']['id']. '"' ;
+				' LEFT JOIN student s ON apt.student_id = s.id ' .
+				' LEFT JOIN guest g ON apt.guest_id = g.id ' .
+				' WHERE apt.status!="deleted"' ;
 		$result = $conn->query($sql);
 
 		if ($result->num_rows > 0) {
@@ -28,7 +29,7 @@
 			// S
 			echo "</pre>";
 		} else {
-			echo "no appointments";
+			// echo "no appointments";
 		}
 ?>
 
@@ -74,6 +75,18 @@
 			// $( ".dialogpopup" ).dialog( "close" );
 			
 			document.querySelector('.dialogpopup').innerHTML = scanned_barcode;
+			var startSearch = scanned_barcode.indexOf('[[');
+			var endSearch = scanned_barcode.indexOf(']]');
+
+			var aptId = scanned_barcode.substring(startSearch, endSearch).substring(2);
+			if (!isNaN(aptId)) {
+				document.getElementById('apt_id_scanned').value = aptId;
+			} else {
+				alert('Malformed data. Please scan again.');
+			}
+
+
+
 			//$( '.dialogpopup' ).dialog( "open" );
 			// $( '.ui-dialog' ).css('display', 'block');
 			
@@ -106,7 +119,8 @@
 				<div class="dialogpopup" title="Appointment Details" >
 					
 				</div>
-				<button class="view-btn" >Set as scanned</button>
+				<input type="text" name="apt_id_scanned" id="apt_id_scanned" value="" />
+				<button name="scanned-btn" >Set as scanned</button>
 				<div>
 			</td>
 		</tr>
@@ -114,28 +128,19 @@
 			<th>Last Name</th>
 			<th>First Name</th>
 			<th>Email</th>
-			<th>Faculty</th>
-			<th>Reason</th>
-			<th>Date & Time</th>
-			<th>Status</th>
+			<th>Time Scanned</th>
 			<th>Action</th>
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
+		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
-			<td> <?php echo $apt['student_lname'] ?>
-			<td> <?php echo $apt['student_fname'] ?>
-			<td> <?php echo $apt['student_email'] ?>
-			<td> <?php echo $apt['faculty'] ?>
-			<td> <?php echo $apt['reason'] ?>
-			<td> <?php echo $apt['date_time'] ?>
-			<td> <?php echo ucwords($apt['status']) ?>
+			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
+			<td> <?php echo  $apt[$transaction_type . '_fname']?>
+			<td> <?php echo  $apt[$transaction_type . '_email']?>
+			<td> <?php echo  $apt['scanned_at']?>
 
 			<td>
 				<div class="button-div">
-					<?php if ($apt['status'] == "pending"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="button">Accept</button>
-						<button value="<?php echo($apt['appointment_id'])?>-declined" name="btn" class="button">Decline</button>
-					<?php endif ?>
 						<button class="button">View</button>
 				</div>
 			<td>

@@ -34,8 +34,8 @@
 	   		if (!empty($_SESSION['student']['companion'])) {
 	   			for ($i = 0; $i < count($_SESSION['student']['companion']); $i++) {
 
-				$sql = "INSERT INTO student_companion (sCompanion_fname, sCompanion_lname, sCompanion_email, sCompanion_number, created_at) 
-				VALUES ('" . $_SESSION['student']['companion'][$i]['sCompanion_fname'] . "' , '" 
+				$sql = "INSERT INTO student_companion (student_id, sCompanion_fname, sCompanion_lname, sCompanion_email, sCompanion_number, created_at) 
+				VALUES (" . $last_id . ", '" . $_SESSION['student']['companion'][$i]['sCompanion_fname'] . "' , '" 
 					. $_SESSION['student']['companion'][$i]['sCompanion_lname'] . "' , '" 
 					. $_SESSION['student']['companion'][$i]['sCompanion_email'] . "' , '" 
 					. $_SESSION['student']['companion'][$i]['sCompanion_number'] . "' , '" 
@@ -90,8 +90,8 @@
 	   		if (!empty($_SESSION['guest']['companion'])) {
 	   			for ($i = 0; $i < count($_SESSION['guest']['companion']); $i++) {
 
-				$sql = "INSERT INTO guest_companion (gCompanion_fname, gCompanion_lname, gCompanion_email, gCompanion_number, created_at) 
-				VALUES ('" . $_SESSION['guest']['companion'][$i]['gCompanion_fname'] . "' , '" 
+				$sql = "INSERT INTO guest_companion (guest_id, gCompanion_fname, gCompanion_lname, gCompanion_email, gCompanion_number, created_at) 
+				VALUES (" . $last_id . ", '" . $_SESSION['guest']['companion'][$i]['gCompanion_fname'] . "' , '" 
 					. $_SESSION['guest']['companion'][$i]['gCompanion_lname'] . "' , '" 
 					. $_SESSION['guest']['companion'][$i]['gCompanion_email'] . "' , '" 
 					. $_SESSION['guest']['companion'][$i]['gCompanion_number'] . "' , '" 

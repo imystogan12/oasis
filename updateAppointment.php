@@ -1,6 +1,35 @@
 <?php 
 	session_start();
-	if (isset($_POST['btn'])) {
+
+	$servername = "localhost";
+		$username = "root";
+		$password = "root";
+		$dbname = 'oasis';
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	if (isset($_POST['scanned-btn'])) {
+		$id = $_POST['apt_id_scanned'];
+		date_default_timezone_set('Asia/Manila');
+
+
+		$sql = 'UPDATE appointment SET scanned_at = "' .  date('Y-m-d H:i:s') . '" 
+				WHERE id=' . $id;
+				var_dump($sql);
+
+		if ($conn->query($sql) === TRUE) {
+ 			 echo "Record updated successfully";
+		} else {
+  			echo "Error updating record: " . $conn->error;
+		}
+
+		$URL="http://localhost/oasis/guardDashboard.php";
+		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+		exit();
+	} elseif (isset($_POST['btn'])) {
 		echo "<pre>";
 		var_dump($_POST);
 		echo "</pre>";
@@ -9,15 +38,9 @@
 	// 	$submitValue = '78-accepted';
 		$explode = explode("-",$submitValue);
 
-		$servername = "localhost";
-		$username = "root";
-		$password = "root";
-		$dbname = 'oasis';
+		
 
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+		
 
 		$sql = 'UPDATE appointment SET status = "' . $explode[1] . '" 
 				WHERE id=' . $explode[0];
@@ -31,19 +54,64 @@
 
 		// $conn->close();
 		$appointmentData = null;
+		// Query to get transaction type
+		$sql = "SELECT student_id
+				FROM appointment  
+				WHERE appointment.id=" . $explode[0];
 
-		$sql = "SELECT department, reason, faculty, student_fname, student_lname, student_num, 				student_email 
+		$transaction_type = 'student';
+		$result = $conn->query($sql);		
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$transaction_type = $row['student_id'] > 0 ? 'student' : 'guest';
+				break;
+			}
+		}
+
+		$sql  = '';
+		if ($transaction_type === 'student') {
+			$sql = "SELECT department, reason, faculty, student_fname, student.id as student_id, student_lname, student_num, student_email, student_course, student_section
 				FROM appointment  
 				INNER JOIN student ON student.id=appointment.student_id
 				WHERE appointment.id=" . $explode[0];
+			} else {
+				$sql = "SELECT department, reason, faculty, guest_fname, guest.id as guest_id, guest_lname, guest_address, guest_number, guest_email
+				FROM appointment  
+				INNER JOIN guest ON guest.id=appointment.guest_id
+				WHERE appointment.id=" . $explode[0];
+			}
+
+		
 
 				$result = $conn->query($sql);
-				
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()) {
 						$appointmentData = $row;
-				}
 
+						// Get companions
+						if ($transaction_type === 'student') {
+							$sql = "SELECT sCompanion_fname, sCompanion_lname
+							FROM student_companion
+							WHERE student_id=" . $row['student_id'];
+							$resultCompanions = $conn->query($sql);
+							if ($resultCompanions->num_rows > 0) {
+								while($rowCompanions = $resultCompanions->fetch_assoc()) {
+									$appointmentData['companions'][] = $rowCompanions;
+								}
+							}
+						} else {
+							$sql = "SELECT gCompanion_fname, gCompanion_lname
+							FROM guest_companion
+							WHERE guest_id=" . $row['guest_id'];
+							$resultCompanions = $conn->query($sql);
+							if ($resultCompanions->num_rows > 0) {
+								while($rowCompanions = $resultCompanions->fetch_assoc()) {
+									$appointmentData['companions'][] = $rowCompanions;
+								}
+							}
+						}
+						
+					}
 				} else {
 					echo "no appointments";
 				}
@@ -53,17 +121,54 @@
 				var_dump($appointmentData);
 				echo "</pre>";
 
-				$transaction_type = !empty($appointmentData['student_fname']) ? 'student' : 'guest';
+				
 
 			require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
+			$text = '';
+			if 	($transaction_type === "student") {
+				$text = "Appointment ID: [[". $explode[0] . "]] </br>" .
+					"Full Name: ". $appointmentData['student_fname'] . " " .
+					$appointmentData['student_lname'] . "</br>" .
+					"Student Number: " . $appointmentData['student_num'] . "</br>" .
+					"Chosen Department: " . ucwords($appointmentData['department']) ."</br>" .
+					"Reason: " . ucwords($appointmentData['reason']) . "</br>" .
+					"Faculty: " . ucwords($appointmentData['faculty']) . "</br>" .
+					"Section: " . $appointmentData['student_section'] . "</br>" .
+					"Course: " . $appointmentData['student_course'] . "</br>" .				
+					"Companion: " ;
 
-				$text = <div>"Full Name: ". $appointmentData['student_fname'] . " " .
-					$appointmentData['student_lname'] . ""</div>
+					if (!empty($appointmentData['companions'])) {
+						foreach ($appointmentData['companions'] as $companion) {
+							$text .= $companion['sCompanion_fname'] . " " . $companion['sCompanion_lname'] . ", ";
+					}
+				}
+				
+
+					
+				} else {
+					$text =  "Appointment ID: [[".  $explode[0] . "]] </br>" .
+					"Full Name: ". $appointmentData['guest_fname'] . " " .
+					$appointmentData['guest_lname'] . "</br>" .
+					"Contact Number: " . $appointmentData['guest_number']. "</br>" .
+					"Chosen Department: " . ucwords($appointmentData['department']) ."</br>" .
+					"Reason: " . ucwords($appointmentData['reason']) . "</br>" .
+					"Faculty: " . ucwords($appointmentData['faculty']) . "</br>" .
+					"Address: " . $appointmentData['guest_address']. "</br>" .
+					"Companion:" ;
+
+					if (!empty($appointmentData['companions'])) {
+						foreach ($appointmentData['companions'] as $companion) {
+							$text .= $companion['gCompanion_fname'] . " " . $companion['gCompanion_lname'] . ", ";
+					}
+				}
+				}
+
+				
+				// $text =	" hello\n\n\nbye";
 				$file3 = "public/qrcode/qr-" . $explode[0] . ".png";
-  
 $ecc = 'H';
-$pixel_size = 10;
-$frame_size = 5;
+$pixel_size = 5;
+$frame_size = 1;
   
 // Generates QR Code and Save as PNG
 QRcode::png($text, $file3, $ecc, $pixel_size, $frame_size);
@@ -174,9 +279,9 @@ $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/
 		}
 
 
-		$URL="http://localhost/oasis/dashboard.php";
-		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
-		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
-		exit();
+		// $URL="http://localhost/oasis/dashboard.php";
+		// echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+		// echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+		// exit();
 	}
 ?>
