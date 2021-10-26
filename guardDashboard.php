@@ -101,8 +101,8 @@
 
 </script>
 
-<div class="head1">
-	<header>Appointment Details</header>
+<div class="header-div">
+	<p class="oasis">OASIS</p><?php include "logout.php";?>
 </div>
 
 <div class="head2">
@@ -115,21 +115,23 @@
 		<tr>
 			<td colspan=8>
 				<div> 
-					<div>Scanned appointment details will show here:</div>
+					<div>
+						<p class="note">Scanned appointment details will show here:</p>
+					</div>
 				<div class="dialogpopup" title="Appointment Details" >
 					
 				</div>
-				<input type="text" name="apt_id_scanned" id="apt_id_scanned" value="" />
-				<button name="scanned-btn" >Set as scanned</button>
+				<input class="blank" type="text" name="apt_id_scanned" id="apt_id_scanned" value="" />
+				<button class="button" name="scanned-btn" >Set as scanned</button>
 				<div>
 			</td>
 		</tr>
 		<tr>
-			<th>Last Name</th>
-			<th>First Name</th>
-			<th>Email</th>
-			<th>Time Scanned</th>
-			<th>Action</th>
+			<th class="galit">Last Name</th>
+			<th class="galit">First Name</th>
+			<th class="galit">Email</th>
+			<th class="galit">Time Scanned</th>
+			<th class="galit">Action</th>
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>

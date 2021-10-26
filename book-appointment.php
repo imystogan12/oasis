@@ -106,9 +106,9 @@
 
 
 	if (isset($_POST['schedule'])) {
-		echo "<pre>";
-		var_dump($_POST);
-		echo "</pre>";
+		// echo "<pre>";
+		// var_dump($_POST);
+		// echo "</pre>";
 		$_SESSION['appointment']['schedule'] = $_POST['schedule'] ?? null;
 		$_SESSION['appointment']['department'] = $_POST['department'] ?? null;
 		$_SESSION['appointment']['reason'] = $_POST['reason'] ?? null;

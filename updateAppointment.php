@@ -247,8 +247,8 @@ $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/
 				<br><h2>Appointment Details:</h2>
 			</div>
 			<div>
-				<br><b>Your name:</b> " . $appointmentData['student_fname'] . " " .
-					$appointmentData['student_lname'] . "
+				<br><b>Your name:</b> " . $appointmentData['_fname'] . " " .
+					$appointmentData['_lname'] . "
 			</div>
 			<div>
 				<br><b>Email:</b> " . $appointmentData['student_email'] . "
