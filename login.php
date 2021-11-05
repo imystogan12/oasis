@@ -27,6 +27,9 @@
 		     	if ($row['role'] == "guard") {
 		     		header("Location: guardDashboard.php");
    					exit;
+   				} elseif ($row['role'] == "admin") {
+		     		header("Location: src/admin/report.php");
+   					exit;
    				} else {
 		     		header("Location: dashboard.php");
    					exit;

@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	// echo "<pre>";
-	// var_dump($_SESSION);
-	// echo "</pre>";
+	echo "<pre>";
+	var_dump($_SESSION);
+	echo "</pre>";
 ?>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.show-more.js"></script>

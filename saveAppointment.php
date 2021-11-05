@@ -128,8 +128,8 @@
 	}
 
 	 $conn->close();
-	 header("Location: homepage.php");
-	 exit();
+	 // header("Location: homepage.php");
+	 // exit();
 
 
 	 ?>

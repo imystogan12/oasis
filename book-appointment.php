@@ -104,6 +104,41 @@
 			//var_dump($aptGroups);
 			echo "</pre>";
 
+	$departments = [];
+	$sql = 'SELECT * from department';
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$departments[$row['id']] = $row;
+		}
+	}
+
+	$reasons = [];
+	$sql = 'SELECT * from reason';
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$reasons[] = $row;
+		}
+	}
+
+	$faculties = [];
+	$sql = 'SELECT * from faculty';
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$faculties[] = $row;
+		}
+	}
+
+	// echo "<pre>";
+	// 		var_dump($departments);
+	// 		echo "</pre>";
+
+
 
 	if (isset($_POST['schedule'])) {
 		// echo "<pre>";
@@ -116,96 +151,54 @@
 	}
 
 	if (isset($_POST['submit'])) {
-		// $servername = "localhost";
-		// $username = "root";
-		// $password = "root";
-		// $dbname = 'oasis';
-
-		// $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-		// if ($conn->connect_error) {
-  // 		die("Connection failed: " . $conn->connect_error);
-		// }
-		// echo "Connected successfully";
 
 		$_SESSION['appointment']['department'] = !empty($_POST['department']) ? $_POST['department'] : $_SESSION['appointment']['department'];
 		 $_SESSION['appointment']['reason'] = !empty($_POST['reason']) ? $_POST['reason'] : $_SESSION['appointment']['reason'];
-		 $_SESSION['appointment']['faculty'] = !empty($_POST['faculty']) ? $_POST['faculty'] : $_SESSION['appointment']['faculty'];
+		 $_SESSION['appointment']['faculty'] = !empty($_POST['faculty']) ? $_POST['faculty'] : ($_SESSION['appointment']['faculty'] ?? null);
+
+
+		 echo "<pre>";
+		 var_dump('nica');
+			var_dump($_SESSION['appointment']['schedule']);
+			echo "</pre>";
+
+
+		if (empty($_SESSION['appointment']['schedule'])) {
+			// show error
+			$_SESSION['appointment']['error']['schedule'] = "Please select schedule";
+			header("Location: book-appointment.php");
+			exit;
+
+		} else {
+			unset($_SESSION['appointment']['error']['schedule']);
+		}
 
 		$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['appointment']['schedule']);
 		
 
+		$faculty_name = null;
 		$user_id = null;
-		$faculty_name = 'N/A';
-		
-		switch ($_SESSION['appointment']['department']) {
-			case 'cashier':
-				$user_id = 1;
-				break;
-			case 'registrar':
-				$user_id = 2;
-				break;
-			case 'admission':
-				$user_id = 3;
-				break;
-			case 'guidance':
-				$user_id = 4;
-				break;
-			case 'clinic':
-				$user_id = 5;
-				break;
-			case 'ojt':
-				$user_id = 6;
-				break;
-			case 'prowear':
-				$user_id = 7;
-				break;
-
-			default:
-				break;
+		if (!empty($_SESSION['appointment']['department']) && ($_SESSION['appointment']['department'] != "faculty")) {
+			// Get user report id
+			$sqlFetchUserReportId = "SELECT * from user where role='" . $_SESSION['appointment']['department'] . "'";
+			$resultUserReportId = $conn->query($sqlFetchUserReportId);
+			if ($resultUserReportId->num_rows > 0) {
+			while($row = $resultUserReportId->fetch_assoc()) {
+					$user_id = $row['id'];
+				}
+			}
+		} else {
+			// Get user report id
+			$sqlFetchUserReportId = "SELECT * from faculty where id=" . $_SESSION['appointment']['faculty'];
+			$resultUserReportId = $conn->query($sqlFetchUserReportId);
+			if ($resultUserReportId->num_rows > 0) {
+			while($row = $resultUserReportId->fetch_assoc()) {
+					$user_id = $row['user_report_id'];
+					$faculty_name = $row['id'];
+				}
+			}
 		}
 
-		switch ($_SESSION['appointment']['faculty']) {
-			case 'christian-torres':
-				$user_id = 8;
-				$faculty_name="Christian Torres";
-				break;
-			case 'jennilyn-silva':
-				$user_id = 8;
-				$faculty_name="Jennilyn Silva";
-				break;
-			case 'reynaldo-merced':
-				$user_id = 8;
-				$faculty_name="Reynaldo Merced";
-				break;
-			case 'allan-badilla':
-				$user_id = 10;
-				$faculty_name="Allan Badilla";
-				break;
-			case 'kathleen':
-				$user_id = 10;
-				$faculty_name="Kathleen";
-				break;
-			case 'grace-pangilinan':
-				$user_id = 12;
-				$faculty_name="Grace Pangilinan";
-				break;
-			case 'tina-mendoza':
-				$user_id = 12;
-				$faculty_name="Christina Mendoza";
-				break;
-			case 'romeo-olympia':
-				$user_id = 11;
-				$faculty_name="Romeo Olympia";
-				break;
-			case 'neth-portugues':
-				$user_id = 11;
-				$faculty_name="Neth Portugues";
-				break;
-			default:
-				break;
-		}
 
    		$_SESSION[$transaction_type]['appointment'] = [
 			'department' => $_SESSION['appointment']['department'],
@@ -213,7 +206,7 @@
 			'user_id' => $user_id,
 			'student_id' => $_SESSION['student']['student_id'],
 			'date_time' => $_SESSION['appointment']['schedule'],
-			'faculty' => $_SESSION['appointment']['faculty'],
+			'faculty_id' => $_SESSION['appointment']['faculty_id'],
 			'faculty_name' => $faculty_name,
 		];
    		header("Location: confirmationPage.php");
@@ -221,7 +214,7 @@
    	}   	
 
 	echo "<pre>";
-	// var_dump($_SESSION);
+	var_dump($_SESSION);
 	echo "</pre>";
 ?>
 <div class="header-div">
@@ -310,106 +303,34 @@
 								<label for="choice">Department</label>
 							</div>
 							<div>
-								<select class="dept" name="department" id="department">
+								<select class="dept" name="department" id="department" required>
 									<option value=""></option>
-									<option value="cashier"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "cashier") echo " selected" 
+								<?php foreach ($departments as $dept): ?>
+									<option value="<?php echo $dept['value'] ?>"
+										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === $dept['value']) echo " selected" 
 										?>
-									>Cashier</option>
-									<option value="registrar"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "registrar") echo " selected" 
-										?>
-									>Registrar</option>
-									<option value="admission"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "admission") echo " selected" 
-										?>
-									>Admission</option>
-									<option value="guidance"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "guidance") echo " selected" 
-										?>
-									>Guidance</option>
-									<option value="clinic"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "clinic") echo " selected" 
-										?>
-									>Clinic</option>
-									<option value="ojt"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "ojt") echo " selected" 
-										?>
-									>APO(OJT)</option>
-									<option value="prowear"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "prowear") echo " selected" 
-										?>
-									>Prowear</option>
-									<option value="faculty"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === "faculty") echo " selected" 
-										?>
-									>Faculty (Teachers)</option>
+									>
+										<?php echo $dept['name']; ?>
+									</option>
+								<?php endforeach ?>
 								</select>
 							</div>
 						</div>
 						<div class="div">
 							<div>
-								<label for="choice">Reason</label>
+								<label for="choice" required>Reason</label>
 							</div>
 							<div>
-								<select class="reason" name="reason" id="reason">
+								<select class="reason" name="reason" id="reason" required>
 									<option value=""></option>
-									<option	class="cashier" value="enrollment"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "cashier")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "enrollment")) echo " selected" ?>
-										>Enrollment</option>
-									<option class="cashier" value="paying-other-bills"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "cashier")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "paying-other-bills")) echo " selected" ?>
-										>Paying other bills</option>
-									<option class="registrar" value="clearance"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "registrar")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "consultation")) echo " selected" ?>
-										>Clearance</option>
-									<option class="registrar" value="form-request"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "registrar")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "form-request")) echo " selected" ?>
-										>Form Request</option>
-									<option class="admission" value="general-inquiry"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "admission")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "general-inquiry")) echo " selected" ?>
-										>General Inquiry</option>
-									<option class="admission" value="other-concerns"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "admission")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "other-concerns")) echo " selected" ?>
-										>Other Concerns</option>
-									<option class="guidance" value="consultation"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "guidance")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "consultation")) echo " selected" ?>
-										>Consultation</option>
-									<option class="clinic" value="check-up"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "clinic")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "check-up")) echo " selected" ?>
-										>Check up</option>
-									<option class="clinic" value="medical-reports"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "clinic")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "medical-reports")) echo " selected" ?>
-										>Medical Reports</option>
-									<option class="ojt" value="submission-of-requirements"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "ojt")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "submission-of-requirements")) echo " selected" ?>
-										>Submission of Requirements</option>
-									<option class="ojt" value="general-inquiry"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "ojt")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "general-inquiry")) echo " selected" ?>
-										>General Inquiry</option>
-									<option class="prowear" value="buying-merchandises"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "prowear")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "buying-merchandises")) echo " selected" ?>
-										>Buying Merchandises</option>
-									<option class="faculty" value="consultation"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "faculty")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "consultation")) echo " selected" ?>
-										>Consultation</option>
-									<option class="faculty" value="other-concerns"
-										<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== "faculty")) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === "other-concerns")) echo " selected" ?>
-										>Other concerns</option>
+									<?php foreach ($reasons as $reason): ?>
+										<option class="<?php echo $departments[$reason['dept_id']]['value'] ?>" value="<?php echo $reason['value'] ?>"
+											<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== $departments[$reason['dept_id']]['value'])) echo " hidden " ?> 
+										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === $reason['value'])) echo " selected" ?>
+										>
+											<?php echo $reason['name']; ?>
+										</option>
+									<?php endforeach ?>
 								</select>
 							</div>
 						</div>
@@ -418,41 +339,22 @@
 								<label for="choice">Faculty</label>
 							</div>
 							<div>
-								<select class="faculty" name="faculty" id="faculty"
+								<select class="faculty" name="faculty" id="faculty" required
 									<?php echo (empty($_SESSION['appointment']['faculty']) ? ' disabled' : '') ?>
 								>
 									<option value=""></option>
-									<option value="shs" class="bold">Senior High School:</option>
-									<option value="grace-pangilinan"
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "grace-pangilinan")) echo " selected" ?>
-									>Mary Grace Pangilinan</option>
-									<option value="tina-mendoza"
-									<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "tina-mendoza")) echo " selected" ?>
-									>Chritina Mendoza</option>
-									<option value="shs" class="bold">Tertiary:</option>
-									<option value="christian-torres"	
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "christian-torres")) echo " selected" ?>
-									>Christian Torres</option>
-									<option value="jennilyn-silva"
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "jennilyn-silva")) echo " selected" ?>
-									>Jennilyn Silva</option>
-									<option value="reynaldo-merced"
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "reynaldo-merced")) echo " selected" ?>
-									>Reynaldo Merced</option>
-									<option value="allan-badilla"
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "allan-badilla")) echo " selected" ?>
-									>Allan Badilla</option>
-									<option value="romeo-olympia"
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "romeo-olympia")) echo " selected" ?>
-									>Romeo Olympia</option>
-									<option value="neth-portugues"
-										<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "neth-portugues")) echo " selected" ?>
-									>Neth Portugues</option>
-									<option value="kathleen"
-									<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === "kathleen")) echo " selected" ?>
-									>Maam Kathleen</option>
+									<?php foreach ($faculties as $faculty): ?>
+										<option value="<?php echo $faculty['id'] ?>"
+											<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === $faculty['id'])) echo " selected" ?>
+										>
+											<?php echo $faculty['fname'] . " " . $faculty['lname'] ?>
+										</option>
+									<?php endforeach ?>
 								</select>
 							</div>
+						</div>
+						<div class="error">
+							<?php echo $_SESSION['appointment']['error']['schedule'] ?? '' ?>
 						</div>
 						<div class="submit-cancel">
 							<button class="submit-btn" name="submit">Submit</button>

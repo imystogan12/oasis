@@ -81,6 +81,7 @@
 			var aptId = scanned_barcode.substring(startSearch, endSearch).substring(2);
 			if (!isNaN(aptId)) {
 				document.getElementById('apt_id_scanned').value = aptId;
+				document.getElementById('scanned-btn').removeAttribute("hidden");
 			} else {
 				alert('Malformed data. Please scan again.');
 			}
@@ -92,7 +93,7 @@
 			
 			// $( '.dialogpopup' ).dialog( "open" );
 			//$('.view-btn').trigger('click');
-		}
+		}		
 //	  } );
 
 
@@ -119,10 +120,9 @@
 						<p class="note">Scanned appointment details will show here:</p>
 					</div>
 				<div class="dialogpopup" title="Appointment Details" >
-					
 				</div>
-				<input class="blank" type="text" name="apt_id_scanned" id="apt_id_scanned" value="" />
-				<button class="button" name="scanned-btn" >Set as scanned</button>
+				<input class="blank" type="hidden" name="apt_id_scanned" id="apt_id_scanned" value=""  />
+				<button class="button" id="scanned-btn" name="scanned-btn" hidden>Set as scanned</button>
 				<div>
 			</td>
 		</tr>

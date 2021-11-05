@@ -1,3 +1,7 @@
+input {
+	text-align: center;
+	font-size: 25px;
+}
 .ui-button .ui-icon {
     background-image: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-512.png") !important;
     background-repeat: no-repeat;

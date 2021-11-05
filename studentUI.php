@@ -9,6 +9,10 @@
 
 	$showSubmit = true;
 	if ($comp_count > 0) $showSubmit = false; 
+
+	// echo "<pre>";
+	// var_dump($_SESSION);
+	// echo "</pre>";die;
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/studentUI.css">

@@ -17,13 +17,36 @@
 		if ($conn->connect_error) {
   			die("Connection failed: " . $conn->connect_error);
 		}
+
+		// Get total count first
+		$totalCount = 0;
+		$sql = "SELECT COUNT(*) as count FROM appointment WHERE status != 'deleted'";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+					$totalCount = $row['count'];
+				}
+		}
+		$perPage = 10;
+		$pageCount = ceil($totalCount / $perPage);
+
+		$page = 1;
+		if (!empty($_GET['page'])) {
+			$page = $_GET['page'];
+		}
+
+		$offset = ($page - 1) * $perPage;
+
 		// echo "Connected successfully";
-		$sql = 'SELECT apt.user_id, apt.reason, apt.date_time, s.student_lname, s.student_fname, s.student_email, s.student_num, s.student_companion, s.student_course, s.student_section, g.guest_address, g.guest_companion, g.guest_fname, g.guest_lname, g.guest_email, g.guest_number, apt.department, apt.faculty, apt.status, apt.id as appointment_id' .
+		$sql = 'SELECT apt.user_id, apt.reason, apt.date_time, s.student_lname, s.student_fname, s.student_email, s.student_num, s.student_companion, s.student_course, s.student_section, g.guest_address, g.guest_companion, g.guest_fname, g.guest_lname, g.guest_email, g.guest_number, apt.department, apt.status, apt.id as appointment_id, f.fname, f.lname' .
 				' FROM appointment apt' .
 				' LEFT JOIN student s ON apt.student_id = s.id ' .
 				' LEFT JOIN guest g ON apt.guest_id = g.id ' .
+				' LEFT JOIN faculty f ON apt.faculty = f.id ' .
 				' WHERE apt.user_id="' . $_SESSION['user']['id']. '"' .
-				' AND apt.status!="deleted"' ;
+				' AND apt.status!="deleted"' .
+				"ORDER BY apt.id DESC " .
+				"LIMIT " . $perPage . " OFFSET " . $offset;
 		$result = $conn->query($sql);
 
 		if ($result->num_rows > 0) {
@@ -77,7 +100,7 @@
 </div>
 
 <!-- <div class="div1"> -->
-	<form action="updateAppointment.php" method="POST">
+	<form action="updateAppointment.php" method="POST" id="updateAppointment-form">
 	<table class="details info">
 		<tr>
 			<th class="galit">Last Name</th>
@@ -96,7 +119,8 @@
 			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
 			<td> <?php echo  $apt[$transaction_type . '_fname']?>
 			<td> <?php echo  $apt[$transaction_type . '_email']?>
-			<td> <?php echo $apt['faculty'] ?>
+			<!-- <td> <?php echo $apt['faculty'] ?> -->
+			<td> <?php echo $apt['fname'] . " " . $apt['lname'] ?>
 			<td> <?php echo ucwords($apt['reason']) ?>
 			<td> <?php echo $apt['date_time'] ?>
 			<td> <?php echo ucwords($apt['status']) ?>
@@ -104,12 +128,38 @@
 			<td>
 				<div class="button-div">
 					<?php if ($apt['status'] == "pending"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="button">Accept</button>
-						<button value="<?php echo($apt['appointment_id'])?>-declined" name="btn" class="button">Decline</button>
+						<button onclick="myFunction()" value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="button">Accept</button>
+						<script>
+							function myFunction(e) {
+  							if(!confirm("Are you sure you want to accept this apppointment?")) {
+  								e.preventDefault();
+  								return false;
+  							}
+							}
+						</script>
+						<button onclick="myFunction()" value="<?php echo($apt['appointment_id'])?>-declined" name="btn" class="button">Decline</button>
+						<script>
+							function myFunction() {
+  							confirm("Are you sure you want to decline this apppointment?");
+							}
+						</script>
 					<?php endif ?>
 						<button class="button view-btn" data-apt-id="<?php echo $apt['appointment_id'] ?>">View</button>
 						<?php if ($apt['status'] == "accepted" || $apt['status'] == "declined"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" class="button">Delete</button>
+						<button type="button" onclick="myFunction()" value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" class="button">Delete</button>
+						<script>
+							function myFunction() {
+  							if(!confirm("Are you sure you want to delete this apppointment?")) {
+  								console.log("cancel");
+  								// e.preventDefault();
+  								return false;
+  							} else {
+  								console.log("confirm");
+  								document.getElementB
+  								yId("updateAppointment-form").submit();
+  							}
+							}
+						</script>
 						<?php endif ?>
 				</div>
 				<div class="dialog" data-apt-id="<?php echo $apt['appointment_id'] ?>" title="Appointment Details">
@@ -150,6 +200,19 @@
 		<tr>
 		<?php endforeach; ?>
 	</table>
+	<div>
+		<span>
+			<?php if(intval($page) > 1): ?>
+			<a href="dashboard.php?page=<?php echo $page-1 ?>"> << </a>
+			<?php endif; ?>
+		</span>
+		<span>
+			<?php if ($page < $pageCount): ?>
+			<a href="dashboard.php?page=<?php echo $page+1 ?>"> >> </a>
+			<?php endif; ?>
+		</span>
+		<span> page <?php echo $page?> of <?php echo $pageCount ?></span>
+	</div>
 	</form>
 	
 </div>
