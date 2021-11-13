@@ -18,7 +18,7 @@
 		// get in department table when id = $id
 		$department = [];
 
-		$sql = "SELECT id, name, value FROM department WHERE id=" . $id;
+		$sql = "SELECT id, name, value, department_pic_id FROM department WHERE id=" . $id;
 		$result = $conn->query($sql);
 
 		if ($result->num_rows > 0) {
@@ -35,7 +35,7 @@
 	// var_dump($_POST);die;
 
 	if (isset($_POST['submit'])) {
-		$sql = "UPDATE department SET name='" . $_POST['name'] . "', value='" . $_POST['value'] . "' " . "WHERE id=" . $_POST['id'] ;
+		$sql = "UPDATE department SET name='" . $_POST['name'] . "', value='" . $_POST['value'] . "' " . ", department_pic_id =" . $_POST['pic_id'] . " WHERE id=" . $_POST['id'] ;
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
@@ -45,6 +45,18 @@
 		header("Location: department.php");
 		exit;
 	}
+
+	$userList = [];
+
+	$sql = "SELECT id, fname, lname FROM user" ;
+	$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$userList[] = $row;
+			}
+		} else {
+			echo "not";
+		}
 
 ?>
 
@@ -57,6 +69,19 @@
 	<div>
 		<label>Value</label>
 		<input type="text" name="value" value="<?php echo $department[0]['value'] ?>">
+	</div>
+	<div>
+		<label>PIC</label>
+		<select name="pic_id" id="pic_id">
+			<option>Please Select</option>
+			<?php foreach ($userList as $person): ?>
+				<option value="<?php echo $person['id'] ?>"
+					<?php echo ($person['id'] === $department[0]['department_pic_id']) ? " selected" : "" ?>
+				>
+					<?php echo $person['fname'] . ' ' . $person['fname'] ?>
+				</option>
+			<?php endforeach; ?>
+		</select>		
 	</div>
 	<div>
 		<button name="submit">Submit</button>

@@ -13,7 +13,7 @@
   			die("Connection failed: " . $conn->connect_error);
 		}
 
-	$sql = "SELECT id, dept_id, name, value FROM reason";
+	$sql = "SELECT id, name, value, deleted_at FROM reason where deleted_at is null";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -26,20 +26,24 @@
 	// var_dump($reasons);
 
 ?>
-<div>
-	<header>OASIS</header>
+<link rel="stylesheet" type="text/css" href="css/reason.css">
+<div class="header-div">
+	<p class="oasis">OASIS</p><!-- <?php include "logout.php";?> -->
 </div>
-<div>
+<div class="head2">
 	<h2>Admin Dashboard</h2>
 </div>
-<div>
-	<div> <a href="user.php">Users</a> </div>	
-	<div> <a href="department.php">Departments</a> </div>
-	<div> <a href="reason.php">Reasons</a> </div>
-	<div> <a href="faculty.php">Faculty</a> </div>
+<div class="main">
+<div class="left">
+	<div class="space"> <a href="report.php">Reports</a> </div>
+	<div class="space"> <a href="appointment.php">Appointments</a> </div>
+	<div class="space"> <a href="user.php">Users</a> </div>	
+	<div class="space"> <a href="department.php">Departments</a> </div>
+	<div class="admin-selected space"> <a href="reason.php">Reasons</a> </div>
+	<div class="space"> <a href="faculty.php">Faculty</a> </div>
 </div>
-<div>
-	<a href="addReason.php"><button>Add</button></a>
+<div class="right">
+	<a href="addReason.php" class="add-btn"><button>Add</button></a>
 	<table>
 		<tr>
 			<th>Id</th>
@@ -51,7 +55,14 @@
 			<td><?php echo $reason['id'] ?></td>
 			<td><?php echo $reason['name'] ?></td>
 			<td><?php echo $reason['value'] ?></td>	
+			<td>
+				<a href="editReason.php?id=<?php echo $reason['id'];?>">Edit</a>
+				<?php if(empty($reason['deleted_at'])): ?>
+					<a href="deleteReason.php?id=<?php echo $reason['id'];?>">Delete</a>
+				<?php endif; ?>
+			</td>
 		</tr>	
 		<?php endforeach ?>
 	</table>
+</div>
 </div>

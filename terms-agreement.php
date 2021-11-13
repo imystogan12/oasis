@@ -54,6 +54,9 @@
 			<label for="terms">I accept the terms of service</label>
 		</div>
 		<div>
+			<p class="note">*Agreeing to the terms and condition will confirm your appointment.</p>
+		</div>
+		<div>
 			<a href="homepage.php"><button type="submit" class="button" id="continue-btn" disabled>Continue</button></a>
 			<a href="confirmationPage.php"><button class="button">Cancel</button></a>
 		</div>

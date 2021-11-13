@@ -34,9 +34,12 @@
 
 	// $conn->close();
 
-	echo "<pre>";
-	var_dump($_POST);
-	echo "</pre>";
+	// echo "<pre>";
+	// var_dump($_POST);
+	// echo "</pre>";
+
+	$_SESSION['guest']['companion'] = [];
+	
 	for ($i = 0; $i < count($_POST["companion-fname_"]); $i++) {
 		$_SESSION['guest']['companion'][$i] = [
 			'gCompanion_fname' => $_POST["companion-fname_"][$i],

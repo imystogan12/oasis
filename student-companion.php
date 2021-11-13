@@ -33,6 +33,8 @@
 
 	// $conn->close();
 
+	$_SESSION['student']['companion'] = [];
+
 	for ($i = 0; $i < count($_POST["companion-fname_"]); $i++) {
 		$_SESSION['student']['companion'][$i] = [
 			'sCompanion_fname' => $_POST["companion-fname_"][$i],

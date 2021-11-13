@@ -105,7 +105,7 @@
 			echo "</pre>";
 
 	$departments = [];
-	$sql = 'SELECT * from department';
+	$sql = 'SELECT * from department WHERE deleted_at IS NULL ORDER BY name ASC';
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -115,7 +115,7 @@
 	}
 
 	$reasons = [];
-	$sql = 'SELECT * from reason';
+	$sql = 'SELECT * from reason WHERE deleted_at IS NULL';
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -125,7 +125,7 @@
 	}
 
 	$faculties = [];
-	$sql = 'SELECT * from faculty';
+	$sql = 'SELECT * from faculty WHERE deleted_at IS NULL ORDER BY lname ASC';
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -157,10 +157,10 @@
 		 $_SESSION['appointment']['faculty'] = !empty($_POST['faculty']) ? $_POST['faculty'] : ($_SESSION['appointment']['faculty'] ?? null);
 
 
-		 echo "<pre>";
-		 var_dump('nica');
-			var_dump($_SESSION['appointment']['schedule']);
-			echo "</pre>";
+		 // echo "<pre>";
+		 // var_dump('nica');
+			// var_dump($_SESSION['appointment']['schedule']);
+			// echo "</pre>";
 
 
 		if (empty($_SESSION['appointment']['schedule'])) {
@@ -174,11 +174,22 @@
 		}
 
 		$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['appointment']['schedule']);
+
+		$facultyDepartmentId = null;
+		$sql = 'SELECT * from department WHERE value="faculty"';
+		$result = $conn->query($sql);
+
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$facultyDepartmentId = $row['id'];
+			}
+		}
 		
 
 		$faculty_name = null;
 		$user_id = null;
-		if (!empty($_SESSION['appointment']['department']) && ($_SESSION['appointment']['department'] != "faculty")) {
+		$faculty_id = null;
+		if (!empty($_SESSION['appointment']['department']) && ($_SESSION['appointment']['department'] != $facultyDepartmentId)) {
 			// Get user report id
 			$sqlFetchUserReportId = "SELECT * from user where role='" . $_SESSION['appointment']['department'] . "'";
 			$resultUserReportId = $conn->query($sqlFetchUserReportId);
@@ -194,11 +205,23 @@
 			if ($resultUserReportId->num_rows > 0) {
 			while($row = $resultUserReportId->fetch_assoc()) {
 					$user_id = $row['user_report_id'];
-					$faculty_name = $row['id'];
+					$faculty_id = $row['id'];
 				}
 			}
 		}
 
+		if (empty($faculty_id)) {
+			// Appointment is not on faculty, get department PIC as user_id
+			$getReportingUserSQL = "SELECT * FROM department where id=" . $_SESSION['appointment']['department'];
+			$getReportingUserResult = $conn->query($getReportingUserSQL);
+
+			if ($getReportingUserResult->num_rows > 0) {
+				while($row = $getReportingUserResult->fetch_assoc()) {
+					var_dump($row);
+					$user_id = $row['department_pic_id'];
+				}
+			}
+		}
 
    		$_SESSION[$transaction_type]['appointment'] = [
 			'department' => $_SESSION['appointment']['department'],
@@ -206,46 +229,44 @@
 			'user_id' => $user_id,
 			'student_id' => $_SESSION['student']['student_id'],
 			'date_time' => $_SESSION['appointment']['schedule'],
-			'faculty_id' => $_SESSION['appointment']['faculty_id'],
-			'faculty_name' => $faculty_name,
+			'faculty_id' => $faculty_id,
 		];
    		header("Location: confirmationPage.php");
    		exit;
    	}   	
 
-	echo "<pre>";
-	var_dump($_SESSION);
-	echo "</pre>";
+	// echo "<pre>";
+	// var_dump($_SESSION);
+	// echo "</pre>";
 ?>
 <div class="header-div">
 	<p class="oasis">OASIS</p>
 </div>
 
-
-
 <script type="text/javascript" src="js/jquery.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
-		console.log("dgfdf");
-		//$("label").css("color", "red");
-		//console.log($("label").length);
-		//$("select#choice")
-		console.log($("#department").length);
+		var noteText = '*NOTE: Users who wish to enroll and are not sure which department to go to must book an appointment with the admissions office for further assistance.';
+		var facultyNoteText = '*NOTE: Please consult with your teacher regarding their available consultation hours prior to booking an appointment.';
+
+		$('#note-block').text(noteText);
+
 		$("#department").on("change", function(){
-			console.log("change");
-			var deptValue = this.value;
-			console.log('deptValue', this.value);
+			var deptValue = $(this).find(":selected").data('dept-value');
 			$("#reason").find("option." + deptValue);
-			console.log("option." + deptValue);
+
 			$("#reason").find("option." + deptValue).show(); // option.cashier
 			$("#reason").find("option:not(." + deptValue + ")").hide(); // option:not(.cashier)
 			$("#reason").val('');
 			
 			if (deptValue=="faculty"){
 				$("#faculty").prop('disabled', false);
+				$('#note-block').text(facultyNoteText);
 			}
 			else {
 				$("#faculty").prop('disabled', true);
+				$('#note-block').text(noteText);
 			}
 			$("#faculty").val('');
 
@@ -253,7 +274,6 @@
 
 		$(".more").on("click", function(e){
 			e.preventDefault();
-			// console.log("clicked");
 
 			// Get day
 			var classString = $(this).attr("class");
@@ -306,8 +326,10 @@
 								<select class="dept" name="department" id="department" required>
 									<option value=""></option>
 								<?php foreach ($departments as $dept): ?>
-									<option value="<?php echo $dept['value'] ?>"
-										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === $dept['value']) echo " selected" 
+									<option
+										data-dept-value="<?php echo $dept['value'] ?>"
+										value="<?php echo $dept['id'] ?>"
+										<?php if (!empty($_SESSION['appointment']['department']) && $_SESSION['appointment']['department'] === $dept['id']) echo " selected" 
 										?>
 									>
 										<?php echo $dept['name']; ?>
@@ -324,9 +346,9 @@
 								<select class="reason" name="reason" id="reason" required>
 									<option value=""></option>
 									<?php foreach ($reasons as $reason): ?>
-										<option class="<?php echo $departments[$reason['dept_id']]['value'] ?>" value="<?php echo $reason['value'] ?>"
-											<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== $departments[$reason['dept_id']]['value'])) echo " hidden " ?> 
-										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === $reason['value'])) echo " selected" ?>
+										<option class="<?php echo $departments[$reason['dept_id']]['value'] ?>" value="<?php echo $reason['id'] ?>"
+											<?php if (empty($_SESSION['appointment']['reason']) || ($_SESSION['appointment']['department'] !== $departments[$reason['dept_id']]['id'])) echo " hidden " ?> 
+										<?php if (!empty($_SESSION['appointment']['reason']) && ($_SESSION['appointment']['reason'] === $reason['id'])) echo " selected" ?>
 										>
 											<?php echo $reason['name']; ?>
 										</option>
@@ -347,7 +369,8 @@
 										<option value="<?php echo $faculty['id'] ?>"
 											<?php if (!empty($_SESSION['appointment']['faculty']) && ($_SESSION['appointment']['faculty'] === $faculty['id'])) echo " selected" ?>
 										>
-											<?php echo $faculty['fname'] . " " . $faculty['lname'] ?>
+											<?php echo $faculty['lname']. ',' . " " . $faculty['fname'] ?>
+
 										</option>
 									<?php endforeach ?>
 								</select>
@@ -359,6 +382,9 @@
 						<div class="submit-cancel">
 							<button class="submit-btn" name="submit">Submit</button>
 							<a href="<?php echo $transaction_type  ?>UI.php" class="cancel">Cancel</a>
+						</div>
+						<div>
+							<p id='note-block' class="note needed"></p>
 						</div>
 					</div>
 					<div class="right">
@@ -500,7 +526,7 @@
 										<?php echo ($isFull || $isPastDate) ? " disabled" : '' ?>
 									>
 										
-										<?php echo (!$isFull) ? "01:00 PM - 02:00 PMm" : "FULL" ?>
+										<?php echo (!$isFull) ? "01:00 PM - 02:00 PM" : "FULL" ?>
 									</button>
 								</td>
 								<td>

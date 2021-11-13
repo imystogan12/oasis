@@ -39,15 +39,23 @@
 		$explode = explode("-",$submitValue);
 
 		
-
+		$status = $explode[1];
 		
 
-		$sql = 'UPDATE appointment SET status = "' . $explode[1] . '" 
+		$sql = 'UPDATE appointment SET status = "' . $status . '" 
 				WHERE id=' . $explode[0];
 				var_dump($sql);
 
 		if ($conn->query($sql) === TRUE) {
  			 echo "Record updated successfully";
+
+ 			 if ($status == 'deleted') {
+ 			 	// no need to send email
+ 			 	$URL="http://localhost/oasis/dashboard.php";
+				echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+				echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+				exit();
+ 			 }
 		} else {
   			echo "Error updating record: " . $conn->error;
 		}
@@ -63,21 +71,28 @@
 		$result = $conn->query($sql);		
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$transaction_type = $row['student_id'] > 0 ? 'student' : 'guest';
+				// var_dump($row);die;
+				$transaction_type = !empty($row['student_id']) ? 'student' : 'guest';
 				break;
 			}
 		}
 
 		$sql  = '';
 		if ($transaction_type === 'student') {
-			$sql = "SELECT department, reason, faculty, student_fname, student.id as student_id, student_lname, student_num, student_email, student_course, student_section
-				FROM appointment  
+			$sql = "SELECT department.name as department, reason.name as reason, CONCAT(faculty.fname , ' ', faculty.lname) as faculty, date_time, student_fname, student.id as student_id, student_lname, student_num, student_email, student_course, student_section
+				FROM appointment
+				INNER JOIN department ON department.id=appointment.department_id
+				INNER JOIN reason ON reason.id=appointment.reason_id
 				INNER JOIN student ON student.id=appointment.student_id
+				LEFT JOIN faculty ON faculty.id=appointment.faculty_id
 				WHERE appointment.id=" . $explode[0];
 			} else {
-				$sql = "SELECT department, reason, faculty, guest_fname, guest.id as guest_id, guest_lname, guest_address, guest_number, guest_email
+				$sql = "SELECT department.name as department, reason.name as reason, CONCAT(faculty.fname , ' ', faculty.lname) as faculty, date_time, guest_fname, guest.id as guest_id, guest_lname, guest_address, guest_number, guest_email
 				FROM appointment  
 				INNER JOIN guest ON guest.id=appointment.guest_id
+				INNER JOIN department ON department.id=appointment.department_id
+				INNER JOIN reason ON reason.id=appointment.reason_id
+				LEFT JOIN faculty ON faculty.id=appointment.faculty_id
 				WHERE appointment.id=" . $explode[0];
 			}
 
@@ -121,10 +136,11 @@
 				var_dump($appointmentData);
 				echo "</pre>";
 
-				
-
-			require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
 			$text = '';
+			$s3QrcodeURL = '';
+			if ($status == "accepted") {
+				require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
+
 			if 	($transaction_type === "student") {
 				$text = "Appointment ID: [[". $explode[0] . "]] </br>" .
 					"Full Name: ". $appointmentData['student_fname'] . " " .
@@ -132,6 +148,7 @@
 					"Student Number: " . $appointmentData['student_num'] . "</br>" .
 					"Chosen Department: " . ucwords($appointmentData['department']) ."</br>" .
 					"Reason: " . ucwords($appointmentData['reason']) . "</br>" .
+					"Date & Time: " . $appointmentData['date_time'] . "</br>" .
 					"Faculty: " . ucwords($appointmentData['faculty']) . "</br>" .
 					"Section: " . $appointmentData['student_section'] . "</br>" .
 					"Course: " . $appointmentData['student_course'] . "</br>" .				
@@ -140,11 +157,8 @@
 					if (!empty($appointmentData['companions'])) {
 						foreach ($appointmentData['companions'] as $companion) {
 							$text .= $companion['sCompanion_fname'] . " " . $companion['sCompanion_lname'] . ", ";
+						}
 					}
-				}
-				
-
-					
 				} else {
 					$text =  "Appointment ID: [[".  $explode[0] . "]] </br>" .
 					"Full Name: ". $appointmentData['guest_fname'] . " " .
@@ -152,6 +166,7 @@
 					"Contact Number: " . $appointmentData['guest_number']. "</br>" .
 					"Chosen Department: " . ucwords($appointmentData['department']) ."</br>" .
 					"Reason: " . ucwords($appointmentData['reason']) . "</br>" .
+					"Date & Time: " . $appointmentData['date_time'] . "</br>" .
 					"Faculty: " . ucwords($appointmentData['faculty']) . "</br>" .
 					"Address: " . $appointmentData['guest_address']. "</br>" .
 					"Companion:" ;
@@ -166,52 +181,56 @@
 				
 				// $text =	" hello\n\n\nbye";
 				$file3 = "public/qrcode/qr-" . $explode[0] . ".png";
-$ecc = 'H';
-$pixel_size = 5;
-$frame_size = 1;
+				$ecc = 'H';
+				$pixel_size = 5;
+				$frame_size = 1;
   
-// Generates QR Code and Save as PNG
-QRcode::png($text, $file3, $ecc, $pixel_size, $frame_size);
-  
-// Displaying the stored QR code if you want
-  echo "<div><img src='".$file3."'></div>";
+				// Generates QR Code and Save as PNG
+				QRcode::png($text, $file3, $ecc, $pixel_size, $frame_size);
+				  
+				// Displaying the stored QR code if you want
+				  echo "<div><img src='".$file3."'></div>";
 
-//   // Upload to AWS S3
+				//   // Upload to AWS S3
 
-//   require 'vendor/autoload.php';
+				//   require 'vendor/autoload.php';
 
-// use Aws\S3\S3Client;
-// use Aws\S3\Exception\S3Exception;
+				// use Aws\S3\S3Client;
+				// use Aws\S3\Exception\S3Exception;
 
-// $bucket = 'oasis-appointment-group';
-// $keyname = "qrcode/qr-" . $explode[0] . ".png";
-                        
-// $s3 = new S3Client([
-//     'version' => 'latest',
-//     'region'  => 'ap-southeast-1',
-//     'credentials' => [
-//     	'key' => 'enter AWS key here',
-//     	'secret' => 'enter AWS secret here',
-//     ]
-// ]);
+				// $bucket = 'oasis-appointment-group';
+				// $keyname = "qrcode/qr-" . $explode[0] . ".png";
+				                        
+				// $s3 = new S3Client([
+				//     'version' => 'latest',
+				//     'region'  => 'ap-southeast-1',
+				//     'credentials' => [
+				//     	'key' => 'enter AWS key here',
+				//     	'secret' => 'enter AWS secret here',
+				//     ]
+				// ]);
 
-$s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
+				$s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
 
-// try {
-//     // Upload data.
-//     $result = $s3->putObject([
-//         'Bucket' => $bucket,
-//         'Key'    => $keyname,
-//         'SourceFile'   => $file3,
-//         'ContentType' => "image/png",
-//         'ACL'    => 'public-read'
-//     ]);
+				// try {
+				//     // Upload data.
+				//     $result = $s3->putObject([
+				//         'Bucket' => $bucket,
+				//         'Key'    => $keyname,
+				//         'SourceFile'   => $file3,
+				//         'ContentType' => "image/png",
+				//         'ACL'    => 'public-read'
+				//     ]);
 
-//     $s3QrcodeURL = $result['ObjectURL'];
-// } catch (S3Exception $e) {
-//     echo $e->getMessage() . PHP_EOL;
-// }
+				//     $s3QrcodeURL = $result['ObjectURL'];
+				// } catch (S3Exception $e) {
+				//     echo $e->getMessage() . PHP_EOL;
+				// }
  
+			}
+
+
+			
 
 		require dirname(__FILE__) . '/lib/PHPMailer/src/PHPMailer.php';
 		// require 'PHPMailer-master/src/PHPMailer.php';
@@ -228,49 +247,65 @@ $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/
 		$mail->Port       = 587;
 		$mail->Host       = "smtp.gmail.com";
 		$mail->Username   = "oasis.appointment.group.2021@gmail.com";
-		$mail->Password   = "Aldrino12";
+		$mail->Password   = "Aldrino2021";
 
 		$mail->IsHTML(true);
-		$mail->AddAddress($appointmentData['student_email'], $appointmentData['student_fname'] . " " .	$appointmentData['student_lname']);
+		$mail->AddAddress( if ($transaction_type === 'student') {
+			$appointmentData['student_email'], $appointmentData['student_fname'] . " " .	$appointmentData['student_lname']);
+		} else {
+			$appointmentData['guest_email'], $appointmentData['guest_fname'] . " " .	$appointmentData['guest_lname']);
+		}
 		//$mail->AddAddress("nicole.lopez@mailinator.com", "Aldrino");
 		$mail->SetFrom("oasis.appointment.group.2021@mailinator.com", "Oasis");
 		// $mail->AddReplyTo("reply-to-email@domain", "reply-to-name");
 		// $mail->AddCC("cc-recipient-email@domain", "cc-recipient-name");
 		$mail->Subject = "STI College Sta. Maria Appointment Notice";
-		$content = "
-		<div>
+
+		// $acceptedMessage = "<b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b>"
+		$declinedMessage = "<div><b>Hi! " . $appointmentData["{$transaction_type}_fname"] . ", <br><br>This is a courtesy email to inform you that although we have received your request for an appointment at " . $appointmentData['date_time'] . ", it has unfortunately been declined. Please re-visit the OASIS website if you would like to schedule for another appointment.<br><br> 
+
+			Thank you!</b></div>";
+		$acceptedMessage = "
 			
-			<div>
-				<b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b> 
-			</div>
+			<div><b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b></div>
 			<div>
 				<br><h2>Appointment Details:</h2>
 			</div>
-			<div>
-				<br><b>Your name:</b> " . $appointmentData['_fname'] . " " .
-					$appointmentData['_lname'] . "
-			</div>
-			<div>
-				<br><b>Email:</b> " . $appointmentData['student_email'] . "
-			</div>
-			<div>
-				<br><b>" . ($transaction_type === "guest" ? "Contact" : "Student") . " Number:</b> " . ($transaction_type === "guest" ? $appointmentData['guest_number'] : $appointmentData['student_num']) . "
-			</div>
-			<div>
-				<br><b>Chosen Department:</b> " . ucwords($appointmentData['department']) ."
-			</div>
-			<div>
-				<br><b>Reason:</b> " . ucwords($appointmentData['reason']) ."
-			</div>
-			<div>
-				<br><b>Faculty:</b> " . ucwords($appointmentData['faculty']) ."
-			</div>
+			<table>
+					<tr>
+					<td><br><b>Your name:</b></td> 
+					<td>" . $appointmentData["{$transaction_type}_fname"] . " " .$appointmentData["{$transaction_type}_lname"] . "</td>
+					</tr>
+			<tr>
+				<td><br><b>Email:</b></td> 
+				<td>" . $appointmentData['student_email'] . "</td>
+			</tr>
+			<tr>
+				<td><br><b>" . ($transaction_type === "guest" ? "Contact" : "Student") . " Number:</b></td> 
+				<td>" . ($transaction_type === "guest" ? $appointmentData['guest_number'] : $appointmentData['student_num']) . "</td>
+			</tr>
+			<tr>	
+				<td><br><b>Chosen Department:</b></td> 
+				<td>" . ucwords($appointmentData['department']) ."</td>
+			</tr>
+			<tr>
+				<td><br><b>Reason:</b></td> 
+				<td>" . ucwords($appointmentData['reason']) ."</td>
+			</tr>
+			<tr>
+				<td><br><b>Date & Time:</b></td> 
+				<td>" . $appointmentData['date_time'] ."</td>
+			</tr>		
+			<tr>
+				<td><br><b>Faculty:</b></td> 
+				<td>" . ucwords($appointmentData['faculty']) ."</td>
+			</tr>
+			</table>
 			<div>
 				<img src='" . $s3QrcodeURL. "'/>
-			</div>
-		</div>";
+			</div>";
 
-		$mail->MsgHTML($content); 
+		$mail->MsgHTML($status=="accepted" ? $acceptedMessage : $declinedMessage); 
 		if(!$mail->Send()) {
   		echo "Error while sending Email.";
   		var_dump($mail);

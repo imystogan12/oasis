@@ -30,11 +30,12 @@
 	}
 
 	$offset = ($page - 1) * $perPage;
-	$sql = "SELECT a.id as apt_id, a.department, a.reason, a.status, a.date_time, " .
+	$sql = "SELECT a.id as apt_id, a.status, a.date_time, d.name as department_name," .
 			" u.fname as user_fname, u.lname as user_lname, " .
 			" s.student_fname, s.student_lname, " .
 			" g.guest_fname, g.guest_lname " .
 			" FROM appointment a " .
+			" JOIN department d ON d.id = a.department_id " .
 			"JOIN user u ON u.id = a.user_id " . 
 			"LEFT JOIN student s ON s.id = a.student_id " .
 			"LEFT JOIN guest g ON g.id = a.guest_id " .
@@ -53,20 +54,30 @@
 
 
 ?>
-<div>
-	<header>OASIS</header>
+<link rel="stylesheet" type="text/css" href="css/appointment.css">
+<!-- <style>
+	.admin-selected {
+		background-color: #F2F2F2;
+	}
+</style> -->
+<div class="header-div">
+	<p class="oasis">OASIS</p><!-- <?php include "logout.php";?> -->
 </div>
-<div>
+<div class="head2">
 	<h2>Admin Dashboard</h2>
 </div>
-<div>
-	<div> <a href="user.php">Users</a> </div>
-	<div> <a href="department.php">Departments</a> </div>
-	<div> <a href="reason.php">Reasons</a> </div>
-	<div> <a href="faculty.php">Faculty</a> </div>
-	<div> <a href="appointment.php">Appointment</a> </div>
+<div class="main">
+<div class="left">
+	<div class="space"> <a href="report.php">Reports</a> </div>
+	<div class="admin-selected space"> <a href="appointment.php">Appointment</a> </div>
+	<div class="space"> <a href="user.php">Users</a> </div>
+	<div class="space"> <a href="department.php">Departments</a> </div>
+	<div class="space"> <a href="reason.php">Reasons</a> </div>
+	<div class="space"> <a href="faculty.php">Faculty</a> </div>
+	
 </div>
-<div>
+<div class="right">
+	<div class="table-container">
 	<table>
 		<tr>
 			<th>Id</th>
@@ -81,7 +92,7 @@
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
 			<td><?php echo $apt['apt_id'] ?></td>
-			<td><?php echo $apt['department'] ?></td>
+			<td><?php echo $apt['department_name'] ?></td>
 			<td><?php echo $apt['user_fname'] . " " . $apt['user_lname'] ?></td>
 			<td><?php echo ucwords($transaction_type) ?></td>
 			<td><?php echo $apt["{$transaction_type}_fname"] . " " . $apt["{$transaction_type}_lname"] ?></td>
@@ -99,6 +110,8 @@
 		</tr>	
 		<?php endforeach ?>
 	</table>
+</div>
+</div>
 	<div>
 		<span>
 			<?php if(intval($page) > 1): ?>

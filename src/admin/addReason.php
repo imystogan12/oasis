@@ -43,7 +43,7 @@
 
 <form action="addReason.php" method="POST">
 	<div>
-		<Label>Department</Label>
+		<Label>Department:</Label>
 		<select  name="department" id="department">
 			<option>Please Select</option>
 			<?php foreach ($departments as $dept): ?>
@@ -53,14 +53,15 @@
 		</select>
 	</div>
 	<div>
-		<label>Name</label>
+		<label>Name:</label>
 		<input type="text" name="name">
 	</div>
 	<div>
-		<label>Value</label>
+		<label>Value:</label>
 		<input type="text" name="value">
 	</div>
 	<div>
 		<button name="submit">Submit</button>
+		<a href="reason.php">Cancel</a>
 	</div>
 </form>

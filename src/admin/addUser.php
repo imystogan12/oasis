@@ -64,5 +64,6 @@
 	</div>
 	<div>
 		<button name="submit">Submit</button>
+		<a href="user.php">Cancel</a>
 	</div>
 </form>

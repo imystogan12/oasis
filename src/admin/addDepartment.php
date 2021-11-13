@@ -31,14 +31,15 @@
 
 <form action="addDepartment.php" method="POST">
 	<div>
-		<label>Name</label>
+		<label>Name:</label>
 		<input type="text" name="name">
 	</div>
 	<div>
-		<label>Value</label>
+		<label>Value:</label>
 		<input type="text" name="value">
 	</div>
 	<div>
 		<button name="submit">Submit</button>
+		<a href="department.php">Cancel</a>
 	</div>
 </form>

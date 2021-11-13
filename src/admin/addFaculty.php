@@ -37,9 +37,9 @@
 			echo "not";
 		}
 
-		 echo "<pre>";
-			var_dump($departments);
-			 echo "</pre>";
+		 // echo "<pre>";
+			// var_dump($departments);
+			//  echo "</pre>";
 
 		$faculty = [];
 
@@ -64,14 +64,14 @@
 		<input type="hidden" name="dept_id" value="<?php echo $departments['0']['id'] ?>">
 	</div>
 	<div>
-		<label>First Name</label>
+		<label>First Name:</label>
 		<input type="text" name="fname">
 	</div>
 	<div>
-		<label>Last Name</label>
+		<label>Last Name:</label>
 		<input type="text" name="lname">
 	<div>
-		<label>Program Head</label>
+		<label>Program Head:</label>
 		<select name="program-head" id="program-head">
 			<option>Please Select</option>
 			<?php foreach ($faculty as $person): ?>
@@ -82,5 +82,6 @@
 	</div>
 	<div>
 		<button name="submit">Submit</button>
+		<a href="faculty.php">Cancel</a>
 	</div>
 </form>

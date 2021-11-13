@@ -21,7 +21,7 @@
 			</center>
 		</div>
 		<div class="space">
-			<label>New Password: <span><i>(Use at least 6 alphanumeric characters)</i></span></label>
+			<label>New Password: <span><i>(Use at least 8 alphanumeric characters)</i></span></label>
 			<center>
 			<input type="password" name="text" class="form">
 			</center>

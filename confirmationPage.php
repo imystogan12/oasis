@@ -6,6 +6,35 @@
 
 	$transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
 
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	$dbname = 'oasis';
+
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	// Get department name
+	$departmentName = "N/A";
+	$sql = 'SELECT * from department WHERE id=' . $_SESSION['appointment']['department'];
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$departmentName = $row['name'];
+		}
+	} 
+
+	// Get reason name
+	$reasonName = "N/A";
+	$sql = 'SELECT * from reason WHERE id=' . $_SESSION['appointment']['reason'];
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$reasonName = $row['name'];
+		}
+	} 
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/confirmationPage.css">
@@ -15,9 +44,7 @@
 <div class="container">
 	<p class="letter">Hi <?php echo $_SESSION[$transaction_type][$transaction_type . '_fname']?>!</p>
 
-	<p class="letter">Success! Your appointment has been schedule</p>
-
-	<p class="letter">Here are the details of your upcoming appointment. <b>Please review to check if the following information you entered is correct. Be advised that all appointments (unless to cashier and registrar) made through the OASIS website are subject for approval despite confirmation.</b></p>
+	<p class="letter">Congratulations on submitting your appointment through OASIS. Please check the following details to ensure that all of the information displayed is correct prior to proceeding. Be advised that all appointments made through OASIS unless to the cashier, registrar, and admissions are subject to approval. You will be receiving an email once your appointment is confirmed.</b></p>
 </div>
 
 <div class="main">
@@ -31,14 +58,14 @@
 					
 				</div>
 				</th>
-				<th class="data"><div>Reason:</div> <div><?php echo ucwords($_SESSION['appointment']['reason'])?></div>
+				<th class="data"><div>Reason:</div> <div><?php echo $reasonName ?></div>
 				</th>
 			</tr>
 
 			<tr>
 				<th class="data"><div><?php echo ($transaction_type === "guest" ? "Contact" : "Student")?> Number:</div> <div><?php echo ($transaction_type === "guest" ? $_SESSION['guest']['guest_number'] : $_SESSION['student']['student_num'])?></div>
 				</th>
-				<th class="data"><div>Department:</div> <div><?php echo ucwords($_SESSION['appointment']['department'])?></div>
+				<th class="data"><div>Department:</div> <div><?php echo $departmentName ?></div>
 				</th>
 			</tr>
 

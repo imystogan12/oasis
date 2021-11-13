@@ -24,21 +24,25 @@
 	}
 
 ?>
-
-<div>
-	<header>OASIS</header>
+<link rel="stylesheet" type="text/css" href="css/user.css">
+<div class="header-div">
+	<p class="oasis">OASIS</p><!-- <?php include "logout.php";?> -->
 </div>
-<div>
+<div class="head2">
 	<h2>Admin Dashboard</h2>
 </div>
-<div>
-	<div> <a href="user.php">Users</a> </div>
-	<div> <a href="department.php">Departments</a> </div>
-	<div> <a href="reason.php">Reasons</a> </div>
-	<div> <a href="faculty.php">Faculty</a> </div>	
+<div class="main">
+<div class="left">
+	<div class="space"> <a href="report.php">Reports</a> </div>
+	<div class="space"> <a href="appointment.php">Appointments</a> </div>
+	<div class="admin-selected space"> <a href="user.php">Users</a> </div>
+	<div class="space"> <a href="department.php">Departments</a> </div>
+	<div class="space"> <a href="reason.php">Reasons</a> </div>
+	<div class="space"> <a href="faculty.php">Faculty</a> </div>	
+
 </div>
-<div>
-	<a href="addUser.php"><button>Add</button></a>
+<div class="right">
+	<a href="addUser.php" class="add-btn"><button>Add</button></a>
 	<table>
 		<tr>
 		<th>ID</th>
@@ -58,4 +62,5 @@
 		<?php endforeach ?>
 	</table>
 	
+</div>
 </div>

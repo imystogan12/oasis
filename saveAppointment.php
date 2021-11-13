@@ -12,6 +12,22 @@
    		die("Connection failed: " . $conn->connect_error);
 	}
 
+	// GEt department
+	$departmentVal = "";
+	$departmentSQL = "SELECT * FROM department WHERE id=" . $_SESSION['student']['appointment']['department'];
+	$result = $conn->query($departmentSQL);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$departmentVal = $row['value'];
+		}
+	}
+	$aptStatus = 'pending';
+	if (in_array($departmentVal, ['cashier', 'admission', 'registrar'])) {
+		$aptStatus = 'accepted';
+	}
+
+
+		$last_apt_id = null;						
 	if ($_SESSION['session_type'] == 'student') {
 
 	 	echo "Connected successfully";
@@ -53,15 +69,18 @@
 	   		
 
 			$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['student']['appointment']['date_time']);
+			$facultyId = !empty($_SESSION['student']['appointment']['faculty_id']) ? $_SESSION['student']['appointment']['faculty_id'] : "null";
 
-			$sql = "INSERT INTO appointment (department, reason, user_id, student_id, faculty, date_time) 
-			VALUES ('" . $_SESSION['student']['appointment']['department'] . "' , '" . $_SESSION['student']['appointment']['reason'] . "' , '" . $_SESSION['student']['appointment']['user_id'] . "' , '" . $last_id . "' , '" . $_SESSION['student']['appointment']['faculty_name'] . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
+			$sql = "INSERT INTO appointment (department_id, reason_id, user_id, student_id, faculty_id, date_time, status) 
+			VALUES ('" . $_SESSION['student']['appointment']['department'] . "' , '" . $_SESSION['student']['appointment']['reason'] . "' , '" . $_SESSION['student']['appointment']['user_id'] . "' , '" . $last_id . "' , " . $facultyId . " , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "', '" . $aptStatus . "')";
 
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
 	  			// unset($_SESSION['appointment']);
 	  			unset($_SESSION['appointment']);
 	  			unset($_SESSION['student']);
+
+	  			$last_apt_id = $conn->insert_id;
 
 			}else {
 	  			echo "Error: " . $sql . "<br>" . $conn->error;
@@ -110,13 +129,20 @@
 
 			$dateTimeStamp = DateTime::createFromFormat('m-d-Y H:i:s', $_SESSION['guest']['appointment']['date_time']);
 
-			$sql = "INSERT INTO appointment (department, reason, user_id, guest_id, faculty, date_time) 
-			VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , '" .  $_SESSION['guest']['appointment']['faculty_name'] . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
+			// $sql = "INSERT INTO appointment (department, reason, user_id, guest_id, faculty, date_time) 
+			// VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , '" .  $_SESSION['guest']['appointment']['faculty_name'] . "' , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "')";
+
+			$facultyId = !empty($_SESSION['guest']['appointment']['faculty_id']) ? $_SESSION['guest']['appointment']['faculty_id'] : "null";
+
+			$sql = "INSERT INTO appointment (department_id, reason_id, user_id, guest_id, faculty_id, date_time, status) 
+			VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , " . $facultyId . " , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "'), '" . $aptStatus . "')";
 
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
 	  			unset($_SESSION['appointment']);
 	  			unset($_SESSION['guest']);
+
+	  			$last_apt_id = $conn->insert_id;
 
 			}else {
 	  			echo "Error: " . $sql . "<br>" . $conn->error;
@@ -127,9 +153,16 @@
 		}
 	}
 
-	 $conn->close();
-	 // header("Location: homepage.php");
-	 // exit();
+	$conn->close();
 
 
+
+	// if DEPARTMENT = CASHIER, REGISTRAR, ADMISSION, send autoaccept email
+	if (in_array($departmentVal, ['cashier', 'admission', 'registrar'])) {
+		 header("Location: sendAppointmentEmail.php?apt_id=" . $last_apt_id);
+	 		exit();
+	} else {
+		 header("Location: homepage.php");
+	 		exit();
+	}
 	 ?>
