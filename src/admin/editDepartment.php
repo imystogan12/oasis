@@ -59,31 +59,37 @@
 		}
 
 ?>
-
+<link rel="stylesheet" type="text/css" href="css/editDepartment.css">
 <form action="editDepartment.php?id=<?php echo $id ?>" method="POST">
+	<div class="main">
 	<div>
-		<label>Name</label>
-		<input type="text" name="name" value="<?php echo $department[0]['name'] ?>">
+		<p class="note">Edit Department</p>		
+	</div>
+	<div class="details">
+		<label class="name">Name:</label>
+		<input type="text" name="name" value="<?php echo $department[0]['name'] ?>" required>
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
 	</div>
-	<div>
-		<label>Value</label>
-		<input type="text" name="value" value="<?php echo $department[0]['value'] ?>">
+	<div class="details">
+		<label class="name">Value:</label>
+		<input type="text" name="value" value="<?php echo $department[0]['value'] ?>" required>
 	</div>
-	<div>
-		<label>PIC</label>
-		<select name="pic_id" id="pic_id">
+	<div class="details">
+		<label class="name">Person In Charge:</label>
+		<select name="pic_id" id="pic_id" required>
 			<option>Please Select</option>
 			<?php foreach ($userList as $person): ?>
 				<option value="<?php echo $person['id'] ?>"
 					<?php echo ($person['id'] === $department[0]['department_pic_id']) ? " selected" : "" ?>
 				>
-					<?php echo $person['fname'] . ' ' . $person['fname'] ?>
+					<?php echo $person['fname'] . ' ' . $person['lname'] ?>
 				</option>
 			<?php endforeach; ?>
 		</select>		
 	</div>
-	<div>
-		<button name="submit">Submit</button>
+	<div class="submit-cancel">
+		<button class="btn" name="submit">Edit</button>
+		<a class="btn" href="department.php">Cancel</a>
+	</div>
 	</div>
 </form>

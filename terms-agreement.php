@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	echo "<pre>";
-	var_dump($_SESSION);
-	echo "</pre>";
+	// echo "<pre>";
+	// var_dump($_SESSION);
+	// echo "</pre>";
 ?>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.show-more.js"></script>
@@ -54,7 +54,7 @@
 			<label for="terms">I accept the terms of service</label>
 		</div>
 		<div>
-			<p class="note">*Agreeing to the terms and condition will confirm your appointment.</p>
+			<p class="note">*Agreeing to the terms and condition will confirm submission of your appointment and take you back to the homepage.</p>
 		</div>
 		<div>
 			<a href="homepage.php"><button type="submit" class="button" id="continue-btn" disabled>Continue</button></a>

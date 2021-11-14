@@ -57,7 +57,7 @@
 <body>
 	<div class="main">
 	<div class="left">
-		<form>About Oasis</form>
+		<img class="welcome" src="https://i.ibb.co/LYpQ9Rb/welcome.png"></a>
 	</div>
 
 	<div class="right">

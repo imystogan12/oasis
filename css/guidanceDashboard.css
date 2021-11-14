@@ -20,3 +20,6 @@
 	text-align: center;
 	width: 100%;
 }
+table {
+	border-spacing: 20px;
+}

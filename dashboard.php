@@ -184,18 +184,18 @@ function showConfirm(form) {
 		<tr>
 		<?php endforeach; ?>
 	</table>
-	<div>
+	<div class="page">
 		<span>
 			<?php if(intval($page) > 1): ?>
-			<a href="dashboard.php?page=<?php echo $page-1 ?>"> << </a>
+			<a class="next back" href="dashboard.php?page=<?php echo $page-1 ?>"> << </a>
 			<?php endif; ?>
 		</span>
 		<span>
 			<?php if ($page < $pageCount): ?>
-			<a href="dashboard.php?page=<?php echo $page+1 ?>"> >> </a>
+			<a class="next" href="dashboard.php?page=<?php echo $page+1 ?>"> >> </a>
 			<?php endif; ?>
 		</span>
-		<span> page <?php echo $page?> of <?php echo $pageCount ?></span>
+		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
 	</div>
 	</form>
 	

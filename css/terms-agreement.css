@@ -2,6 +2,8 @@
     text-align: center;
     font-style: italic;
     font-weight: bold;
+    width: 70%;
+    margin-left: 115px;
 }
 body {
     padding-bottom: 20px;

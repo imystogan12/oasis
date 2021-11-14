@@ -11,8 +11,8 @@
 <body>
 	<div class="main">
 	<div class="left">
-		<form>About Oasis</form>
-
+		<img class="welcome" src="https://i.ibb.co/LYpQ9Rb/welcome.png"></a>
+		<!-- <img src="https://i.ibb.co/bstnysp/tutorial.png"> -->
 	</div>
 
 	<div class="right">

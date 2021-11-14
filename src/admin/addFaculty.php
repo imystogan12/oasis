@@ -57,31 +57,39 @@
 
 
 ?>
+<link rel="stylesheet" type="text/css" href="css/addFaculty.css">
 <form action="addFaculty.php" method="POST">
+	<div class="main">
 	<div>
-		<Label>Department:</Label>
-		<span>Faculty</span>
+		<p class="note">Add Faculty</p>		
+	</div>
+	<div class="details">
+		<Label class="name">Department:</Label>
+		<span class="name">Faculty</span>
 		<input type="hidden" name="dept_id" value="<?php echo $departments['0']['id'] ?>">
 	</div>
-	<div>
-		<label>First Name:</label>
-		<input type="text" name="fname">
+	<div class="details">
+		<label class="name">First Name:</label>
+		<input type="text" name="fname" required>
 	</div>
-	<div>
-		<label>Last Name:</label>
-		<input type="text" name="lname">
-	<div>
-		<label>Program Head:</label>
-		<select name="program-head" id="program-head">
+	<div class="details">
+		<label class="name">Last Name:</label>
+		<input type="text" name="lname" required>
+	</div>
+	<div class="details">
+		<label class="name">Program Head:</label>
+		<select name="program-head" id="program-head" required>
 			<option>Please Select</option>
 			<?php foreach ($faculty as $person): ?>
 				<option value="<?php echo $person['id'] ?>"> <?php echo $person['fname'] . ' ' . $person['lname'] ?></option>
 			<?php endforeach; ?>
 		</select>		
 	</div>
-	</div>
 	<div>
-		<button name="submit">Submit</button>
-		<a href="faculty.php">Cancel</a>
+	<div class="submit-cancel">
+		<button class="btn" name="submit">Add</button>
+		<a class="btn cancel" href="faculty.php">Cancel</a>
 	</div>
+	</div>
+</div>
 </form>

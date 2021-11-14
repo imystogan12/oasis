@@ -13,7 +13,26 @@
   			die("Connection failed: " . $conn->connect_error);
 		}
 
-	$sql = "SELECT id, name, value, deleted_at FROM reason where deleted_at is null";
+	$totalCount = 0;
+	$sql = "SELECT COUNT(*) as count FROM reason WHERE deleted_at IS NULL";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+				$totalCount = $row['count'];
+			}
+	}
+	$perPage = 10;
+	$pageCount = ceil($totalCount / $perPage);
+	
+	$page = 1;
+	if (!empty($_GET['page'])) {
+		$page = $_GET['page'];
+	}
+
+	$offset = ($page - 1) * $perPage;
+
+	$sql = "SELECT id, name, value, deleted_at FROM reason where deleted_at is null " . 
+			"LIMIT " . $perPage . " OFFSET " . $offset ;
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -43,26 +62,42 @@
 	<div class="space"> <a href="faculty.php">Faculty</a> </div>
 </div>
 <div class="right">
-	<a href="addReason.php" class="add-btn"><button>Add</button></a>
+	<a href="addReason.php" class="add-btn btn">Add Reason</a>
 	<table>
 		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Value</th>
+			<th class="galit id">Id</th>
+			<th class="galit">Name</th>
+			<th class="galit">Value</th>
 		</tr>
 		<?php foreach ($reasons as $reason): ?>
 		<tr>
-			<td><?php echo $reason['id'] ?></td>
-			<td><?php echo $reason['name'] ?></td>
-			<td><?php echo $reason['value'] ?></td>	
-			<td>
-				<a href="editReason.php?id=<?php echo $reason['id'];?>">Edit</a>
-				<?php if(empty($reason['deleted_at'])): ?>
-					<a href="deleteReason.php?id=<?php echo $reason['id'];?>">Delete</a>
-				<?php endif; ?>
-			</td>
+			<td class="details"><?php echo $reason['id'] ?></td>
+			<td class="details"><?php echo $reason['name'] ?></td>
+			<td class="details"><?php echo $reason['value'] ?></td>	
+			<div>
+				<td class="right-div">
+					<a class="edit-delete btn" href="editReason.php?id=<?php echo $reason['id'];?>">Edit</a>
+					<?php if(empty($reason['deleted_at'])): ?>
+					<a class="edit-delete btn" href="deleteReason.php?id=<?php echo $reason['id'];?>	">Delete</a>
+					<?php endif; ?>
+				</td>
+			</div>
+			
 		</tr>	
 		<?php endforeach ?>
 	</table>
+	<div class="page">
+		<span>
+			<?php if(intval($page) > 1): ?>
+			<a class="next back" href="reason.php?page=<?php echo $page-1 ?>"> << </a>
+			<?php endif; ?>
+		</span>
+		<span>
+			<?php if ($page < $pageCount): ?>
+			<a class="next" href="reason.php?page=<?php echo $page+1 ?>"> >> </a>
+			<?php endif; ?>
+		</span>
+		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
+	</div>
 </div>
 </div>

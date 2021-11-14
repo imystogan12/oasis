@@ -77,11 +77,13 @@ input[name="student-companion"]{
 .submit-cancel button {
 	margin: 10px;
 	padding: 5px 15px 5px 15px;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	width: 75px;
 	font-family: Tahoma;
 	background-color: #25548d; 
 	color: white;
+	border-radius: 12px;
+	border: none;
 }
 .submit-cancel{
 	text-align: center;
@@ -132,6 +134,8 @@ input[name="student-companion"]{
 	padding: 5px 15px 5px 15px;
 	background-color: #25548d; 
 	color: white;
+	border-radius: 12px;
+	border: none
 }
 .required{
 	color: red;

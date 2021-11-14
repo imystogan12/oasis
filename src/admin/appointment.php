@@ -40,7 +40,7 @@
 			"LEFT JOIN student s ON s.id = a.student_id " .
 			"LEFT JOIN guest g ON g.id = a.guest_id " .
 			"WHERE status != 'deleted' " .
-			"ORDER BY apt_id DESC " .
+			"ORDER BY a.date_time ASC " .
 			"LIMIT " . $perPage . " OFFSET " . $offset;
 	$result = $conn->query($sql);
 
@@ -77,52 +77,53 @@
 	
 </div>
 <div class="right">
+	
 	<div class="table-container">
 	<table>
 		<tr>
-			<th>Id</th>
-			<th>Department</th>
-			<th>Assignee</th>
-			<th>Type</th>
-			<th>Owner</th>
-			<th>Schedule</th>
-			<th>Status</th>
+			<th class="galit id">Id</th>
+			<th class="galit">Full Name</th>
+			<th class="galit type">Type</th>
+			<th class="galit">Department</th>
+			<th class="galit">Assignee</th>
+			<div class="sched-div">
+				<th class="galit sched">Schedule</th>
+			</div>
+			
+			<th class="galit">Status</th>
 		</tr>
 		<?php foreach ($appointments as $apt): ?>
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
-			<td><?php echo $apt['apt_id'] ?></td>
-			<td><?php echo $apt['department_name'] ?></td>
-			<td><?php echo $apt['user_fname'] . " " . $apt['user_lname'] ?></td>
-			<td><?php echo ucwords($transaction_type) ?></td>
-			<td><?php echo $apt["{$transaction_type}_fname"] . " " . $apt["{$transaction_type}_lname"] ?></td>
-			<td><?php
-				$datetime = new DateTime($apt['date_time']);
-				echo $datetime->format('m-d-Y h:i:s A');
-
-			?></td>
-			<td><?php echo $apt['status'] ?></td>
-			<td>
+			<td class="details"><?php echo $apt['apt_id'] ?></td>
+			<td class="details"><?php echo $apt["{$transaction_type}_fname"] . " " . $apt["{$transaction_type}_lname"] ?></td>
+			<td class="trans-type details"><?php echo ucwords($transaction_type) ?></td>
+			<td class="details"><?php echo $apt['department_name'] ?></td>
+			<td class="details"><?php echo $apt['user_fname'] . " " . $apt['user_lname'] ?></td>
+			<td class="details"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?> </td>
+			<td class="details"><?php echo $apt['status'] ?></td>
+			<td class="details">
 				<?php if($apt['status'] !== "deleted"): ?>
-				<a href="deleteAppointment.php?id=<?php echo $apt['apt_id']; ?>">Delete</a>
+				<a class="delete-btn" href="deleteAppointment.php?id=<?php echo $apt['apt_id']; ?>">Delete</a>
 			<?php endif; ?>
 			</td>
 		</tr>	
 		<?php endforeach ?>
 	</table>
 </div>
-</div>
-	<div>
+<div class="page">
 		<span>
 			<?php if(intval($page) > 1): ?>
-			<a href="appointment.php?page=<?php echo $page-1 ?>"> << </a>
+			<a class="next back" href="appointment.php?page=<?php echo $page-1 ?>"> << </a>
 			<?php endif; ?>
 		</span>
 		<span>
 			<?php if ($page < $pageCount): ?>
-			<a href="appointment.php?page=<?php echo $page+1 ?>"> >> </a>
+			<a class="next" href="appointment.php?page=<?php echo $page+1 ?>"> >> </a>
 			<?php endif; ?>
 		</span>
-		<span> page <?php echo $page?> of <?php echo $pageCount ?></span>
+		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
 	</div>
+</div>
+	
 </div>

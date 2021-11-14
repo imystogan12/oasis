@@ -28,18 +28,23 @@
   	}
 
 ?>
-
+<link rel="stylesheet" type="text/css" href="css/addDepartment.css">
 <form action="addDepartment.php" method="POST">
+	<div class="main">
 	<div>
-		<label>Name:</label>
-		<input type="text" name="name">
+		<p class="note">Add Department</p>		
 	</div>
-	<div>
-		<label>Value:</label>
-		<input type="text" name="value">
+	<div class="details">
+		<label class="name">Name:</label>
+		<input type="text" name="name" required="">
 	</div>
-	<div>
-		<button name="submit">Submit</button>
-		<a href="department.php">Cancel</a>
+	<div class="details">
+		<label class="name">Value:</label>
+		<input type="text" name="value" required="">
+	</div>
+	<div class="submit-cancel">
+		<button class="btn" name="submit">Add</button>
+		<a class="btn cancel" href="department.php">Cancel</a>
+	</div>
 	</div>
 </form>

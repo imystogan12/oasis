@@ -40,11 +40,15 @@
 
 
 ?>
-
+<link rel="stylesheet" type="text/css" href="css/addReason.css">
 <form action="addReason.php" method="POST">
+	<div class="main">
 	<div>
-		<Label>Department:</Label>
-		<select  name="department" id="department">
+		<p class="note">Add Reason</p>		
+	</div>
+	<div class="details">
+		<Label class="name">Department:</Label>
+		<select name="department" id="department" required>
 			<option>Please Select</option>
 			<?php foreach ($departments as $dept): ?>
 				<option value="<?php echo $dept['id'] ?>"><?php echo $dept['name'] ?></option>
@@ -52,16 +56,17 @@
 			
 		</select>
 	</div>
-	<div>
-		<label>Name:</label>
-		<input type="text" name="name">
+	<div class="details">
+		<label class="name">Name:</label>
+		<input type="text" name="name" required>
 	</div>
-	<div>
-		<label>Value:</label>
-		<input type="text" name="value">
+	<div class="details">
+		<label class="name">Value:</label>
+		<input type="text" name="value" required>
 	</div>
-	<div>
-		<button name="submit">Submit</button>
-		<a href="reason.php">Cancel</a>
+	<div class="submit-cancel">
+		<button class="btn" name="submit">Add</button>
+		<a class="btn cancel" href="reason.php">Cancel</a>
+	</div>
 	</div>
 </form>

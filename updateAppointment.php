@@ -249,12 +249,20 @@
 		$mail->Username   = "oasis.appointment.group.2021@gmail.com";
 		$mail->Password   = "Aldrino2021";
 
-		$mail->IsHTML(true);
-		$mail->AddAddress( if ($transaction_type === 'student') {
-			$appointmentData['student_email'], $appointmentData['student_fname'] . " " .	$appointmentData['student_lname']);
+		$receiverEmail = '';
+		$receiverName = '';
+
+		if ($transaction_type === 'student') {
+			$receiverEmail = $appointmentData['student_email'];
+			$receiverName = $appointmentData['student_fname'] . " " .	$appointmentData['student_lname'];
 		} else {
-			$appointmentData['guest_email'], $appointmentData['guest_fname'] . " " .	$appointmentData['guest_lname']);
+			$receiverEmail = $appointmentData['guest_email'];
+			$receiverName = $appointmentData['guest_fname'] . " " .	$appointmentData['guest_lname'];
 		}
+
+		$mail->IsHTML(true);
+		$mail->AddAddress($receiverEmail, $receiverName);
+
 		//$mail->AddAddress("nicole.lopez@mailinator.com", "Aldrino");
 		$mail->SetFrom("oasis.appointment.group.2021@mailinator.com", "Oasis");
 		// $mail->AddReplyTo("reply-to-email@domain", "reply-to-name");
@@ -278,7 +286,7 @@
 					</tr>
 			<tr>
 				<td><br><b>Email:</b></td> 
-				<td>" . $appointmentData['student_email'] . "</td>
+				<td>" . ($transaction_type === "guest" ? $appointmentData['guest_email'] : $appointmentData['student_email']) . "</td>
 			</tr>
 			<tr>
 				<td><br><b>" . ($transaction_type === "guest" ? "Contact" : "Student") . " Number:</b></td> 

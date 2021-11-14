@@ -53,7 +53,7 @@
 				</div>
 				<div class="course-section form-row">
 					<div class="div-line form-straight">
-						<label class="text">Course:<span class="required">*</span></label><br>
+						<label class="text">Course/Strand:<span class="required">*</span><span class="word">(<b>Note:</b>Abbreviate</span>)</label><br>
 						<input placeholder="Course" type="text" name="student-course" required 
 								value="<?php echo !empty($_SESSION['student']) ? $_SESSION['student']['student_course'] : '' ?>"
 						><br>

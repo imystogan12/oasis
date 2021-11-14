@@ -39,15 +39,37 @@ h2 {
 	line-height: 5px;
 }
 .head2 {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	padding: 10px;
 }
 .details {
 	padding: 10px;
-	border-left: 1px solid black;
+	/*border-left: 1px solid black;
 	border-right: 1px solid black;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid black;*/
 }
+.pageCount {
+	color: black;
+	margin-left: 5px;
+	font-weight: bold;
+}
+.next {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+	text-align: center;
+	margin-left: 5px;
+}
+.page {
+	margin: 0 0 0 1070px;
+	text-transform: uppercase;
+	margin-top: 7px;
+}
+
 .div {
 	border: 1px solid black;	
 }

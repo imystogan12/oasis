@@ -11,8 +11,8 @@
 		if ($conn->connect_error) {
   			die("Connection failed: " . $conn->connect_error);
 		}
-
-	$sql = "SELECT id, fname, lname, username, role FROM user";
+		
+	$sql = "SELECT id, fname, lname, username, role FROM user ";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -42,25 +42,30 @@
 
 </div>
 <div class="right">
-	<a href="addUser.php" class="add-btn"><button>Add</button></a>
+	<a href="addUser.php" class="add-btn btn">Add User</a>
 	<table>
 		<tr>
-		<th>ID</th>
-		<th>Username</th>
-		<th>First Name</th>
-		<th>Last Name</th>		
-		<th>Role</th>
+		<th class="galit id">ID</th>
+		<th class="galit">Username</th>
+		<th class="galit">First Name</th>
+		<th class="galit">Last Name</th>		
+		<th class="galit">Role</th>
 	</tr>
 	<?php foreach ($users as $user): ?>
 		<tr>
-			<td><?php echo $user['id'] ?></td>
-			<td><?php echo $user['username'] ?></td>
-			<td><?php echo $user['fname'] ?></td>
-			<td><?php echo $user['lname'] ?></td>
-			<td><?php echo $user['role'] ?></td>
+			<td class="details"><?php echo $user['id'] ?></td>
+			<td class="details"><?php echo $user['username'] ?></td>
+			<td class="details"><?php echo $user['fname'] ?></td>
+			<td class="details"><?php echo $user['lname'] ?></td>
+			<td class="details"><?php echo $user['role'] ?></td>
+			<td><a class="edit-delete btn" href="editUser.php?id=<?php echo $user['id']; ?>">Edit</a></td>
+			<td>
+				<?php if(empty($faculty['deleted_at'])): ?>
+					<a class="edit-delete btn" href="deleteFaculty.php?id=<?php echo $user['id'];?>">Delete</a>
+				<?php endif; ?>
+			</td>	
 		</tr>	
 		<?php endforeach ?>
 	</table>
-	
 </div>
 </div>

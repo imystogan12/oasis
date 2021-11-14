@@ -79,8 +79,15 @@
 // setTimeout(function(){window.print()}, 5000);
 
 </script> -->
+
+<?php
+	// $dir = dirname(__FILE__, 3);
+	// echo $dir . "<br>";
+	// echo dirname('../../oasis'); die;
+?>
+
 <div class="header-div">
-	<p class="oasis">OASIS</p><!-- <?php include "logout.php";?> -->
+	<p class="oasis">OASIS</p><?php include "adminLogout.php";?>
 </div>
 <div class="head2">
 	<h2>Admin Dashboard</h2>

@@ -152,39 +152,45 @@
 		<tr>
 			<th class="galit">Last Name</th>
 			<th class="galit">First Name</th>
-		<!-- 	<th class="galit">Email</th> -->
+			<th class="galit">Email</th>
 			<th class="galit">Schedule</th>
 			<th class="galit">Time Scanned</th>
-			<th class="galit">Action</th>
+			<!-- <th class="galit">Action</th> -->
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
 			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
 			<td> <?php echo  $apt[$transaction_type . '_fname']?>
-			<!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
+			<td> <?php echo  $apt[$transaction_type . '_email']?>
 			<td> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
-			<td> <?php echo  $apt['scanned_at']?>
-			<td>
+			<td> 
+				<?php if (!empty($apt['scanned_at'])) {
+					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
+				} else {
+					echo "N/A";
+				}
+				?>
+			<!-- <td>
 				<div class="button-div">
 						<button class="button">View</button>
 				</div>
-			<td>
+			<td> -->
 		<tr>
 		<?php endforeach; ?>
 	</table>
-	<div>
+	<div class="page">
 		<span>
 			<?php if(intval($page) > 1): ?>
-			<a href="guardDashboard.php?page=<?php echo $page-1 ?>"> << </a>
+			<a class="next back" href="guardDashboard.php?page=<?php echo $page-1 ?>"> << </a>
 			<?php endif; ?>
 		</span>
 		<span>
 			<?php if ($page < $pageCount): ?>
-			<a href="guardDashboard.php?page=<?php echo $page+1 ?>"> >> </a>
+			<a class="next" href="guardDashboard.php?page=<?php echo $page+1 ?>"> >> </a>
 			<?php endif; ?>
 		</span>
-		<span> page <?php echo $page?> of <?php echo $pageCount ?></span>
+		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
 	</div>
 	</form>
 	

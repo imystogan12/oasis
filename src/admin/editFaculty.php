@@ -59,24 +59,29 @@
 			echo "not";
 		}
 ?>
-
+<link rel="stylesheet" type="text/css" href="css/editFaculty.css">
 <form action="editFaculty.php" method="POST">
+	<div class="main">
 	<div>
+		<p class="note">Edit Faculty</p>		
+	</div>
+	<div class="details">
 		<input type="hidden" name="id" value="<?php echo $faculty[0]['id'] ?>">
-		<Label>Department:</Label>
-		<span>Faculty</span>
+		<Label class="name">Department:</Label>
+		<span class="name">Faculty</span>
 		<input type="hidden" name="dept_id" value="<?php echo $faculty[0]['dept_id'] ?>">
 	</div>
-	<div>
-		<label>First Name</label>
-		<input type="text" name="fname" value="<?php echo $faculty[0]['fname'] ?>">
+	<div class="details">
+		<label class="name">First Name</label>
+		<input type="text" name="fname" value="<?php echo $faculty[0]['fname'] ?>" required>
 	</div>
-	<div>
-		<label>Last Name</label>
-		<input type="text" name="lname" value="<?php echo $faculty[0]['lname'] ?>">
-	<div>
-		<label>Program Head</label>
-		<select name="program-head" id="program-head">
+	<div class="details">
+		<label class="name">Last Name</label>
+		<input type="text" name="lname" value="<?php echo $faculty[0]['lname'] ?>" required>
+	</div>
+	<div class="details">
+		<label class="name">Program Head</label>
+		<select name="program-head" id="program-head" required>
 			<option>Please Select</option>
 			<?php foreach ($facultyList as $person): ?>
 				<option value="<?php echo $person['id'] ?>"
@@ -87,8 +92,9 @@
 			<?php endforeach; ?>
 		</select>		
 	</div>
+	<div class="submit-cancel">
+		<button class="btn" name="submit">Edit</button>
+		<a class="btn" href="faculty.php">Cancel</a>
 	</div>
-	<div>
-		<button name="submit">Submit</button>
-	</div>
+</div>
 </form>

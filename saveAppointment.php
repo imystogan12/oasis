@@ -12,9 +12,16 @@
    		die("Connection failed: " . $conn->connect_error);
 	}
 
+	// echo "<pre>";
+	// var_dump($_SESSION);
+	// echo "</pre>";die;
+	
+	$transaction_type = $_SESSION['session_type'];
+
+
 	// GEt department
 	$departmentVal = "";
-	$departmentSQL = "SELECT * FROM department WHERE id=" . $_SESSION['student']['appointment']['department'];
+	$departmentSQL = "SELECT * FROM department WHERE id=" . $_SESSION[$transaction_type]['appointment']['department']; 
 	$result = $conn->query($departmentSQL);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
@@ -135,7 +142,7 @@
 			$facultyId = !empty($_SESSION['guest']['appointment']['faculty_id']) ? $_SESSION['guest']['appointment']['faculty_id'] : "null";
 
 			$sql = "INSERT INTO appointment (department_id, reason_id, user_id, guest_id, faculty_id, date_time, status) 
-			VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , " . $facultyId . " , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "'), '" . $aptStatus . "')";
+			VALUES ('" . $_SESSION['guest']['appointment']['department'] . "' , '" . $_SESSION['guest']['appointment']['reason'] . "' , '" . $_SESSION['guest']['appointment']['user_id'] . "' , '" . $last_id . "' , " . $facultyId . " , '" . $dateTimeStamp->format('Y-m-d H:i:s')  . "', '" . $aptStatus . "')";
 
 			if ($conn->query($sql) === TRUE) {
 	  			echo "New record created successfully";
@@ -163,6 +170,6 @@
 	 		exit();
 	} else {
 		 header("Location: homepage.php");
-	 		exit();
+	 	exit();
 	}
 	 ?>

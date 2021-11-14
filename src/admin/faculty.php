@@ -49,26 +49,26 @@
 	<div class="admin-selected space"> <a href="faculty.php">Faculty</a> </div>
 </div>
 <div class="right">
-	<a href="addFaculty.php" class="add-btn"><button>Add</button></a>
+	<a href="addFaculty.php" class="add-btn btn">Add Faculty</a>
 	<table>
 		<tr>
-			<th>Id</th>
-			<th>Department</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Program Head</th>
+			<th class="galit id">Id</th>
+			<th class="galit">Department</th>
+			<th class="galit">First Name</th>
+			<th class="galit">Last Name</th>
+			<th class="galit">Program Head</th>
 		</tr>
 		<?php foreach ($faculty as $faculty): ?>
 		<tr>
-			<td><?php echo $faculty['id'] ?></td>
-			<td><?php echo $faculty['department_name'] ?></td>
-			<td><?php echo $faculty['fname'] ?></td>
-			<td><?php echo $faculty['lname'] ?></td>
-			<td><?php echo $faculty['user_fname'] . ' ' .  $faculty['user_lname']?></td>
-			<td><a href="editFaculty.php?id=<?php echo $faculty['id']; ?>">Edit</a>	
+			<td class="details"><?php echo $faculty['id'] ?></td>
+			<td class="details"><?php echo $faculty['department_name'] ?></td>
+			<td class="details"><?php echo $faculty['fname'] ?></td>
+			<td class="details"><?php echo $faculty['lname'] ?></td>
+			<td class="details"><?php echo $faculty['user_fname'] . ' ' .  $faculty['user_lname']?></td>
+			<td><a class="edit-delete btn" href="editFaculty.php?id=<?php echo $faculty['id']; ?>">Edit</a>	
 			<td>
 				<?php if(empty($faculty['deleted_at'])): ?>
-					<a href="deleteFaculty.php?id=<?php echo $faculty['id'];?>">Delete</a>
+					<a class="edit-delete btn" href="deleteFaculty.php?id=<?php echo $faculty['id'];?>">Delete</a>
 				<?php endif; ?>
 			</td>
 		</tr>	

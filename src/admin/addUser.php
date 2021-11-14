@@ -29,27 +29,31 @@
 	}
 ?>
 
-
+<link rel="stylesheet" type="text/css" href="css/addUser.css">
 <form action="addUser.php" method="POST">
+	<div class="main">
 	<div>
-		<label>First Name:</label>
-		<input type="text" name="fname">
+		<p class="note">Add User</p>		
 	</div>
-	<div>
-		<label>Last Name:</label>
-		<input type="text" name="lname">
+	<div class="details">
+		<label class="name">First Name:</label>
+		<input type="text" name="fname" required>
 	</div>
-	<div>
-		<label>Username:</label>
-		<input type="text" name="username">
+	<div class="details">
+		<label class="name">Last Name:</label>
+		<input type="text" name="lname" required>
 	</div>
-	<div>
-		<label>Password:</label>
-		<input type="password" name="password">
+	<div class="details">
+		<label class="name">Username:</label>
+		<input type="text" name="username" required>
 	</div>
-	<div>
-		<label>Role:</label>
-		<select name="role" id="role">
+	<div class="details">
+		<label class="name">Password:</label>
+		<input type="password" name="password" required>
+	</div>
+	<div class="details">
+		<label class="name">Role:</label>
+		<select name="role" id="role" required>
 			<option>Please Select</option>
 			<option>Cashier</option>
 			<option>Registrar</option>
@@ -62,8 +66,9 @@
 			<option>Guard</option>
 		</select>
 	</div>
-	<div>
-		<button name="submit">Submit</button>
-		<a href="user.php">Cancel</a>
+	<div class="submit-cancel">
+		<button class="btn" name="submit">Add</button>
+		<a class="btn cancel" href="user.php">Cancel</a>
+	</div>
 	</div>
 </form>

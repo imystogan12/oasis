@@ -1,4 +1,11 @@
-
+.welcome {
+	vertical-align: middle;
+	height: 90%; 
+	/*line-height: 450px;*/
+	width: 90%;
+	margin-bottom: 50px;
+	border-radius: 12px;
+}
 .oasis {
 	text-align: left;
 	margin: 5px;
@@ -37,17 +44,19 @@
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: bold;
+	border-radius: 12px;
+	border: none;
 
  } 	
 .left {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	width: 50%;
 	margin: 50px;
 	text-align: center;
 	vertical-align: middle;
 	height: 85%; 
 	line-height: 450px;
-	background-color: white;
+	/*background-color: white;*/
 	
 }
 .right {
@@ -56,6 +65,8 @@
 	height:85%;	
 	vertical-align: middle;
 	margin-top: 19px;
+	border: none;
+	border-radius: 25px; 
 
 
 }
@@ -90,8 +101,10 @@
 	color: white;
 	text-align: center;
 	text-transform: uppercase;
-	border: 1px solid black;
 	padding: 10px;
+	border-radius: 12px;
+	border: none;
+	
 }
 .div {
 	margin: 20px;
@@ -103,7 +116,7 @@
 	background: #F5F5F5;
 	border-bottom: 8px solid #25548D;
 	height: fit-content;
-	border: 1px solid black;
+	border-radius: 25px;
 
 }
 .reset-pass {
@@ -115,6 +128,8 @@
 	padding: 5px 15px 5px 15px;
 	color: black;
 	background-color: #EFEFEF;
+	border-radius: 12px;
+	border: none;
 }
 .text {
 	font-size: 18px;
