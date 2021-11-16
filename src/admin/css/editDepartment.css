@@ -1,0 +1,48 @@
+.main {
+	border: 1px solid black;
+	width: 50%;
+	margin: 0 auto;
+	margin-top: 125px;
+	background-color: white;
+	text-align: center;
+	height: auto;
+	border-style: inset;
+  	border-color: #4760E9;
+ 	border-width: 7px;
+}
+.note {
+	padding: 10px;
+	text-align: center;
+	font-size: 30px;
+	font-family: helvetica;
+	font-style: bold;
+	color: #25548d;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+.submit-cancel {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-left: 5px;
+}
+.name {
+	font-size: 20px;
+}
+.details {
+	margin-bottom: 10px;
+}
+input {
+	padding: 4px;
+}
+select {
+	padding: 4px;
+}
+.btn {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 10px 15px 10px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+}

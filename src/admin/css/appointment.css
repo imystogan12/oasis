@@ -1,0 +1,125 @@
+.galit {
+	font-size: 15px;
+	font-family: Tahoma;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-right: 10px;
+	width: 20%;
+	background-color: #25548d;
+	color: white;
+	padding: 10px;
+}
+table {
+	border-spacing: 20px;
+}
+.delete-btn {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+	margin-right: 50px;
+}
+.details {
+	text-align: center;
+}
+.sched {
+	width: 22%;
+	margin-left: 700px;
+}
+.type {
+	width: 5%;
+
+}
+.trans-type {
+	text-transform: uppercase;
+	text-align: center;
+}
+.id {
+	width: 5%;
+}
+th {
+	width: 10%;
+	margin-right: 20px;
+}
+.pageCount {
+	color: black;
+	margin-left: 5px;
+	font-weight: bold;
+}
+.next {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+	text-align: center;
+	margin-left: 5px;
+}
+.page {
+	margin: 0 0 0 780px;
+	text-transform: uppercase;
+	margin-top: 7px;
+}
+.main {
+	display: flex;
+}
+.left {
+	margin: 20px; 
+}
+a {
+	text-decoration: none;
+	color: black;
+	font-size: 18px;
+}
+.right {
+	margin-left: 50px;
+	width: 85%;
+	text-align: center;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #25548d;
+	border-top: 10px solid #eed15c;
+}
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+.space {
+	margin-bottom: 5px;
+}
+.admin-selected {
+	background-color: #606060;
+}
+.admin-selected a:link, .admin-selected a:visited {
+	color: #FFFFFF;
+}
+.table-container{
+	display: flex;
+	justify-content: space-between;
+}
+table {
+	width: 100%;
+}
+h2 {
+	font-size: 40px;
+	font-family: helvetica;
+	font-style: bold;
+	color: #25548d;
+	text-transform: uppercase;
+	line-height: 5px;
+}
+.head2 {
+	/*border: 1px solid black;*/
+	padding: 10px;
+}

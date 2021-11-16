@@ -1,0 +1,117 @@
+.id {
+	width: 5%!important;
+}
+.galit {
+	font-size: 15px;
+	font-family: Tahoma;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-right: 10px;
+	width: 25%;
+	background-color: #25548d;
+	color: white;
+	padding: 10px;
+}
+table {
+	border-spacing: 15px;
+}
+td {
+	width: 1%;
+}
+/*.td {
+	width: 1%;
+}
+.width {
+	width: 5%;
+}*/
+.btn {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+}
+.add-btn {
+	margin-left: 600px;
+}
+.main {
+	display: flex;
+}
+.left {
+	margin: 20px; 
+}
+.details {
+	text-align: center;
+	/*margin-bottom: 20px;*/
+}
+.pageCount {
+	color: black;
+	margin-left: 5px;
+	font-weight: bold;
+}
+.next {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+	text-align: center;
+	margin-left: 5px;
+}
+.page {
+	margin: 0 0 0 775px;
+	text-transform: uppercase;
+	margin-top: 7px;
+}
+td {
+	margin-bottom: 50px;
+}
+.right {
+	/*margin-left:50px;*/
+	width: 70%;
+	margin: 0 auto;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #25548d;
+	border-top: 10px solid #eed15c;
+}
+a {
+	text-decoration: none;
+	color: black;
+	font-size: 18px;
+}
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+.admin-selected {
+	background-color: #606060;
+}
+.space {
+	margin-bottom: 5px;
+}
+.admin-selected a:link, .admin-selected a:visited {
+	color: #FFFFFF;
+}
+h2 {
+	font-size: 40px;
+	font-family: helvetica;
+	font-style: bold;
+	color: #25548d;
+	text-transform: uppercase;
+	line-height: 5px;
+}
+.head2 {
+	/*border: 1px solid black;*/
+	padding: 10px;
+}

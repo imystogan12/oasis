@@ -1,0 +1,86 @@
+.galit {
+	font-size: 15px;
+	font-family: Tahoma;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-right: 10px;
+	width: 20%;
+	background-color: #25548d;
+	color: white;
+	padding: 10px;
+}
+.details {
+	text-align: center;
+}
+.space {
+	margin-bottom: 5px;
+}
+a {
+	text-decoration: none;
+	color: black;
+	font-size: 18px;
+}
+.admin-selected {
+	background-color: #606060;
+}
+.btn {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+}
+.admin-selected a:link, .admin-selected a:visited {
+	color: #FFFFFF;
+}
+.edit-delete {
+	width: 10%;
+}
+.add-btn {
+	margin-left: 500px;
+}
+table {
+	border-spacing: 15px;
+}
+.id {
+	width: 5%;
+}
+.main {
+	display: flex;
+}
+.left {
+	margin: 20px; 
+}
+.right {
+	margin-left: 50px;
+	width: 85%;
+	text-align: center;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #25548d;
+	border-top: 10px solid #eed15c;
+}
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+h2 {
+	font-size: 40px;
+	font-family: helvetica;
+	font-style: bold;
+	color: #25548d;
+	text-transform: uppercase;
+	line-height: 5px;
+}
+.head2 {
+	/*border: 1px solid black;*/
+	padding: 10px;
+}
