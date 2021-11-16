@@ -1,3 +1,6 @@
+.trans-type {
+	text-transform: uppercase;
+}
 input {
 	text-align: center;
 	font-size: 25px;
@@ -43,8 +46,21 @@ table {
 	font-family: Tahoma;
 	text-transform: uppercase;
 	font-weight: bold;
+	width: 15%;
 }
-.note {
+/*.sched {
+	width: 20%;
+}
+.scan {
+	width: 20%;
+}*/
+/*.type {
+	width: 15%;
+}
+.fname {
+	width: 15%;
+}
+.*/note {
 	font-family: tahoma;
 	text-transform: uppercase;
 	font-size: 15px;

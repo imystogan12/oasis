@@ -57,7 +57,8 @@
 <body>
 	<div class="main">
 	<div class="left">
-		<img class="welcome" src="https://i.ibb.co/LYpQ9Rb/welcome.png"></a>
+		<img class="welcome" src="https://i.ibb.co/wMYJ9ZW/2.png">
+		<!-- <img class="welcome" src="https://i.ibb.co/LYpQ9Rb/welcome.png"></a> -->
 	</div>
 
 	<div class="right">

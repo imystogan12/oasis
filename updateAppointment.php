@@ -182,7 +182,7 @@
 				// $text =	" hello\n\n\nbye";
 				$file3 = "public/qrcode/qr-" . $explode[0] . ".png";
 				$ecc = 'H';
-				$pixel_size = 5;
+				$pixel_size = 3;
 				$frame_size = 1;
   
 				// Generates QR Code and Save as PNG
@@ -275,38 +275,48 @@
 			Thank you!</b></div>";
 		$acceptedMessage = "
 			
-			<div><b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b></div>
+			<div><b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details. <br><br>
+				Please make sure to show up no earlier than 15 minutes prior to your appointment.
+				Failure to show up during your scheduled appointment may result in forfeiture of your scheduled appointment and/or longer wait time.
+			</b></div>
 			<div>
 				<br><h2>Appointment Details:</h2>
 			</div>
 			<table>
-					<tr>
-					<td><br><b>Your name:</b></td> 
-					<td>" . $appointmentData["{$transaction_type}_fname"] . " " .$appointmentData["{$transaction_type}_lname"] . "</td>
-					</tr>
 			<tr>
-				<td><br><b>Email:</b></td> 
-				<td>" . ($transaction_type === "guest" ? $appointmentData['guest_email'] : $appointmentData['student_email']) . "</td>
+					<td><br><b>Your name:</b>
+					" . $appointmentData["{$transaction_type}_fname"] . " " .$appointmentData["{$transaction_type}_lname"] . "
+					</td> 
 			</tr>
 			<tr>
-				<td><br><b>" . ($transaction_type === "guest" ? "Contact" : "Student") . " Number:</b></td> 
-				<td>" . ($transaction_type === "guest" ? $appointmentData['guest_number'] : $appointmentData['student_num']) . "</td>
+				<td><br><b>Email:</b>
+				" . ($transaction_type === "guest" ? $appointmentData['guest_email'] : $appointmentData['student_email']) . "
+				</td> 
+			</tr>
+			<tr>
+				<td><br><b>" . ($transaction_type === "guest" ? "Contact" : "Student") . " Number:</b>
+				" . ($transaction_type === "guest" ? $appointmentData['guest_number'] : $appointmentData['student_num']) . "
+				</td> 
 			</tr>
 			<tr>	
-				<td><br><b>Chosen Department:</b></td> 
-				<td>" . ucwords($appointmentData['department']) ."</td>
+				<td><br><b>Chosen Department:</b> 
+				" . ucwords($appointmentData['department']) ."
+				</td> 
 			</tr>
 			<tr>
-				<td><br><b>Reason:</b></td> 
-				<td>" . ucwords($appointmentData['reason']) ."</td>
+				<td><br><b>Reason:</b>
+				" . ucwords($appointmentData['reason']) ."
+				</td> 
 			</tr>
 			<tr>
-				<td><br><b>Date & Time:</b></td> 
-				<td>" . $appointmentData['date_time'] ."</td>
+				<td><br><b>Date & Time:</b>
+				" . $appointmentData['date_time'] ."
+				</td> 
 			</tr>		
 			<tr>
-				<td><br><b>Faculty:</b></td> 
-				<td>" . ucwords($appointmentData['faculty']) ."</td>
+				<td><br><b>Faculty:</b>
+				" . ucwords($appointmentData['faculty']) ."
+				</td> 
 			</tr>
 			</table>
 			<div>

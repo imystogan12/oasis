@@ -151,10 +151,11 @@
 		</tr>
 		<tr>
 			<th class="galit">Last Name</th>
-			<th class="galit">First Name</th>
-			<th class="galit">Email</th>
-			<th class="galit">Schedule</th>
-			<th class="galit">Time Scanned</th>
+			<th class="galit fname">First Name</th>
+			<th class="galit type">Type</th>
+			<!-- <th class="galit">Email</th> -->
+			<th class="galit sched">Schedule</th>
+			<th class="galit scan">Time Scanned</th>
 			<!-- <th class="galit">Action</th> -->
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
@@ -162,7 +163,8 @@
 		<tr>
 			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
 			<td> <?php echo  $apt[$transaction_type . '_fname']?>
-			<td> <?php echo  $apt[$transaction_type . '_email']?>
+			<td class="trans-type details"><?php echo ucwords($transaction_type) ?></td>
+			<!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
 			<td> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
 			<td> 
 				<?php if (!empty($apt['scanned_at'])) {

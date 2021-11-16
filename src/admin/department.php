@@ -74,7 +74,9 @@
 			<td class="details"><?php echo $dept['id'] ?></td>
 			<td class="details"><?php echo $dept['name'] ?></td>
 			<td class="details"><?php echo $dept['value'] ?></td>
-			<td><a class="edit-delete btn" href="editDepartment.php?id=<?php echo $dept['id']; ?>">Edit</a>
+			<td>
+				<a class="edit-delete btn" href="editDepartment.php?id=<?php echo $dept['id']; ?>">		Edit</a>
+			</td>
 			<td>
 				<?php if(empty($dept['deleted_at'])): ?>
 					<a class="edit-delete btn" href="deleteDepartment.php?id=<?php echo $dept['id'];?>">Delete</a>

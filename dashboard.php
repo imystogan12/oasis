@@ -48,7 +48,7 @@
 				' WHERE apt.user_id="' . $_SESSION['user']['id']. '"' .
 				' AND apt.status!="deleted"' .
 				"ORDER BY FIELD (apt.status, 'pending', 'accepted', 'declined'), apt.date_time ASC " .
-				"LIMIT " . $perPage . " OFFSET " . $offset;
+				" LIMIT " . $perPage . " OFFSET " . $offset;
 		$result = $conn->query($sql);
 
 		if ($result->num_rows > 0) {

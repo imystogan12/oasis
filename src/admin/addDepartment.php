@@ -23,7 +23,7 @@
   				} else {
   					echo "Error: " . $sql . "<br>" . $conn->error;
   				}
-  				header("Location: admin.php");
+  				header("Location: department.php");
   				exit;
   	}
 

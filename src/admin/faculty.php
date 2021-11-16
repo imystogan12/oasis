@@ -12,10 +12,29 @@
   			die("Connection failed: " . $conn->connect_error);
 		}
 
+	$totalCount = 0;
+	$sql = "SELECT COUNT(*) as count FROM faculty WHERE deleted_at IS NULL";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+				$totalCount = $row['count'];
+			}
+	}
+	$perPage = 10;
+	$pageCount = ceil($totalCount / $perPage);
+	
+	$page = 1;
+	if (!empty($_GET['page'])) {
+		$page = $_GET['page'];
+	}
+
+	$offset = ($page - 1) * $perPage;
+
 		$sql = "SELECT f.id, f.fname, f.lname, d.name as department_name, u.fname as user_fname, u.lname as user_lname, f.deleted_at FROM faculty f " . 
 				' JOIN department d ON f.dept_id = d.id' .
 				' JOIN user u ON f.user_report_id = u.id' .
-				' WHERE f.deleted_at is null' ;
+				' WHERE f.deleted_at is null' . 
+				" LIMIT " . $perPage . " OFFSET " . $offset ;
 		$result = $conn->query($sql);
 
 		// var_dump($sql);
@@ -64,8 +83,10 @@
 			<td class="details"><?php echo $faculty['department_name'] ?></td>
 			<td class="details"><?php echo $faculty['fname'] ?></td>
 			<td class="details"><?php echo $faculty['lname'] ?></td>
-			<td class="details"><?php echo $faculty['user_fname'] . ' ' .  $faculty['user_lname']?></td>
-			<td><a class="edit-delete btn" href="editFaculty.php?id=<?php echo $faculty['id']; ?>">Edit</a>	
+			<td class="details"><?php echo $faculty['user_fname'] . ' ' .  $faculty['user_lname']?>
+			</td>
+			<td class="td-edit"><a class="btn" href="editFaculty.php?id=<?php echo $faculty['id']; ?>">		Edit</a>	
+			</td>
 			<td>
 				<?php if(empty($faculty['deleted_at'])): ?>
 					<a class="edit-delete btn" href="deleteFaculty.php?id=<?php echo $faculty['id'];?>">Delete</a>
@@ -74,5 +95,18 @@
 		</tr>	
 		<?php endforeach ?>
 	</table>
+	<div class="page">
+		<span>
+			<?php if(intval($page) > 1): ?>
+			<a class="next back" href="faculty.php?page=<?php echo $page-1 ?>"> << </a>
+			<?php endif; ?>
+		</span>
+		<span>
+			<?php if ($page < $pageCount): ?>
+			<a class="next" href="faculty.php?page=<?php echo $page+1 ?>"> >> </a>
+			<?php endif; ?>
+		</span>
+		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
+	</div>
 </div>
 </div>
