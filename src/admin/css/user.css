@@ -1,3 +1,10 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}  
+img {
+	margin-left: 3px;
+}
 .galit {
 	font-size: 15px;
 	font-family: Tahoma;
@@ -23,7 +30,10 @@ a {
 .admin-selected {
 	background-color: #606060;
 }
-.btn {
+.btn-add {
+	margin-left: 1157px;
+}
+/*.btn {
 	text-decoration: none;
 	border: 1px solid black;
 	padding: 5px 15px 5px 15px;
@@ -31,7 +41,7 @@ a {
 	color: white;
 	border-radius: 12px;
 	border: none;
-}
+}*/
 .admin-selected a:link, .admin-selected a:visited {
 	color: #FFFFFF;
 }
@@ -40,9 +50,6 @@ a {
 }
 .add-btn {
 	margin-left: 500px;
-}
-table {
-	border-spacing: 15px;
 }
 .id {
 	width: 5%;
@@ -58,11 +65,11 @@ table {
 	width: 85%;
 	text-align: center;
 }
-.header-div {
+.header-div-oasis {
 	text-align: right;
 	display: flex;
-	background-color: #25548d;
-	border-top: 10px solid #eed15c;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
 }
 .oasis {
 	text-align: left;

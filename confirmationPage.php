@@ -37,9 +37,9 @@
 	} 
 ?>
 
-<link rel="stylesheet" type="text/css" href="css/confirmationPage.css">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/confirmationPage.css">
 <div class="header-div">
-	<p class="oasis">OASIS</p>
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
 </div>
 <div class="container">
 	<p class="letter">Hi <?php echo $_SESSION[$transaction_type][$transaction_type . '_fname']?>!</p>

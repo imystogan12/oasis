@@ -54,16 +54,73 @@
 
 
 ?>
-<link rel="stylesheet" type="text/css" href="css/appointment.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/appointment.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 <!-- <style>
 	.admin-selected {
 		background-color: #F2F2F2;
 	}
 </style> -->
-<div class="header-div">
-	<p class="oasis">OASIS</p><!-- <?php include "logout.php";?> -->
+<div class="header-div-oasis">
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
 </div>
-<div class="head2">
+
+<div class="col mt-4 div-top">
+			<h2 class="mt-1">Admin Dashboard</h2>
+</div>
+
+	<div class="col mt-4 div-btn">
+		<a href="report.php"><button class="btn btn-primary">Reports</button></a>
+		<a href="appointment.php"><button class="btn btn-primary admin-selected">Appointment</button></a>
+		<a href="user.php"><button class="btn btn-primary">User</button></a>
+		<a href="department.php"><button class="btn btn-primary">Department</button></a>
+		<a href="reason.php"><button class="btn btn-primary">Reason</button></a>
+		<a href="faculty.php"><button class="btn btn-primary">Faculty</button></a>
+	</div>
+
+<div class="container">
+<!-- BUTTONS -->
+<div class="row row-cols-1 row-cols-1 row-cols-md-1 justify-content-left">
+	
+	<!-- <div class="col mt-3">
+			<h2 class="mt-1">Admin Dashboard</h2>
+	</div> -->
+	
+
+</div>
+</div>
+
+
+<!-- <div class="head2">
 	<h2>Admin Dashboard</h2>
 </div>
 <div class="main">
@@ -75,22 +132,22 @@
 	<div class="space"> <a href="reason.php">Reasons</a> </div>
 	<div class="space"> <a href="faculty.php">Faculty</a> </div>
 	
-</div>
-<div class="right">
-	
-	<div class="table-container">
-	<table>
+</div> -->
+<!-- <div class="right"> -->
+	<div class="row align-items-center">
+    <div class="col">
+      		
+    </div>
+    <div class="col-11">
+	<table class="table mt-2">
 		<tr>
-			<th class="galit id">Id</th>
-			<th class="galit">Full Name</th>
-			<th class="galit type">Type</th>
-			<th class="galit">Department</th>
-			<th class="galit">Assignee</th>
-			<div class="sched-div">
-				<th class="galit sched">Schedule</th>
-			</div>
-			
-			<th class="galit">Status</th>
+			<th class="col text-center" style="width: 5%;">ID</th>
+			<th class="col text-center" style="width: 15%;">Full Name</th>
+			<th class="col text-center" style="width: 15%;">Type</th>
+			<th class="col text-center" style="width: 15%;">Department</th>
+			<th class="col text-center" style="width: 15%;">Assignee</th>
+			<th class="col text-center" style="width: 20%;" >Schedule</th>
+			<th class="col text-center" style="width: 5%;">Status</th>
 		</tr>
 		<?php foreach ($appointments as $apt): ?>
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
@@ -101,28 +158,52 @@
 			<td class="details"><?php echo $apt['department_name'] ?></td>
 			<td class="details"><?php echo $apt['user_fname'] . " " . $apt['user_lname'] ?></td>
 			<td class="details"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?> </td>
-			<td class="details"><?php echo $apt['status'] ?></td>
+			<td><button  style="width: 100%;" onclick="return false" style="pointer-events: none; min-width: 100%;" class="text-center btn text-light <?php echo ($apt['status'] == "pending") ? "btn-warning" : 
+				($apt['status'] == "declined" ? "bg-danger" : "bg-success")  ?>"><?php echo ucwords($apt['status']) ?></button></td>
 			<td class="details">
 				<?php if($apt['status'] !== "deleted"): ?>
-				<a class="delete-btn" href="deleteAppointment.php?id=<?php echo $apt['apt_id']; ?>">Delete</a>
+				<button class="btn btn-secondary text-center" data-bs-toggle="tooltip" 						data-bs-placement="top" title="Delete" href="deleteAppointment.php?id=<?php echo $apt['apt_id']; ?>"><span class="material-icons">delete</span></button>
 			<?php endif; ?>
 			</td>
 		</tr>	
 		<?php endforeach ?>
 	</table>
+	</div>
+	<div class="col">
+      		
+    </div>
 </div>
-<div class="page">
-		<span>
-			<?php if(intval($page) > 1): ?>
-			<a class="next back" href="appointment.php?page=<?php echo $page-1 ?>"> << </a>
-			<?php endif; ?>
-		</span>
-		<span>
-			<?php if ($page < $pageCount): ?>
-			<a class="next" href="appointment.php?page=<?php echo $page+1 ?>"> >> </a>
-			<?php endif; ?>
-		</span>
-		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
+
+<div class="col">
+      
+    </div>
+  </div>
+	<div class="container">
+	<div class="row align-items-center">
+    	<div class="col bg-primary">
+      		
+    	</div>
+    	<div class="col">
+
+      
+			
+	</div>
+	<div class="col-auto">
+      	<div class="pagination text-center">
+			<span>
+				<?php if(intval($page) > 1): ?>
+				<a class="page-link" style="margin-left: 3px;" href="appointment.php?page=<?php echo $page-1 ?>"> << </a>
+				<?php endif; ?>
+			</span>
+			<span class="pageCount mt-2"> PAGE <?php echo $page?> OF <?php echo $pageCount ?></span>
+			<span>
+				<?php if ($page < $pageCount): ?>
+				<a class="page-link" style="margin-left: 5px;" href="appointment.php?page=<?php echo $page+1 ?>"> >> </a>
+				<?php endif; ?>
+			</span>
+		</div>
+    </div>
+	</div>
 	</div>
 </div>
 	

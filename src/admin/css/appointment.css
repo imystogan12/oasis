@@ -1,3 +1,16 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}  
+img {
+	margin-left: 3px;
+}
+.div-top {
+	margin-left: 10px;
+}
+.div-btn {
+	margin-left: 35px;
+}
 .galit {
 	font-size: 15px;
 	font-family: Tahoma;
@@ -9,9 +22,7 @@
 	color: white;
 	padding: 10px;
 }
-table {
-	border-spacing: 20px;
-}
+
 .delete-btn {
 	text-decoration: none;
 	border: 1px solid black;
@@ -81,11 +92,14 @@ a {
 	width: 85%;
 	text-align: center;
 }
-.header-div {
+.header-div-oasis {
 	text-align: right;
 	display: flex;
-	background-color: #25548d;
-	border-top: 10px solid #eed15c;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
+}
+img {
+	margin-left: 3px;
 }
 .oasis {
 	text-align: left;

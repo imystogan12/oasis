@@ -15,9 +15,9 @@
 	// echo "</pre>";die;
 ?>
 
-<link rel="stylesheet" type="text/css" href="css/studentUI.css">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/studentUI.css">
 <div class="header-div">
-	<div class="oasis">OASIS</div>
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
 </div>
 <body> 
 	<div class="div-main">

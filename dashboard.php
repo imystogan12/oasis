@@ -63,8 +63,8 @@
 // var_dump($data);
  
  ?>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js-backup/jquery.min.js"></script>
+<script type="text/javascript" src="js-backup/jquery-ui.js"></script>
 <script>
   $( function() {
  	 $( '.dialog' ).dialog({
@@ -78,11 +78,25 @@
     });
   } );
   </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="css/dashboard.css">
-<div class="header-div">
-	<p class="oasis">OASIS</p><?php include "logout.php";?>
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/dashboard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
+	crossorigin="anonymous">
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css">
+<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<div class="header-div-oasis">
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>
 </div>
 
 <div class="head2">
@@ -99,32 +113,48 @@ function showConfirm(form) {
     }
 }
 </script>
+<!-- <script>
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+ 	return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script> -->
 	<form onsubmit="return showConfirm(this)" action="updateAppointment.php" method="POST" id="updateAppointment-form">
-	<table class="details info">
+	<div class="row align-items-center">
+    	<div class="col">
+      		
+    	</div>
+    <div class="col-11">
+      <table class="table">
 		<tr>
 			<!-- <th class="galit">ID</th> -->
-			<th class="galit">Last Name</th>
-			<th class="galit">First Name</th>
+			<th class="text-center">Last Name</th>
+			<th class="text-center">First Name</th>
 			<!-- <th class="galit">Email</th> -->
-			<th class="galit">Faculty</th>
+			<th class="text-center">Faculty</th>
 			<!-- <th class="galit">Reason</th> -->
-			<th class="galit">Schedule</th>
-			<th class="galit">Status</th>
-			<th class="galit">Time Arrived</th>
-			<th class="galit">Action</th>
+			<th class="text-center">Schedule</th>
+			<th class="text-center">Status</th>
+			<th class="text-center">Time Arrived</th>
+			<th class="text-center">Action</th>
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
 			<!-- <td> <?php echo $apt['appointment_id']; ?> -->
-			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
-			<td> <?php echo  $apt[$transaction_type . '_fname']?>
+			<td class="text-center"> <?php echo $apt[$transaction_type . '_lname']; ?>
+			<td class="text-center"> <?php echo  $apt[$transaction_type . '_fname']?>
 			<!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
-			<td> <?php echo $apt['fname'] . " " . $apt['lname'] ?>
+			<td class="text-center"> <?php echo $apt['fname'] . " " . $apt['lname'] ?>
 			<!-- <td> <?php echo ucwords($apt['reason_name']) ?> -->
-			<td> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
-			<td> <?php echo ucwords($apt['status']) ?>
-			<td> 
+			<td class="text-center"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
+			<!-- <td class=" btn btn-primary<?php echo ($apt['status'] == "pending") ? "bg-warning" : 
+				($apt['status'] == "declined" ? "bg-danger" : "bg-success") ?>"> <?php echo ucwords($apt['status']) ?> -->
+				<td><button  onclick="return false" style="pointer-events: none; min-width: 100%;" class="btn text-light <?php echo ($apt['status'] == "pending") ? "btn-warning" : 
+				($apt['status'] == "declined" ? "bg-danger" : "bg-success")  ?>"><?php echo ucwords($apt['status']) ?></button></td>
+		
+
+			<td class="text-center"> 
 				<?php if (!empty($apt['scanned_at'])) {
 					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
 				} else {
@@ -134,14 +164,14 @@ function showConfirm(form) {
 			<!-- <td> <?php echo  $apt['scanned_at']?> -->
 
 			<td>
-				<div class="button-div">
+				<div class="text-center container">
 					<?php if ($apt['status'] == "pending"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="button">Accept</button>
-						<button value="<?php echo($apt['appointment_id'])?>-declined" name="btn" class="button">Decline</button>
+						<button type="button" value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="btn btn-success text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Accept"><span class="material-icons">done</span></button>
+						<button value="<?php echo($apt['appointment_id'])?>-declined" name="btn" class="btn btn-danger text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Decline"><span class="material-icons" >close</span></button>
 					<?php endif ?>
-						<button class="button view-btn" data-apt-id="<?php echo $apt['appointment_id'] ?>">View</button>
+						<button class="btn btn-primary text-center view-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View"  data-apt-id="<?php echo $apt['appointment_id'] ?>"><span class="material-icons">visibility</span></button>
 						<?php if ($apt['status'] == "accepted" || $apt['status'] == "declined"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" class="button">Delete</button>
+						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" class="btn btn-secondary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="material-icons">delete</span></button>
 						<?php endif ?>
 				</div>
 				<div class="dialog" data-apt-id="<?php echo $apt['appointment_id'] ?>" title="Appointment Details">
@@ -150,8 +180,8 @@ function showConfirm(form) {
 							<tr>
 								<td class="data"><div>Name:</div> <div><div><?php echo $apt[$transaction_type . '_fname']?> <?php echo $apt[$transaction_type . '_lname']?></div>
 								</td>
-								<td class="data"><div>Email:</div> <div><?php echo  $apt[$transaction_type . '_email']?></div>
-								</td>
+								
+								<td class="data"><div>Type:</div><?php echo ucwords($transaction_type) ?></td>
 							</tr>
 							<tr>
 								<td class="data"><div><?php echo ($transaction_type === "guest" ? "Contact" : "Student")?> Number:</div> <div><?php echo ($transaction_type === "guest" ? $apt['guest_number'] : $apt['student_num'])?></div>
@@ -173,6 +203,10 @@ function showConfirm(form) {
 									<td class="data"><div>Reason:</div> <div><?php echo ucwords($apt['reason_name'])?></div>
 									</td>
 								</tr>
+								<tr>
+									<td class="data"><div>Email:</div> <div><?php echo  $apt[$transaction_type . '_email']?></div>
+								</td>
+								</tr>
 								<?php endif; ?>
 							
 
@@ -184,19 +218,39 @@ function showConfirm(form) {
 		<tr>
 		<?php endforeach; ?>
 	</table>
-	<div class="page">
-		<span>
-			<?php if(intval($page) > 1): ?>
-			<a class="next back" href="dashboard.php?page=<?php echo $page-1 ?>"> << </a>
-			<?php endif; ?>
-		</span>
-		<span>
-			<?php if ($page < $pageCount): ?>
-			<a class="next" href="dashboard.php?page=<?php echo $page+1 ?>"> >> </a>
-			<?php endif; ?>
-		</span>
-		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
+    </div>
+    <div class="col">
+      
+    </div>
+  </div>
+	<div class="container">
+	<div class="row align-items-center">
+    	<div class="col bg-primary">
+      		
+    	</div>
+    	<div class="col">
+
+      
+			
 	</div>
+	<div class="col-auto">
+      	<div class="pagination text-center">
+			<span>
+				<?php if(intval($page) > 1): ?>
+				<a class="page-link" style="margin-left: 3px;" href="dashboard.php?page=<?php echo $page-1 ?>"> << </a>
+				<?php endif; ?>
+			</span>
+			<span class="pageCount mt-2"> PAGE <?php echo $page?> of <?php echo $pageCount ?></span>
+			<span>
+				<?php if ($page < $pageCount): ?>
+				<a class="page-link" style="margin-left: 5px;" href="dashboard.php?page=<?php echo $page+1 ?>"> >> </a>
+				<?php endif; ?>
+			</span>
+		</div>
+    </div>
+	</div>
+	</div>
+	
 	</form>
 	
 </div>

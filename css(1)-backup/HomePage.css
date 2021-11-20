@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
+}
+img {
+	margin-left: 5px;
+}
+
+
+/*body {
+	height: 100vh;
+}*/
+
+
+body{
+	  background-image: url("https://i.imgur.com/qlAvUvr.png");
+  	background-size: 20%;
+  	background-repeat: repeat;
+  	height: 100%;
+}
+
+img {
+  border-radius: 3%;
+}
+
+.main{
+		display: flex;
+  	padding: 20px 0;
+  	height: 85vh;
+}
+
+
+.left {
+	width: 50%;
+	margin: 50px;
+	text-align: center;
+	vertical-align: middle;
+	height: 85%; 
+	line-height: 450px;
+}
+
+.right {
+	width: 30%;
+	height: auto;
+	margin: 50px;
+	text-align: center;
+	vertical-align: middle;
+/*	background-color: white;*/
+	border-radius: 25px;
+}
+
+.sub-right {
+	position: relative;
+	background-color: white;
+	height: auto;
+	line-height: 40px;
+	border-radius: 25px;
+	padding-bottom: 20px;
+	padding-top: 20px;
+}
+.question {
+	font-size: 60px;
+	font-family: Numans;
+	font-style: cursive;
+	color: #006cb7;
+	margin-top: 40px;
+	text-transform: uppercase;
+}
+
+.choice-button{
+  font-family: 'Numans', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #006cb7;
+  width: 75%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.or {
+	font-size: 25px;
+	font-family:  Numans;
+	font-style: cursive;
+	color: #006cb7;
+	text-transform: uppercase;
+}
+
+
+.choice-button2{
+  font-family: 'Numans', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #006cb7;
+  width: 75%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.modal-header {
+  .close {
+    margin-top: -1.5rem;
+  }
+}
+
+ .modal-content {
+      padding: 1rem;
+      background-color: transparent;
+          -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    }
+
+
+.form-title {
+  margin: -2rem 0rem 2rem;
+}
+
+.btn-round{
+  border-radius: 2rem;
+  height: auto;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  margin-right: 20px;
+  background: #006cb7;
+  border: none;
+   margin-bottom: 30px;
+   text-transform: uppercase;
+}
+.btn-round:hover{
+	border-radius: 2rem;
+	height: auto;
+	position: absolute;
+	right: 0;
+	top: 30px;
+	margin-right: 20px;
+	background: #006cb7;
+	border: 1px solid #fff;
+}
+
+
+.login {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  font-family: 'Numans', cursive;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  border-radius: 25px;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Numans', cursive;
+}
+
+.form input:focus {
+  background: #dbdbdb;
+}
+
+.form button {
+  font-family: 'Numans', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #006cb7;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form button:active {
+  background: #395591;
+}
+
+.form span {
+  font-size: 75px;
+  color: #006cb7;
+}
+
+
+@media only screen and (max-width: 720px) {
+  /* For mobile phones: */
+  .oasis, .header-div, .main, .login, .left, .right, .choice-button, .choice-button2, .or {
+    width: 100%;
+  } 
+
+/*
+@media (min-width: 360px)
+{
+  .modal-dialog {
+    max-width: 360px;
+    
+    .modal-content {
+      padding: 1rem;
+    }
+  }
+}*/

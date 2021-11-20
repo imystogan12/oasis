@@ -1,0 +1,100 @@
+.header-div {
+    text-align: right;
+    display: flex;
+    background-color: #006cb7;
+    border-bottom: 10px solid #FDB933;
+}
+img {
+    margin-left: 5px;
+}
+
+.note {
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    width: 70%;
+    margin-left: 115px;
+}
+body {
+    padding-bottom: 20px;
+}
+.oasis {
+    text-align: left;
+    margin: 5px;
+    font-size: 50px;
+    color: white;
+    font-family: helvetica;
+    font-style: italic;
+}
+
+.main {
+	border: 1px solid black;
+	width: 50%;
+	padding: 20px;
+	text-align: center;
+    margin: auto;
+    margin-top: 50px;
+}
+.header {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+.sub-main {
+	text-align: center;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}  
+
+body{
+    height: 100%;
+    font-family: Numans;
+}
+.button {
+    padding: 10px;
+    margin-top: 5px;
+    text-align: center;
+    background-color: #006cb7;
+    color: white;
+    border: 1px solid black;
+     transition-duration: 0.4s;
+     border-style: none;
+}
+.button:disabled {
+    background-color: #006cb7;
+    opacity: .6;
+    color: white;
+    border: 1px solid black;
+      border-style: none;
+    transition-duration: 0.4s;
+    }
+
+.button-showmore {
+	cursor: pointer; 
+    background-color: #006cb7; 
+    color: white; 
+    font-family: Verdana, Arial;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase; 
+    text-align: center; 
+    padding: 10px 15px 8px 15px; 
+    margin: 5px 0 0 0;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.box1 {
+    background-color: white
+    width: auto;
+    height: 300px;
+    overflow: scroll;
+    text-align: justify;
+    padding-right: 8px;
+}
+
+

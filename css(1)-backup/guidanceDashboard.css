@@ -1,0 +1,25 @@
+.head1 {
+	border: 1px solid black;
+	padding: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.head2 {
+	border: 1px solid black;
+	padding: 10px;
+}
+.details {
+	border: 1px solid black;
+	padding: 10px;
+}
+.div {
+	border: 1px solid black;	
+}
+.info {
+	padding: 10px;
+	text-align: center;
+	width: 100%;
+}
+table {
+	border-spacing: 20px;
+}

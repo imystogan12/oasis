@@ -1,0 +1,200 @@
+.note {
+	font-style: italic;
+	font-weight: bold;
+	text-align: center;
+	font-size: 16px;
+}
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+img {
+	margin-left: 5px;
+}
+html, body {
+margin: 0;
+padding: 0;
+}
+body{
+background-image: url("https://i.imgur.com/qlAvUvr.png");
+background-size: 20%;
+background-repeat: repeat;
+height: 100%;
+font-family: Numans;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
+}
+
+
+.cancel{
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 10px 20px 10px 20px;
+	background-color: #006cb7; 
+	color: white;
+	border-style: none;
+}
+header {
+	padding: 10px;
+	font-size: 30px;
+}
+body {
+	/*border: 1px solid black;*/
+}
+
+.full {
+	color: black!important;
+	font-weight: bold!important;
+	background-color: #DB0000!important;
+}
+.main {
+	display: flex;
+  	justify-content: center;
+  	background-image: url("https://i.imgur.com/qlAvUvr.png");
+  	background-size: 20%;
+  	background-repeat: repeat;
+  	height: 90%;
+}
+.content {
+	background-color: #ffffff;
+	/*margin-left: auto;
+	margin-right: auto;*/
+	margin-top: 40px;
+	display: inline-block;
+	width: 80%;
+	height: 90%;
+  	/*background-image: url("https://i.imgur.com/qlAvUvr.png");
+  	background-size: 20%;
+  	background-repeat: repeat;*/
+}
+.apt-form {
+	display: flex;
+  	padding: 20px 0;
+  	height: 40vh;
+  	/*background-image: url("https://i.imgur.com/qlAvUvr.png");
+  	background-size: 20%;
+  	background-repeat: repeat;*/
+}
+.left {
+	padding: 10px;
+	width: 30%;
+	height: 70%;
+	background-color: white;
+	margin: 0 40px 0 20px;
+	/*margin-left: auto;
+	margin-right: auto;*/
+}
+.right{
+	padding: 15px;
+	/*width: 50%;*/
+	background-color: white;
+	width: 90%;
+	height: 90%;
+	/*margin-left: auto;
+	margin-right: auto;*/
+
+}
+.div{
+	margin: 20px 0;
+}
+
+.dept {
+	width: 100%;
+}
+.reason {
+	width: 100%;
+}
+.faculty {
+	width: 100%;
+}
+.submit-cancel button{
+	margin: 10px;
+	padding: 10px 20px 10px 20px;
+}
+.box {
+	border: 1px solid white;
+}
+table { 
+	border-collapse: collapse; border: 1px solid white
+	width: 90%;
+	height: 150%;
+}
+.time {
+	width: 100%;
+	padding: 5px;
+	height: 100%;
+	background-color: #006cb7;
+	color: white;	
+	border-style: none;
+}
+.selected {
+	background-color: #eed15c;
+}
+.prev-btn {
+	background-color: #006cb7;
+	color: white;
+	padding: 5px;	
+	border-style: none; 
+}
+.next-btn {
+	background-color: #006cb7;
+	color: white;	
+	padding: 5px; 
+	border-style: none;
+}
+.submit-btn {
+	background-color: #006cb7;
+	color: white;	 
+	border-style: none;
+}
+.time:disabled{
+	background-color: #006cb7;
+    opacity: .6;
+    color: white;
+    border-style: none;
+}
+.more {
+	width: 100%;
+	background-color: #006cb7;
+	color: white;	 
+	border-style: none;
+}
+.date {
+	color: #006cb7;
+	font-weight: bolder;
+	border-style: none;
+}
+.time-pm{
+	display: none;
+}
+.bold {
+	font-weight: bold;
+}
+.head {
+	border: 1px solid black;
+	width: 70%;
+	margin-top: 20px;
+	text-align: center;
+	margin-left: 160px;
+	background: #F5F5F5;
+	text-transform: uppercase;
+	font-style: italic;
+	color: #006cb7;
+	font-weight: bold;
+	font-family: helvetica;
+	font-size: 70px;
+}
+header {
+	font-size: 40px;
+}
+
+
+

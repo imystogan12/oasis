@@ -65,8 +65,23 @@
 // var_dump($data);
  
  ?>
- <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui.js"></script>
+ <script type="text/javascript" src="js-backup/jquery.min.js"></script>
+<script type="text/javascript" src="js-backup/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/autoAcceptDashboard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
+	crossorigin="anonymous">
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
   $( function() {
  	 $( '.dialog' ).dialog({
@@ -81,38 +96,42 @@
   } );
   </script>
 
-<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="css/autoAcceptDashboard.css">
-<div class="header-div">
-	<p class="oasis">OASIS</p><?php include "logout.php";?>
+<link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css">
+<div class="header-div-oasis">
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>
 </div>
 
 <div class="head2">
 	<h2><?php echo ucwords($_SESSION['user']['role']) ?> Dashboard</h2>
 </div>
+<div class="row align-items-center">
+	<div class="col">
+      		
+    </div>
 
-<div class="div1">
-	<table class="details info">
+
+<div class="col-12">
+	<table class="table">
 		<tr>
-			<th class="galit">Last Name</th>
-			<th class="galit">First Name</th>
+			<th class="text-center">Last Name</th>
+			<th class="text-center">First Name</th>
 			<!-- <th>Email</th>
 			<th>Reason</th> -->
-			<th class="galit">Schedule</th>
-			<th class="galit">Time Arrived</th>
-			<th class="galit">Action</th>
+			<th class="text-center">Schedule</th>
+			<th class="text-center">Time Arrived</th>
+			<th class="text-center">Action</th>
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
 			<!-- <td> <?php echo $apt['appointment_id']; ?> -->
-			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
-			<td> <?php echo  $apt[$transaction_type . '_fname']?>
+			<td class="text-center"> <?php echo $apt[$transaction_type . '_lname']; ?>
+			<td class="text-center"> <?php echo  $apt[$transaction_type . '_fname']?>
 			 <!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
 			<!-- <td> <?php echo $apt['fname'] . " " . $apt['lname'] ?> -->
 			<!-- <td> <?php echo ucwords($apt['reason_name']) ?> -->
-			<td> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
-			<td> 
+			<td class="text-center"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
+			<td class="text-center"> 
 				<?php if (!empty($apt['scanned_at'])) {
 					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
 				} else {
@@ -128,11 +147,11 @@
 				}
 				?> -->
 			
-				<td>
+				<td class="text-center">
 					<div>
-						<button class="button view-btn" data-apt-id="<?php echo $apt['appointment_id'] ?>">View</button>
+						<button class="btn btn-primary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="View" data-apt-id="<?php echo $apt['appointment_id'] ?>"><span class="material-icons">visibility</span></button>
 								<?php if ($apt['status'] == "accepted" || $apt['status'] == "declined"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" 		class="button">Delete</button>
+						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" 		class="btn btn-secondary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="material-icons">delete</span></button>
 							<?php endif; ?>
 
 					</div>
@@ -178,19 +197,39 @@
 			</tr>
 
 
-		<?php endforeach; ?>		
+		<?php endforeach; ?>
+		 <div class="col">
+      
+    </div>		
 	</table>
-	<div  class="page">
-		<span>
-			<?php if(intval($page) > 1): ?>
-			<a class="next back" href="autoAcceptDashboard.php?page=<?php echo $page-1 ?>"> << </a>
-			<?php endif; ?>
-		</span>
-		<span>
-			<?php if ($page < $pageCount): ?>
-			<a class="next" href="autoAcceptDashboard.php?page=<?php echo $page+1 ?>"> >> </a>
-			<?php endif; ?>
-		</span>
-		<span lass="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
-	</div>
+	
+
+    <div class="container">
+    <div class="pagination text-center">
+
+    	<div class="col">
+      		
+    	</div>
+    	<div class="col">			
+		
+		</div>
+
+	<div class="col-auto">
+      	<div class="pagination text-center">
+			<span>
+				<?php if(intval($page) > 1): ?>
+				<a class="page-link" style="margin-left: 3px;" href="dashboard.php?page=<?php echo $page-1 ?>"> << </a>
+				<?php endif; ?>
+			</span>
+			<span class="pageCount mt-2"> PAGE <?php echo $page?> OF <?php echo $pageCount ?></span>
+			<span>
+				<?php if ($page < $pageCount): ?>
+				<a class="page-link" style="margin-left: 5px;" href="dashboard.php?page=<?php echo $page+1 ?>"> >> </a>
+				<?php endif; ?>
+			</span>
+		</div>
+    </div>
+</div>
+</div>
+</div>
 </div>

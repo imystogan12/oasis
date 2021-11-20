@@ -4,6 +4,9 @@
 /*.edit-btn {
 	margin-left: 40px;	
 }*/
+img {
+	margin-left: 3px;
+}
 .right-div {
 	margin-left: 20px;
 }
@@ -40,18 +43,11 @@
 	text-transform: uppercase;
 	margin-top: 7px;
 }
-.btn {
-	text-decoration: none;
-	border: 1px solid black;
-	padding: 5px 15px 5px 15px;
-	background-color: #25548d; 
-	color: white;
-	border-radius: 12px;
-	border: none;
-	margin-right: 5px;
+.div-btn {
+	margin-left: 35px;
 }
-.add-btn {
-	margin-left: 310px;
+.btn-add {
+	margin-left: 1025px;
 }
 .id {
 	width: 5%;
@@ -77,11 +73,14 @@ table {
 	width: 70%;
 	margin: 0 auto;
 }
-.header-div {
+.header-div-oasis {
 	text-align: right;
 	display: flex;
-	background-color: #25548d;
-	border-top: 10px solid #eed15c;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
+}
+.div-top {
+	margin-left: 10px;
 }
 a {
 	text-decoration: none;

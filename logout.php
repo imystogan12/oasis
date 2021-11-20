@@ -12,11 +12,12 @@
 		text-align: right;
 		margin: 5px;
 	}
+	@import url('https://fonts.googleapis.com/css?family=Numans');
 	.logoutBTN {
 		padding: 5px;
 		margin-top: 10px;
 		margin-right: 15px;
-		font-family:  tahoma;
+		font-family: Numans;
 		font-style: bold;
 		position: absolute;
 		right: 0;
@@ -24,7 +25,28 @@
 		padding: 10px 5px 10px 5px;
 		text-transform: uppercase;
 		text-align: center;
-		font-weight: bold;
+		background-color: #006cb7;
+		border-radius: 8px;
+		color: white;
+		border-style: none;
+	}
+	.logoutBTN:hover {
+		padding: 5px;
+		margin-top: 10px;
+		margin-right: 15px;
+		font-family: Numans;
+		font-style: bold;
+		position: absolute;
+		right: 0;
+		font-size: 12px;
+		padding: 10px 5px 10px 5px;
+		text-transform: uppercase;
+		text-align: center;
+		background-color: #006cb7;
+		border-radius: 8px;
+		color: white;
+		border-style: none;
+		border-style: 1px solid #fff;
 	}
 
 

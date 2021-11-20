@@ -240,7 +240,7 @@
 	// echo "</pre>";
 ?>
 <div class="header-div">
-	<p class="oasis">OASIS</p>
+<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -307,7 +307,7 @@
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="css/bookAppointment.css">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/bookAppointment.css">
 
 <body>
 	<form action="book-appointment.php" method="POST">

@@ -1,0 +1,107 @@
+.main {
+  	/*border: 1px solid black;*/
+  	display: flex;
+  	width: 100%;
+  	height: 100%;
+   	background-color: #3E9888;
+}
+h1 {
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+.right {
+	width: 50%;
+	margin: 10px 10px 10px 350px;
+	text-align: center;
+	background-color: #F8F8F8;
+	height: 80%;
+}
+.picture {
+	width: 30%;
+	height: 30%;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.usrname {
+	background-image:url('http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png');
+   	background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position:left top;
+    margin: 5px;
+    text-align: center;
+    height: 30px;
+    width: 60%;
+}
+.password {
+	background-image:url('https://toppng.com/uploads/preview/this-is-a-graphic-reation-of-a-pad-lock-username-and-password-icon-115534595184fsadfncq6.png');
+   	background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position:left top;
+    margin: 5px;
+    text-align: center;
+    height: 30px;	
+    width: 60%;
+}
+.remember {
+	margin-top: 10px;
+}
+.login {
+	margin-top: 20px
+}
+.text {
+	font-size: 20px;
+	font-family: helvetica;
+}
+.login-btn {
+	padding: 10px 20px 10px 20px;
+	background-color: #496DE7;
+	color: white;
+	font-size: 15px;
+	border: none;
+}
+.bottom {
+	display: flex;
+	margin-left: 30%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.facebook {
+	background-image:url('https://www.freepnglogos.com/uploads/facebook-logo-icon/facebook-logo-icon-file-facebook-icon-svg-wikimedia-commons-4.png');
+   	background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position:left top;
+    margin: 5px;
+    text-align: center;
+    height: 40px;	
+    width: 40px;
+    margin-top: 10px;
+    border: none;
+}
+.twitter {
+	background-image:url('https://yoviews.com/wp-content/uploads/2021/02/Rfb6ca24911710c6cc8355e4e1a574fc2.jpeg');
+   	background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position:left top;
+    margin: 5px;
+    text-align: center;
+    height: 40px;	
+    width: 40px;	
+    border: none;
+    margin-top: 10px;
+}
+.gmail {
+	background-image:url('https://toppng.com/uploads/preview/instagram-logo-transparent-logo-instagram-vector-2021-116177766354twhxoagvv.png');
+   	background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position:left top;
+    margin: 5px;
+    text-align: center;
+    height: 40px;	
+    width: 40px;	
+    border: none;
+    margin-top: 10px;
+}
+.create {
+	color: blue;
+}
+

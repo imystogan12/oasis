@@ -4,8 +4,8 @@
 	// var_dump($_SESSION);
 	// echo "</pre>";
 ?>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.show-more.js"></script>
+<script type="text/javascript" src="js-backup/jquery.min.js"></script>
+<script type="text/javascript" src="js-backup/jquery.show-more.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".sub-main").showMore({
@@ -24,9 +24,9 @@
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="css/terms-agreement.css">
+<link rel="stylesheet" type="text/css" href="css(1)-backup/terms-agreement.css">
 <div class="header-div">
-	<p class="oasis">OASIS</p>
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
 </div>
 <div class="main">
 	<div>

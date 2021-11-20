@@ -1,0 +1,111 @@
+.galit {
+	font-size: 15px;
+	font-family: Tahoma;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-right: 10px;
+	width: 18%;
+	background-color: #25548d;
+	color: white;
+	padding: 10px;
+}
+.pageCount {
+	color: black;
+	margin-left: 5px;
+	font-weight: bold;
+}
+.next {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+	text-align: center;
+	margin-left: 5px;
+}
+.page {
+	margin: 0 0 0 735px;
+	text-transform: uppercase;
+	margin-top: 7px;
+}
+.details {
+	text-align: center;
+}
+.add-btn {
+	margin-left: 460px;
+} 
+table {
+	border-spacing: 15px;
+ /* border-collapse: collapse;*/
+}
+.id {
+	width: 5%;
+}
+.btn {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+}
+.edit-delete {
+	width: 5%;
+}
+.td-edit {
+	width: 5%;
+}
+.main {
+	display: flex;
+}
+.left {
+	margin: 20px; 
+}
+.right {
+	margin-left: 50px;
+	width: 85%;
+	text-align: center;
+}
+.header-div {
+	text-align: right;
+	display: flex;
+	background-color: #25548d;
+	border-top: 10px solid #eed15c;
+}
+a {
+	text-decoration: none;
+	color: black;
+	font-size: 18px;
+}
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+.admin-selected {
+	background-color: #606060;
+}
+.space {
+	margin-bottom: 5px;
+}
+.admin-selected a:link, .admin-selected a:visited {
+	color: #FFFFFF;
+}
+h2 {
+	font-size: 40px;
+	font-family: helvetica;
+	font-style: bold;
+	color: #25548d;
+	text-transform: uppercase;
+	line-height: 5px;
+}
+.head2 {
+	/*border: 1px solid black;*/
+	padding: 10px;
+}

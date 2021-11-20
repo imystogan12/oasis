@@ -1,22 +1,16 @@
-.id {
-	width: 5%!important;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}  
+.div-top {
+	margin-left: 10px;
 }
-.galit {
-	font-size: 15px;
-	font-family: Tahoma;
-	text-transform: uppercase;
-	font-weight: bold;
-	margin-right: 10px;
-	width: 25%;
-	background-color: #25548d;
-	color: white;
-	padding: 10px;
+.div-btn {
+	margin-left: 35px;
 }
-table {
-	border-spacing: 15px;
-}
-td {
-	width: 1%;
+.btn-add {
+	margin-left: 1020px;
 }
 /*.td {
 	width: 1%;
@@ -24,7 +18,7 @@ td {
 .width {
 	width: 5%;
 }*/
-.btn {
+/*.btn {
 	text-decoration: none;
 	border: 1px solid black;
 	padding: 5px 15px 5px 15px;
@@ -32,16 +26,8 @@ td {
 	color: white;
 	border-radius: 12px;
 	border: none;
-}
-.add-btn {
-	margin-left: 600px;
-}
-.main {
-	display: flex;
-}
-.left {
-	margin: 20px; 
-}
+}*/
+
 .details {
 	text-align: center;
 	/*margin-bottom: 20px;*/
@@ -67,19 +53,16 @@ td {
 	text-transform: uppercase;
 	margin-top: 7px;
 }
-td {
-	margin-bottom: 50px;
-}
 .right {
 	/*margin-left:50px;*/
 	width: 70%;
 	margin: 0 auto;
 }
-.header-div {
+.header-div-oasis {
 	text-align: right;
 	display: flex;
-	background-color: #25548d;
-	border-top: 10px solid #eed15c;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
 }
 a {
 	text-decoration: none;

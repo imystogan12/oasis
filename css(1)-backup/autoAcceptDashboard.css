@@ -1,0 +1,131 @@
+/*.dialog{
+	background-color: white;
+}*/
+@import url('https://fonts.googleapis.com/css?family=Numans');
+.oasis {
+	text-align: left;
+	margin: 5px;
+	font-size: 50px;
+	color: white;
+	font-family: helvetica;
+	font-style: italic;
+}
+.header-div-oasis {
+	text-align: right;
+	display: flex;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
+}
+img {
+	margin-left: 5px;
+}
+.pageCount {
+	color: black;
+	margin-left: 5px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: Numans;
+}
+.next {
+	text-decoration: none;
+	border: 1px solid black;
+	padding: 5px 15px 5px 15px;
+	background-color: #25548d; 
+	color: white;
+	border-radius: 12px;
+	border: none;
+	text-align: center;
+}
+.page {
+	margin: 0 0 0 1070px;
+	text-transform: uppercase;
+	margin-top: 7px;
+	font-weight: bold;
+}
+.login{
+		margin-top: 14px;
+		margin-right: 15px;
+		font-family:  tahoma;
+		font-style: bold;
+		position: absolute;
+		right: 0;
+		font-size: 12px;
+		padding: 10px 5px 10px 5px;
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: bold;
+	}
+h2 {
+	font-size: 40px;
+	font-family: helvetica;
+	font-style: bold;
+	color: #25548d;
+	text-transform: uppercase;
+	line-height: 5px;
+}
+.head2 {
+	/*border: 1px solid black;*/
+	padding: 10px;
+}
+.details {
+	padding: 10px;
+	/*border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;*/
+}
+.div {
+	border: 1px solid black;	
+}
+.info {
+	padding: 10px;
+	text-align: center;
+	width: 100%;
+}
+.button {
+	padding: 10px;
+	font-family: tahoma;
+	font-size: 15px;
+	background-color: #25548d;
+	color: white;
+	text-align: center;
+	text-transform: uppercase;
+}
+.data {
+	text-align: left;
+	padding: 10px;
+	font-family: helvetica;
+	font-weight: bold;
+}
+.data:first-child {
+	width: 40%;
+	padding-left: 20px;
+	/*border-right: 2px solid black;*/
+}
+.data:nth-child(2) {
+	width: 40%;
+	padding-left: 30px;
+}
+.box {
+	margin: 10px;
+	}
+.ui-dialog {
+	width: 600px !important;
+	height: auto !important;
+	top: 140px !important;
+    left: 400px !important;
+}
+.galit {
+	font-size: 15px;
+	font-family: Tahoma;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.style {
+	width: 600px;
+}
+.ui-button .ui-icon {
+    background-image: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-512.png") !important;
+    background-repeat: no-repeat;
+    background-size: 17px 17px;
+    background-position: center;
+}

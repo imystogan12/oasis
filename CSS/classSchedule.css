@@ -1,0 +1,53 @@
+.top {
+	width: 5%;
+	text-align: center;
+	padding: 8px;
+}
+.main {
+	width: 80%;
+	margin: 0 auto;
+	border-collapse: separate;	
+	margin-top: 2px;
+}
+td {
+	text-align: center;
+	font-family: helvetica;
+	background-color: ;
+	color: white;
+	padding: 7px;
+
+}
+.tr1 {
+	background-color: #58A3F7;
+	color: white;
+	margin: 20px;
+}
+.class {
+	text-align: center;
+
+}
+.schedule {
+	font-size: 50px;
+	color: #107896;
+	font-family: monospace;
+	font-weight: bold;
+}
+body {
+	border-top: 2px;
+	font-weight: bold;
+}
+.subj {
+	text-align: left;
+}
+.cd {
+	width: 15%;
+}
+.a {
+	background-color: #F1D302;
+}
+.b {
+	background-color: #58A3F7;
+}
+.time {
+	width: 8%;
+}
