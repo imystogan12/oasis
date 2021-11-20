@@ -1,4 +1,5 @@
 <?php
+	include('database.php');
 	session_start();
 	// unset($_SESSION['appointment']);
 
@@ -66,15 +67,15 @@
 		unset($_SESSION['appt_form']['saturday']);
 	}
 
-	$servername = "localhost";
-		$username = "root";
-		$password = "root";
-		$dbname = 'oasis';
+	// $servername = "localhost";
+	// 	$username = "root";
+	// 	$password = "root";
+	// 	$dbname = 'oasis';
 
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+	// 	$conn = new mysqli($servername, $username, $password, $dbname);
+	// 	if ($conn->connect_error) {
+ //  			die("Connection failed: " . $conn->connect_error);
+	// 	}
 		$mondayTimeStamp = DateTime::createFromFormat('m-d-Y', $monday);
 		$saturdayTimeStamp = DateTime::createFromFormat('m-d-Y', $saturday);
 

@@ -1,16 +1,17 @@
 <?php 
+	include('database.php');
 	session_start();
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = 'oasis';
+	// $servername = "localhost";
+	// $username = "root";
+	// $password = "root";
+	// $dbname = 'oasis';
 
 	$appointments = [];
 
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+	// $conn = new mysqli($servername, $username, $password, $dbname);
+	// if ($conn->connect_error) {
+	// 	die("Connection failed: " . $conn->connect_error);
+	// }
 
 	// Get total count first
 	$totalCount = 0;
@@ -91,7 +92,7 @@
 	}
 </style> -->
 <div class="header-div-oasis">
-	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "adminLogout.php";?>
 </div>
 
 <div class="col mt-4 div-top">

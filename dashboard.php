@@ -1,4 +1,5 @@
 <?php
+	include('database.php');
 	session_start();
 	// echo "<pre>";
 	// var_dump($_SESSION);
@@ -6,17 +7,17 @@
 
 	$appointment = [];
 
-		$servername = "localhost";
-		$username = "root";
-		$password = "root";
-		$dbname = 'oasis';
+		// $servername = "localhost";
+		// $username = "root";
+		// $password = "root";
+		// $dbname = 'oasis';
 
-		// $transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
+		// // $transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
 
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+		// $conn = new mysqli($servername, $username, $password, $dbname);
+		// if ($conn->connect_error) {
+  // 			die("Connection failed: " . $conn->connect_error);
+		// }
 
 		// Get total count first
 		$totalCount = 0;
@@ -83,9 +84,6 @@
 
 <link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css(1)-backup/dashboard.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
-	crossorigin="anonymous">
-</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css">
 <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
@@ -94,6 +92,9 @@
 <script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
+	crossorigin="anonymous">
+</script>
 
 <div class="header-div-oasis">
 	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>

@@ -1,16 +1,17 @@
 <?php  
+	include('database.php');
 	session_start();
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = 'oasis';
+	// $servername = "localhost";
+	// $username = "root";
+	// $password = "root";
+	// $dbname = 'oasis';
 
 	$users = [];
 
-	$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+	// $conn = new mysqli($servername, $username, $password, $dbname);
+	// 	if ($conn->connect_error) {
+ //  			die("Connection failed: " . $conn->connect_error);
+	// 	}
 
 	$totalCount = 0;
 	$sql = "SELECT COUNT(*) as count FROM user WHERE deleted_at is NULL";
@@ -75,7 +76,7 @@
 <link rel="stylesheet" type="text/css" href="CSS/user.css">
 
 <div class="header-div-oasis">
-	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "adminLogout.php";?>
 </div>
 <div class="col mt-4 div-top">
 			<h2 class="mt-1">Admin Dashboard</h2>

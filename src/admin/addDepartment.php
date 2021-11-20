@@ -1,16 +1,17 @@
-<?php  
+<?php
+	include('database.php');  
 	session_start();
 
 	if (isset($_POST['name'])) {
-		$servername = "localhost";
-		$username = "root";
-		$password = "root";
-		$dbname = 'oasis';
+		// $servername = "localhost";
+		// $username = "root";
+		// $password = "root";
+		// $dbname = 'oasis';
 
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+		// $conn = new mysqli($servername, $username, $password, $dbname);
+		// if ($conn->connect_error) {
+  // 			die("Connection failed: " . $conn->connect_error);
+		// }
 		$name = strip_tags($_POST['name']);
 		$value = strip_tags($_POST['value']);
 		$sql = "INSERT INTO department (name, value)

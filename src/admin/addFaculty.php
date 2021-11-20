@@ -1,16 +1,17 @@
-<?php  
+<?php
+	include('database.php');  
 	session_start();
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = 'oasis';
+	// $servername = "localhost";
+	// $username = "root";
+	// $password = "root";
+	// $dbname = 'oasis';
 
 	
 
-	$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+	// $conn = new mysqli($servername, $username, $password, $dbname);
+	// 	if ($conn->connect_error) {
+ //  			die("Connection failed: " . $conn->connect_error);
+	// 	}
 	if (isset($_POST['submit'])) {
 		$sql = "INSERT INTO faculty (dept_id, fname, lname, user_report_id)
 			VALUES ( " . $_POST['dept_id'] . " , '" . $_POST['fname'] . "' , '" . $_POST['lname'] . "' , " . $_POST['program-head'] . ")";

@@ -1,11 +1,12 @@
 <?php
-		session_start();
- 	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = 'oasis';
+	include('database.php');
+	session_start();
+ // 	$servername = "localhost";
+	// $username = "root";
+	// $password = "root";
+	// $dbname = 'oasis';
 
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	// $conn = new mysqli($servername, $username, $password, $dbname);
 
 		$apt_id = $_GET['apt_id'];
 

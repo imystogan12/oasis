@@ -1,4 +1,5 @@
 <?php 
+	include('database.php');
 	session_start();
 	// echo "<pre>";
 	// var_dump($_SESSION);
@@ -6,15 +7,15 @@
 
 	$transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = 'oasis';
+	// $servername = "localhost";
+	// $username = "root";
+	// $password = "root";
+	// $dbname = 'oasis';
 
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+	// $conn = new mysqli($servername, $username, $password, $dbname);
+	// if ($conn->connect_error) {
+	// 	die("Connection failed: " . $conn->connect_error);
+	// }
 
 	// Get department name
 	$departmentName = "N/A";

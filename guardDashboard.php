@@ -1,18 +1,11 @@
 <?php 
+	include('database.php');
 	session_start();
 	// echo "<pre>";
 	// var_dump($_SESSION);
 	// echo "</pre>";
 
-	$servername = "localhost";
-		$username = "root";
-		$password = "root";
-		$dbname = 'oasis';
-
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+	
 
 		$totalCount = 0;
 		$sql = "SELECT COUNT(*) as count FROM appointment WHERE status != 'deleted' AND status != 'declined'";
@@ -56,8 +49,34 @@
 		}
 ?>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.min.css">
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="css(1)-backup/guardDashboard.css">
+<link rel="stylesheet" type="text/css" href="CSS/guardDashboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 
@@ -125,8 +144,8 @@
 
 </script>
 
-<div class="header-div">
-	<p class="oasis">OASIS</p><?php include "logout.php";?>
+<div class="header-div-oasis">
+	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>
 </div>
 
 <div class="head2">

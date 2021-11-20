@@ -9,7 +9,7 @@
 ?>
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Numans');
-	.logoutBTN {
+	.adminLogoutBTN {
 		padding: 5px;
 		margin-top: 10px;
 		margin-right: 15px;
@@ -26,7 +26,7 @@
 		color: white;
 		border-style: none;
 	}
-	.logoutBTN:hover {
+	.adminLogoutBTN:hover {
 		padding: 5px;
 		margin-top: 10px;
 		margin-right: 15px;
@@ -44,12 +44,15 @@
 		border-style: none;
 		border-style: 1px solid #fff;
 	}
+	.adminLogoutBTN {
+		margin-top: 20px;
+	}
 
 
 </style>
 <div class="logout">
 	<form method="post">
-		<button name="logout" class="logoutBTN">Logout</button>
+		<button name="logout" class="adminLogoutBTN">Logout</button>
 	</form>
 </div>
 

@@ -1,16 +1,17 @@
-<?php  
+<?php
+	include('database.php');  
 	session_start();
 	if (isset($_POST['submit'])) {
 		
-		$servername = "localhost";
-		$username = "root";
-		$password = "root";
-		$dbname = 'oasis';
+		// $servername = "localhost";
+		// $username = "root";
+		// $password = "root";
+		// $dbname = 'oasis';
 
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		if ($conn->connect_error) {
-  			die("Connection failed: " . $conn->connect_error);
-		}
+		// $conn = new mysqli($servername, $username, $password, $dbname);
+		// if ($conn->connect_error) {
+  // 			die("Connection failed: " . $conn->connect_error);
+		// }
 
 		$salt = 'fds32f';
 		$password = md5(md5( $_POST['password']) . md5($salt));
