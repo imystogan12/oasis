@@ -151,41 +151,41 @@
 <div class="head2">
 	<h2>Guard Dashboard</h2>
 </div>
-
-<div class="div1">
-	<form action="updateAppointment.php" method="POST">
-	<table class="details info">
-		<tr>
-			<td colspan=8>
-				<div> 
+	<div class="auto">
 					<div>
 						<p class="note">Scanned appointment details will show here:</p>
 					</div>
-				<div class="dialogpopup" title="Appointment Details" >
-				</div>
-				<input class="blank" type="text" name="apt_id_scanned" id="apt_id_scanned" value="" readonly />
-				<button class="button" id="scanned-btn" name="scanned-btn">Set as scanned</button>
-				<div>
-			</td>
-		</tr>
+					<div class="dialogpopup" title="Appointment Details"></div>
+					<input class="blank" type="text" name="apt_id_scanned" id="apt_id_scanned" value="" readonly />
+					<button class="button" id="scanned-btn" name="scanned-btn">Set as scanned</button>
+	</div>
+	<form action="updateAppointment.php" method="POST">
+	<div class="row align-items-center">
+	<div class="col">
+		
+	</div>
+
+	<div class="col-11">
+	<table class="table">
+		
 		<tr>
-			<th class="galit">Last Name</th>
-			<th class="galit fname">First Name</th>
-			<th class="galit type">Type</th>
+			<th class="col text-center" style="width: 1%;">Last Name</th>
+			<th class="col text-center" style="width: 5%;">First Name</th>
+			<th class="col text-center" style="width: 5%;">Type</th>
 			<!-- <th class="galit">Email</th> -->
-			<th class="galit sched">Schedule</th>
-			<th class="galit scan">Time Scanned</th>
+			<th class="col text-center" style="width: 5%;">Schedule</th>
+			<th class="col text-center" style="width: 1%;">Time Scanned</th>
 			<!-- <th class="galit">Action</th> -->
 		</tr>
 		<?php foreach($appointment as $apt): ?> 
 		<?php $transaction_type = !empty($apt['student_fname']) ? 'student' : 'guest'; ?>
 		<tr>
-			<td> <?php echo $apt[$transaction_type . '_lname']; ?>
-			<td> <?php echo  $apt[$transaction_type . '_fname']?>
-			<td class="trans-type details"><?php echo ucwords($transaction_type) ?></td>
+			<td class="text-center"> <?php echo $apt[$transaction_type . '_lname']; ?>
+			<td class="text-center"> <?php echo  $apt[$transaction_type . '_fname']?>
+			<td class="text-center"><?php echo ucwords($transaction_type) ?></td>
 			<!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
-			<td> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
-			<td> 
+			<td class="text-center"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
+			<td class="text-center"> 
 				<?php if (!empty($apt['scanned_at'])) {
 					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
 				} else {
@@ -197,22 +197,40 @@
 						<button class="button">View</button>
 				</div>
 			<td> -->
-		<tr>
 		<?php endforeach; ?>
 	</table>
-	<div class="page">
-		<span>
-			<?php if(intval($page) > 1): ?>
-			<a class="next back" href="guardDashboard.php?page=<?php echo $page-1 ?>"> << </a>
-			<?php endif; ?>
-		</span>
-		<span>
-			<?php if ($page < $pageCount): ?>
-			<a class="next" href="guardDashboard.php?page=<?php echo $page+1 ?>"> >> </a>
-			<?php endif; ?>
-		</span>
-		<span class="pageCount"> page <?php echo $page?> of <?php echo $pageCount ?></span>
+</div>
+	<div class="col">
+		
+	</div>
+</div>
+
+
+	<div class="container">
+	<div class="row align-items-center">
+    	<div class="col bg-primary">
+      		
+    	</div>
+    	<div class="col">
+
+      
+			
+	</div>
+	<div class="col-auto">
+      	<div class="pagination text-center">
+			<span>
+				<?php if(intval($page) > 1): ?>
+				<a class="page-link" style="margin-left: 3px;" href="guardDashboard.php?page=<?php echo $page-1 ?>"> << </a>
+				<?php endif; ?>
+			</span>
+			<span class="pageCount mt-2"> PAGE <?php echo $page?> OF <?php echo $pageCount ?></span>
+			<span>
+				<?php if ($page < $pageCount): ?>
+				<a class="page-link" style="margin-left: 5px;" href="guardDashboard.php?page=<?php echo $page+1 ?>"> >> </a>
+				<?php endif; ?>
+			</span>
+		</div>
+    </div>
+	</div>
 	</div>
 	</form>
-	
-</div>

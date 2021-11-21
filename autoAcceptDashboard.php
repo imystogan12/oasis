@@ -6,22 +6,45 @@
 	// echo "</pre>";
 
 	$appointment = [];
+	$filters = [];
 
-	// $servername = "localhost";
-	// $username = "root";
-	// $password = "root";
-	// $dbname = 'oasis';
+	if (isset($_GET['search'])) {
+		$filters['fullname'] = $_GET['fullname'];
+		// $filters['status'] = $_GET['status'];
+		// if ($_GET['status'] === "") {
+		// 	unset($filters['status']);
+		// }
+	}
 
-	// // $transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
+		// $servername = "localhost";
+		// $username = "root";
+		// $password = "root";
+		// $dbname = 'oasis';
 
-	// $conn = new mysqli($servername, $username, $password, $dbname);
-	// if ($conn->connect_error) {
-	// 		die("Connection failed: " . $conn->connect_error);
-	// }
+		// // $transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
+
+		// $conn = new mysqli($servername, $username, $password, $dbname);
+		// if ($conn->connect_error) {
+  // 			die("Connection failed: " . $conn->connect_error);
+		// }
+
+		
 
 		// Get total count first
 		$totalCount = 0;
-		$sql = "SELECT COUNT(*) as count FROM appointment WHERE status != 'deleted'";
+		$sql = "SELECT COUNT(*) as count " .
+				" FROM appointment apt" .
+				' LEFT JOIN student s ON apt.student_id = s.id ' .
+				' LEFT JOIN guest g ON apt.guest_id = g.id ' .
+				" WHERE apt.status != 'deleted' AND apt.user_id=" . $_SESSION['user']['id'];
+
+		if (count($filters) > 0) {
+			// apply search filters
+			if (!empty($filters['fullname'])) {
+				$sql .= ' AND (CONCAT(s.student_fname, " ", s.student_lname) LIKE "%' . $filters['fullname'] . '%" '.
+				 	'OR CONCAT(g.guest_fname, " ", g.guest_lname) LIKE "%' . $filters['fullname'] . '%")';
+			}
+		}
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
@@ -47,8 +70,18 @@
 				' LEFT JOIN guest g ON apt.guest_id = g.id ' .
 				' LEFT JOIN faculty f ON apt.faculty_id = f.id ' .
 				' WHERE apt.user_id="' . $_SESSION['user']['id']. '"' .
-				' AND apt.status!="deleted"' .
-				"ORDER BY apt.date_time ASC " .
+				' AND apt.status!="deleted" ';
+
+		if (count($filters) > 0) {
+			// apply search filters
+			if (!empty($filters['fullname'])) {
+				$sql .= ' AND (CONCAT(s.student_fname, " ", s.student_lname) LIKE "%' . $filters['fullname'] . '%" '.
+				 	'OR CONCAT(g.guest_fname, " ", g.guest_lname) LIKE "%' . $filters['fullname'] . '%")';
+			}
+		}
+
+
+		$sql .=	"ORDER BY apt.date_time ASC " .
 				"LIMIT " . $perPage . " OFFSET " . $offset;
 		$result = $conn->query($sql);
 
@@ -66,22 +99,26 @@
 // var_dump($data);
  
  ?>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css(1)-backup/autoAcceptDashboard.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css" />
+
+<!-- JS -->
  <script type="text/javascript" src="js-backup/jquery.min.js"></script>
 <script type="text/javascript" src="js-backup/jquery-ui.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="css(1)-backup/autoAcceptDashboard.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
 	crossorigin="anonymous">
 </script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
-<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+<!-- <script type="text/javascript" src="js/bootstrap.bundle.js"></script> -->
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.esm.js"></script>
-<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- <script type="text/javascript" src="js/bootstrap.esm.min.js"></script> -->
+<!-- <script type="text/javascript" src="js/bootstrap.js"></script> -->
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
   $( function() {
@@ -96,8 +133,17 @@
     });
   } );
   </script>
+  <script>
+function showConfirm(form) {
+    if(confirm('Do you really want to continue?')) {
+    	return 'updateAppointment.php?return=autoAcceptDashboard';
+    } else {
+    	return false;
+    }
+}
+</script>
 
-<link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css">
+
 <div class="header-div-oasis">
 	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>
 </div>
@@ -105,13 +151,29 @@
 <div class="head2">
 	<h2><?php echo ucwords($_SESSION['user']['role']) ?> Dashboard</h2>
 </div>
+<form id="search" method="GET" action="autoAcceptDashboard.php">
+<div class="search">
+		
+			<div class="fullname-search"><b>Full Name:</b> <input type="text" name="fullname" value="<?php echo isset($_GET['fullname']) ? $_GET['fullname'] : ''  ?>" /></div>
+			<!-- <div class="status-search"><b>Status:</b>
+				<select name="status">
+					<option value="">All</option>
+					<option value="pending" <?php echo isset($_GET['status']) && $_GET['status'] === 'pending' ? " selected" : '' ?>>Pending</option>
+					<option value="accepted" <?php echo isset($_GET['status']) && $_GET['status'] === 'accepted' ? " selected" : '' ?>>Accepted</option>
+					<option value="declined" <?php echo isset($_GET['status']) && $_GET['status'] === 'declined' ? " selected" : '' ?>>Declined</option>
+				</select></div> -->
+			<div class="search-btn" style="width: 1%;">
+				<button style="color: white;" name="search" type="submit" class="btn bg-primary"><span class="material-icons">search</span></button>
+			</div>
+		
+	</div>
+</form>
 <div class="row align-items-center">
 	<div class="col">
       		
     </div>
-
-
 <div class="col-12">
+	<form onsubmit="return showConfirm(this)" action="updateAppointment.php?return=autoAcceptDashboard" method="POST" id="updateAppointment-form">
 	<table class="table">
 		<tr>
 			<th class="text-center">Last Name</th>
@@ -139,18 +201,10 @@
 					echo "N/A";
 				}
 				?>
-			<!-- <td> <?php echo ucwords($apt['status']) ?> -->
-			<!-- <td> 
-				<?php if (!empty($apt['scanned_at'])) {
-					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
-				} else {
-					echo "N/A";
-				}
-				?> -->
 			
 				<td class="text-center">
 					<div>
-						<button class="btn btn-primary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="View" data-apt-id="<?php echo $apt['appointment_id'] ?>"><span class="material-icons">visibility</span></button>
+						<button class="btn btn-primary text-center view-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View" data-apt-id="<?php echo $apt['appointment_id'] ?>"><span class="material-icons">visibility</span></button>
 								<?php if ($apt['status'] == "accepted" || $apt['status'] == "declined"): ?>
 						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" 		class="btn btn-secondary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="material-icons">delete</span></button>
 							<?php endif; ?>
@@ -201,8 +255,10 @@
 		<?php endforeach; ?>
 		 <div class="col">
       
+    
     </div>		
 	</table>
+</form>
 	
 
     <div class="container">

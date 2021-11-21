@@ -32,9 +32,6 @@ input {
 	text-transform: uppercase;
 	margin-top: 7px;
 }
-table {
-	border-spacing: 10px;
-}
 .ui-dialog {
 	width: 600px !important;
 	height: auto !important;
@@ -48,6 +45,8 @@ table {
 	font-weight: bold;
 	width: 15%;
 }
+.auto {
+	margin-left: 1000px;
 /*.sched {
 	width: 20%;
 }

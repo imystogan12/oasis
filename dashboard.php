@@ -6,28 +6,49 @@
 	// echo "</pre>";
 
 	$appointment = [];
+	$filters = [];
 
-		// $servername = "localhost";
-		// $username = "root";
-		// $password = "root";
-		// $dbname = 'oasis';
-
-		// // $transaction_type = isset($_SESSION['session_type']) ? $_SESSION['session_type'] : 'student';
-
-		// $conn = new mysqli($servername, $username, $password, $dbname);
-		// if ($conn->connect_error) {
-  // 			die("Connection failed: " . $conn->connect_error);
-		// }
+	if (isset($_GET['search'])) {
+		$filters['fullname'] = $_GET['fullname'];
+		$filters['status'] = $_GET['status'];
+		if ($_GET['status'] === "") {
+			unset($filters['status']);
+		}
+	}
 
 		// Get total count first
 		$totalCount = 0;
-		$sql = "SELECT COUNT(*) as count FROM appointment WHERE status != 'deleted'";
-		$result = $conn->query($sql);
+		$sql = "SELECT COUNT(*) as count " .
+				// ' CONCAT(s.student_fname, " ", s.student_lname) as fullname ' .
+				" FROM appointment apt" .
+				' LEFT JOIN student s ON apt.student_id = s.id ' .
+				' LEFT JOIN guest g ON apt.guest_id = g.id ' .
+				" WHERE apt.status != 'deleted' AND apt.user_id=" . $_SESSION['user']['id'];
+
+		if (count($filters) > 0) {
+			// apply search filters
+			if (!empty($filters['fullname'])) {
+				$sql .= ' AND (CONCAT(s.student_fname, " ", s.student_lname) LIKE "%' . $filters['fullname'] . '%" '.
+				 	'OR CONCAT(g.guest_fname, " ", g.guest_lname) LIKE "%' . $filters['fullname'] . '%")';
+			}
+
+			if (!empty($filters['status'])) {
+				$sql .= ' AND apt.status = "' . $filters['status'] . '" ';
+			}
+
+			
+		}
+
+		$result= $conn->query($sql);
+		// var_dump($conn->last_query());
+
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 					$totalCount = $row['count'];
 				}
 		}
+		// var_dump($totalCount);
+
 		$perPage = 10;
 		$pageCount = ceil($totalCount / $perPage);
 
@@ -47,8 +68,21 @@
 				' LEFT JOIN guest g ON apt.guest_id = g.id ' .
 				' LEFT JOIN faculty f ON apt.faculty_id = f.id ' .
 				' WHERE apt.user_id="' . $_SESSION['user']['id']. '"' .
-				' AND apt.status!="deleted"' .
-				"ORDER BY FIELD (apt.status, 'pending', 'accepted', 'declined'), apt.date_time ASC " .
+				' AND apt.status!="deleted"';
+
+		if (count($filters) > 0) {
+			// apply search filters
+			if (!empty($filters['fullname'])) {
+				$sql .= ' AND (CONCAT(s.student_fname, " ", s.student_lname) LIKE "%' . $filters['fullname'] . '%" '.
+				 	'OR CONCAT(g.guest_fname, " ", g.guest_lname) LIKE "%' . $filters['fullname'] . '%") ';
+			}
+
+			if (!empty($filters['status'])) {
+				$sql .= ' AND apt.status = "' . $filters['status'] . '" ';
+			}			
+		}
+
+		$sql .= "ORDER BY FIELD (apt.status, 'pending', 'accepted', 'declined'), apt.date_time ASC " .
 				" LIMIT " . $perPage . " OFFSET " . $offset;
 		$result = $conn->query($sql);
 
@@ -64,8 +98,28 @@
 // var_dump($data);
  
  ?>
+
+<!-- CSS -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="css(1)-backup/dashboard.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css"/>
+
+ <!-- JS -->
+
+
 <script type="text/javascript" src="js-backup/jquery.min.js"></script>
 <script type="text/javascript" src="js-backup/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- <script type="text/javascript" src="js/bootstrap.bundle.js"></script> -->
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
+	crossorigin="anonymous"></script>
+
 <script>
   $( function() {
  	 $( '.dialog' ).dialog({
@@ -77,24 +131,20 @@
       	var aptId=$(this).data('apt-id');
       	$( '.dialog[data-apt-id="' + aptId +'"]' ).dialog( "open" );
     });
+    $('.btn-decline').on("click", function(e) {
+		e.preventDefault();
+		console.log('nic');
+		var btnVal = this.value;
+		var split = this.value.split("-");
+
+
+		$('#declineAptId').val(split[0]);
+
+
+		$('#reasonmodal').modal('show');
+	});
   } );
   </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="css(1)-backup/dashboard.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="css(1)-backup/jquery-ui.css">
-<script type="text/javascript" src="js/bootstrap.bundle.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.esm.js"></script>
-<script type="text/javascript" src="js/bootstrap.esm.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" 
-	crossorigin="anonymous">
-</script>
 
 <div class="header-div-oasis">
 	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>
@@ -104,23 +154,94 @@
 	<h2><?php echo ucwords($_SESSION['user']['role']) ?> Dashboard</h2>
 </div>
 <script>
+function showModal(form) {
+	console.log('showmodal');
+	return true;
+}
+
 function showConfirm(form) {
-	console.log(form)
+	console.log('form', $(form).serializeArray());
+
+	
 
     if(confirm('Do you really want to continue?')) {
-    	return 'updateAppointment.php';
+    	return 'updateAppointment.php?return=dashboard';
     } else {
     	return false;
     }
 }
+
+function saveReason() {
+	console.log('niccc');
+	var reasonVal = $('#reasonModalField').val();
+	$('#reasonHidden').val(reasonVal);
+
+	$('#updateAppointment-form').submit();
+	// return true;
+}
+
 </script>
+<!-- <script>
+	// $('#reasonmodal').modal('hide');
+
+	$('.btn-decline').on("click", function(e) {
+		e.preventDefault();
+		console.log('nic');
+
+
+		// $('#reasonmodal').modal('show');
+	});
+</script> -->
 <!-- <script>
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
  	return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 </script> -->
-	<form onsubmit="return showConfirm(this)" action="updateAppointment.php" method="POST" id="updateAppointment-form">
+
+<form id="search" method="GET" action="dashboard.php">
+	<div class="search">
+		
+			<div class="fullname-search"><b>Full Name:</b> <input type="text" name="fullname" value="<?php echo isset($_GET['fullname']) ? $_GET['fullname'] : ''  ?>" /></div>
+			<div class="status-search"><b>Status:</b>
+				<select name="status">
+					<option value="">All</option>
+					<option value="pending" <?php echo isset($_GET['status']) && $_GET['status'] === 'pending' ? " selected" : '' ?>>Pending</option>
+					<option value="accepted" <?php echo isset($_GET['status']) && $_GET['status'] === 'accepted' ? " selected" : '' ?>>Accepted</option>
+					<option value="declined" <?php echo isset($_GET['status']) && $_GET['status'] === 'declined' ? " selected" : '' ?>>Declined</option>
+				</select></div>
+			<div class="search-btn" style="width: 1%;">
+				<button style="color: white;" name="search" type="submit" class="btn bg-primary"><span class="material-icons">search</span></button>
+			</div>
+		
+	</div>
+	</form>
+
+	<form onsubmit="return showConfirm(this)" action="updateAppointment.php?return=dashboard" method="POST" id="updateAppointment-form">
+
+		<input type="hidden" name="reason" id="reasonHidden"/>
+		<input type="hidden" name="declineAptId" id="declineAptId"/>
+
+	<!-- <div class="modal fade" id="dashboardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  	<div class="modal-dialog">
+  	       
+
+   <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Indicate Reason</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+					<label class="">Reason:</label>
+					<input type="text" name="reason" required >
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" name="submit">Add</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div> -->
+</div>
+</div>
 	<div class="row align-items-center">
     	<div class="col">
       		
@@ -148,16 +269,30 @@ function showConfirm(form) {
 			<!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
 			<td class="text-center"> <?php echo $apt['fname'] . " " . $apt['lname'] ?>
 			<!-- <td> <?php echo ucwords($apt['reason_name']) ?> -->
-			<td class="text-center"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
+			<td class="text-center">
+				<?php 
+					$dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']);
+					echo $dateTime->format('M. d, Y h:i A') ?>
 			<!-- <td class=" btn btn-primary<?php echo ($apt['status'] == "pending") ? "bg-warning" : 
 				($apt['status'] == "declined" ? "bg-danger" : "bg-success") ?>"> <?php echo ucwords($apt['status']) ?> -->
-				<td><button  onclick="return false" style="pointer-events: none; min-width: 100%;" class="btn text-light <?php echo ($apt['status'] == "pending") ? "btn-warning" : 
-				($apt['status'] == "declined" ? "bg-danger" : "bg-success")  ?>"><?php echo ucwords($apt['status']) ?></button></td>
+				<td>
+					<!-- onclick="return false" -->
+					<button 
+						type="button"
+						style="pointer-events: none; min-width: 100%;"
+						class="btn text-light <?php echo ($apt['status'] == "pending") ? "btn-warning" : 
+							($apt['status'] == "declined" ? "bg-danger" : "bg-success")  ?>"
+					>
+						<?php echo ucwords($apt['status']) ?>			
+					</button>
+				</td>
 		
 
 			<td class="text-center"> 
-				<?php if (!empty($apt['scanned_at'])) {
-					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
+				<?php 
+					if (!empty($apt['scanned_at'])) {
+					$scannedAt = DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at'])->format('M. d, Y h:i A');
+					echo $scannedAt->format('M. d, Y h:i A');
 				} else {
 					echo "N/A";
 				}
@@ -168,7 +303,14 @@ function showConfirm(form) {
 				<div class="text-center container">
 					<?php if ($apt['status'] == "pending"): ?>
 						<button type="button" value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="btn btn-success text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Accept"><span class="material-icons">done</span></button>
-						<button value="<?php echo($apt['appointment_id'])?>-declined" name="btn" class="btn btn-danger text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Decline"><span class="material-icons" >close</span></button>
+						<button 
+							type="button"
+							value="<?php echo($apt['appointment_id'])?>-declined"
+							name="btn"
+							class="btn btn-decline btn-danger text-center"
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Decline" 
+						>
+						<span class="material-icons" >close</span></button>
 					<?php endif ?>
 						<button class="btn btn-primary text-center view-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View"  data-apt-id="<?php echo $apt['appointment_id'] ?>"><span class="material-icons">visibility</span></button>
 						<?php if ($apt['status'] == "accepted" || $apt['status'] == "declined"): ?>
@@ -254,4 +396,24 @@ function showConfirm(form) {
 	
 	</form>
 	
+	<div id="reasonmodal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="reason" name="reason" id="reasonModalField"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="saveReason()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>

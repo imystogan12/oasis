@@ -2,6 +2,25 @@
 	background-color: white;
 }*/
 @import url('https://fonts.googleapis.com/css?family=Numans');
+.search {
+	margin-left: 70px;
+	margin-right: 100px;
+	display: flex;
+	/*align-items: stretch;*/
+	/*justify-content: space-between;*/
+}
+div.fullname-search {
+	width: 45%;
+}
+div.status-search {
+	width: 35%;
+}
+input {
+	width: 80%;
+}
+select {
+	width: 80%;
+}
 .oasis {
 	text-align: left;
 	margin: 5px;

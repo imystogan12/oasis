@@ -1,7 +1,9 @@
 <?php 
 	//session_start();
 	if (isset($_POST['logout'])) {
-		unset($_SESSION);
+		// var_dump('logout');die;
+		var_dump('logout called');
+		unset($_SESSION['user']);
 		
 		header("Location: homepage.php");
    		exit;

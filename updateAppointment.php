@@ -11,6 +11,10 @@
 	// 	die("Connection failed: " . $conn->connect_error);
 	// }
 
+	$return = $_GET['return'];
+
+	// var_dump($_POST);die;
+
 	if (isset($_POST['scanned-btn'])) {
 		$id = $_POST['apt_id_scanned'];
 		date_default_timezone_set('Asia/Manila');
@@ -30,21 +34,29 @@
 		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
 		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 		exit();
-	} elseif (isset($_POST['btn'])) {
-		echo "<pre>";
-		var_dump($_POST);
-		echo "</pre>";
+	} elseif (isset($_POST['btn']) || isset($_POST['reason'])) {
 
-		$submitValue = $_POST['btn'];
-	// 	$submitValue = '78-accepted';
-		$explode = explode("-",$submitValue);
+		$aptId = null;
+		$reason = null;
+		$status = null;
+		if (isset($_POST['reason'])) {
+			$reason = $_POST['reason'];
+			$aptId = $_POST['declineAptId'];
+			$status = "declined";
+		} else {
+			$submitValue = $_POST['btn'];
+		// 	$submitValue = '78-accepted';
+			$explode = explode("-",$submitValue);
+
+			$aptId = $explode[0];
+			$status = $explode[1];
+		}
 
 		
-		$status = $explode[1];
 		
 
-		$sql = 'UPDATE appointment SET status = "' . $status . '" 
-				WHERE id=' . $explode[0];
+		$sql = 'UPDATE appointment SET status = "' . $status . '" , reason = "' . $reason . '" 
+				WHERE id=' . $aptId;
 				var_dump($sql);
 
 		if ($conn->query($sql) === TRUE) {
@@ -52,7 +64,7 @@
 
  			 if ($status == 'deleted') {
  			 	// no need to send email
- 			 	$URL="http://localhost/oasis/dashboard.php";
+ 			 	$URL="http://localhost/oasis/" . $return . ".php";
 				echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
 				echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 				exit();
@@ -66,7 +78,7 @@
 		// Query to get transaction type
 		$sql = "SELECT student_id
 				FROM appointment  
-				WHERE appointment.id=" . $explode[0];
+				WHERE appointment.id=" . $aptId;
 
 		$transaction_type = 'student';
 		$result = $conn->query($sql);		
@@ -86,7 +98,7 @@
 				INNER JOIN reason ON reason.id=appointment.reason_id
 				INNER JOIN student ON student.id=appointment.student_id
 				LEFT JOIN faculty ON faculty.id=appointment.faculty_id
-				WHERE appointment.id=" . $explode[0];
+				WHERE appointment.id=" . $aptId;
 			} else {
 				$sql = "SELECT department.name as department, reason.name as reason, CONCAT(faculty.fname , ' ', faculty.lname) as faculty, date_time, guest_fname, guest.id as guest_id, guest_lname, guest_address, guest_number, guest_email
 				FROM appointment  
@@ -94,7 +106,7 @@
 				INNER JOIN department ON department.id=appointment.department_id
 				INNER JOIN reason ON reason.id=appointment.reason_id
 				LEFT JOIN faculty ON faculty.id=appointment.faculty_id
-				WHERE appointment.id=" . $explode[0];
+				WHERE appointment.id=" . $aptId;
 			}
 
 		
@@ -143,7 +155,7 @@
 				require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
 
 			if 	($transaction_type === "student") {
-				$text = "Appointment ID: [[". $explode[0] . "]] </br>" .
+				$text = "Appointment ID: [[". $aptId . "]] </br>" .
 					"Full Name: ". $appointmentData['student_fname'] . " " .
 					$appointmentData['student_lname'] . "</br>" .
 					"Student Number: " . $appointmentData['student_num'] . "</br>" .
@@ -161,7 +173,7 @@
 						}
 					}
 				} else {
-					$text =  "Appointment ID: [[".  $explode[0] . "]] </br>" .
+					$text =  "Appointment ID: [[".  $aptId . "]] </br>" .
 					"Full Name: ". $appointmentData['guest_fname'] . " " .
 					$appointmentData['guest_lname'] . "</br>" .
 					"Contact Number: " . $appointmentData['guest_number']. "</br>" .
@@ -181,7 +193,7 @@
 
 				
 				// $text =	" hello\n\n\nbye";
-				$file3 = "public/qrcode/qr-" . $explode[0] . ".png";
+				$file3 = "public/qrcode/qr-" . $aptId . ".png";
 				$ecc = 'H';
 				$pixel_size = 3;
 				$frame_size = 1;
@@ -200,7 +212,7 @@
 				// use Aws\S3\Exception\S3Exception;
 
 				// $bucket = 'oasis-appointment-group';
-				// $keyname = "qrcode/qr-" . $explode[0] . ".png";
+				// $keyname = "qrcode/qr-" . $aptId . ".png";
 				                        
 				// $s3 = new S3Client([
 				//     'version' => 'latest',
@@ -333,7 +345,7 @@
 		}
 
 
-		// $URL="http://localhost/oasis/dashboard.php";
+		// $URL="http://localhost/oasis/" . $return . ".php";
 		// echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
 		// echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 		// exit();

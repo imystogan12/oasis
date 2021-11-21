@@ -25,19 +25,19 @@
 		     	unset($row['password']);
 		     	unset($row['salt']);
 		     	$_SESSION['user'] = $row;
-		     	if ($row['role'] == "guard") {
-		     		header("Location: guardDashboard.php");
-   					exit;
-   				} elseif ($row['role'] == "admin") {
-		     		header("Location: src/admin/report.php");
-   					exit;
-   				} elseif ($row['role'] == "cashier" || $row['role'] == "registrar" || $row['role'] == "admission") {
-		     		header("Location: autoAcceptDashboard.php");
-   					exit;
-   				} else {
-		     		header("Location: dashboard.php");
-   					exit;
-   				}
+		     // 	if ($row['role'] == "guard") {
+		     // 		header("Location: guardDashboard.php");
+   				// 	exit;
+   				// } elseif ($row['role'] == "admin") {
+		     // 		header("Location: src/admin/report.php");
+   				// 	exit;
+   				// } elseif ($row['role'] == "cashier" || $row['role'] == "registrar" || $row['role'] == "admission") {
+		     // 		header("Location: autoAcceptDashboard.php");
+   				// 	exit;
+   				// } else {
+		     // 		header("Location: dashboard.php");
+   				// 	exit;
+   				// }
 		     	var_dump($_SESSION);
 		     } else {
 		     	echo "Failed login";

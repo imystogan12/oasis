@@ -47,10 +47,10 @@
 	   		$saturday = date('m-d-Y', strtotime("previous saturday", $saturday_timestamp));	
 		}
 
-		$_SESSION['appointment']['schedule'] = $_POST['schedule'] ?? null;
-		$_SESSION['appointment']['department'] = $_POST['department'] ?? null;
-		$_SESSION['appointment']['reason'] = $_POST['reason'] ?? null;
-		$_SESSION['appointment']['faculty'] = $_POST['faculty'] ?? null;
+		$_SESSION['appointment']['schedule'] = isset($_POST['schedule']) ? $_POST['schedule']: null;
+		$_SESSION['appointment']['department'] = isset($_POST['department']) ? $_POST['department']: null;
+		$_SESSION['appointment']['reason'] = isset($_POST['reason']) ? $_POST['reason']: null;
+		$_SESSION['appointment']['faculty'] = isset($_POST['faculty']) ? $_POST['faculty']: null;
 
 		$_SESSION['appt_form']['monday'] = $monday;
 		$_SESSION['appt_form']['tuesday'] = $tuesday;
@@ -145,17 +145,17 @@
 		// echo "<pre>";
 		// var_dump($_POST);
 		// echo "</pre>";
-		$_SESSION['appointment']['schedule'] = $_POST['schedule'] ?? null;
-		$_SESSION['appointment']['department'] = $_POST['department'] ?? null;
-		$_SESSION['appointment']['reason'] = $_POST['reason'] ?? null;
-		$_SESSION['appointment']['faculty'] = $_POST['faculty'] ?? null;
+		$_SESSION['appointment']['schedule'] = isset($_POST['schedule']) ? $_POST['schedule']: null;
+		$_SESSION['appointment']['department'] = isset($_POST['department']) ? $_POST['department']: null;
+		$_SESSION['appointment']['reason'] = isset($_POST['reason']) ? $_POST['reason']: null;
+		$_SESSION['appointment']['faculty'] = isset($_POST['faculty']) ? $_POST['faculty']: null;
 	}
 
 	if (isset($_POST['submit'])) {
 
 		$_SESSION['appointment']['department'] = !empty($_POST['department']) ? $_POST['department'] : $_SESSION['appointment']['department'];
 		 $_SESSION['appointment']['reason'] = !empty($_POST['reason']) ? $_POST['reason'] : $_SESSION['appointment']['reason'];
-		 $_SESSION['appointment']['faculty'] = !empty($_POST['faculty']) ? $_POST['faculty'] : ($_SESSION['appointment']['faculty'] ?? null);
+		 $_SESSION['appointment']['faculty'] = !empty($_POST['faculty']) ? $_POST['faculty'] : (isset($_SESSION['appointment']['faculty']) ? $_SESSION['appointment']['faculty']: null);
 
 
 		 // echo "<pre>";
@@ -378,7 +378,7 @@
 							</div>
 						</div>
 						<div class="error">
-							<?php echo $_SESSION['appointment']['error']['schedule'] ?? '' ?>
+							<?php echo isset($_SESSION['appointment']['error']['schedule']) ? $_SESSION['appointment']['error']['schedule']: '' ?>
 						</div>
 						<div class="submit-cancel">
 							<button class="submit-btn" name="submit">Submit</button>

@@ -1,21 +1,12 @@
 <?php
 	include('database.php');
 	session_start();
-
+	// echo "<pre>";
+	// var_dump($_SESSION);
+	// echo "</pre>";
 	if (isset($_POST['login'])){
-		// $servername = "localhost";
-		// $username = "root";
-		// $password = "root";
-		// $dbname = 'oasis';
-
-		// $conn = new mysqli($servername, $username, $password, $dbname);
-		// if ($conn->connect_error) {
-  // 			die("Connection failed: " . $conn->connect_error);
-		// }
-		// echo "Connected successfully";
 		$sql = 'SELECT id, username, password, role, salt FROM user WHERE username="' . $_POST['username'] . '"';
 		$result = $conn->query($sql);
-
 
 		if ($result->num_rows > 0) {
   		// output data of each row
@@ -58,20 +49,20 @@
   	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   	 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
   	 
   	 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
- 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-  	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
  	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <!--  	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+ 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
 
-	 <link rel="stylesheet" type="text/css" href="css(1)-backup/HomePage.css">
+	 <link rel="stylesheet" type="text/css" href="css(1)-backup/HomePage.css"/>
 
 	<div class="header-div">
 		<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;">
@@ -81,14 +72,14 @@
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <!-- <div class="modal-header border-bottom-0"> -->
+      
         	<div class="login">
-        		<!-- <form action="homepage.php" method="post"> -->
+        		
 				  <div class="form">
 				    <form class="login-form" action="homepage.php" method="post">
 				      <span class="material-icons">lock</span>
-						<input type="text" name="username" class="username">
-					<input type="password" name="password" class="password">
+						<input type="text" name="username" class="username" placeholder="Username">
+					<input type="password" name="password" class="password" placeholder="Password">
 				      <button class="login" name="login">Login</button>
 				    </form>  
 				    <br>
