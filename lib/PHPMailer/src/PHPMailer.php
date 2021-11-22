@@ -1891,7 +1891,8 @@ class PHPMailer
         //Example problem: https://www.drupal.org/node/1057954
         //CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
         $sender = $this->Sender;
-        if (empty($sender) && !empty(ini_get('sendmail_from'))) {
+        $initget = ini_get('sendmail_from');
+        if (empty($sender) && !empty($initget)) {
             //PHP config has a sender address we can use
             $this->Sender = ini_get('sendmail_from');
         }
