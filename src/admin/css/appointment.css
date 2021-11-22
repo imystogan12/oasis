@@ -22,6 +22,9 @@ img {
 	color: white;
 	padding: 10px;
 }
+.print-div {
+	margin-left: 1130px;
+}
 
 .delete-btn {
 	text-decoration: none;

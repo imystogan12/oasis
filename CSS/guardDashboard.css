@@ -1,3 +1,9 @@
+.dialogpopup {
+	text-align: center;
+}
+img {
+	margin-left: 3px;
+}
 .trans-type {
 	text-transform: uppercase;
 }
@@ -32,9 +38,6 @@ input {
 	text-transform: uppercase;
 	margin-top: 7px;
 }
-table {
-	border-spacing: 10px;
-}
 .ui-dialog {
 	width: 600px !important;
 	height: auto !important;
@@ -48,6 +51,9 @@ table {
 	font-weight: bold;
 	width: 15%;
 }
+.auto {
+	margin: auto;
+}
 /*.sched {
 	width: 20%;
 }
@@ -59,17 +65,29 @@ table {
 }
 .fname {
 	width: 15%;
+}*/
+html, body {
+  margin: 0;
+  padding: 0;
+}  
+
+body{
+  	height: 100%;
 }
-.*/note {
+.scanned-details {
+	text-align: center;
+}
+.note {
 	font-family: tahoma;
 	text-transform: uppercase;
 	font-size: 15px;
 	font-weight: bold;
+	text-align: center;
 }
 .blank {
 	height: 40px;
 	width: 75px;
-	margin-top: 8px;
+	margin-top: 10px;
 	margin-bottom: 15px;
 }
 .button {
@@ -89,19 +107,19 @@ h2 {
 	text-transform: uppercase;
 	line-height: 5px;
 }
-.oasis {
+/*.oasis {
 	text-align: left;
 	margin: 5px;
 	font-size: 50px;
 	color: white;
 	font-family: helvetica;
 	font-style: italic;
-}
-.header-div {
+}*/
+.header-div-oasis {
 	text-align: right;
 	display: flex;
-	background-color: #25548d;
-	border-top: 10px solid #eed15c;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
 }
 .head1 {
 	/*border: 1px solid black;*/

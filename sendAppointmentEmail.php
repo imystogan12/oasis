@@ -1,5 +1,6 @@
 <?php
 	include('database.php');
+	include('config.php');
 	session_start();
  // 	$servername = "localhost";
 	// $username = "root";
@@ -134,7 +135,7 @@
 				// $text =	" hello\n\n\nbye";
 				$file3 = "public/qrcode/qr-" . $apt_id . ".png";
 				$ecc = 'H';
-				$pixel_size = 3;
+				$pixel_size = 4;
 				$frame_size = 1;
   
 				// Generates QR Code and Save as PNG
@@ -143,41 +144,41 @@
 				// Displaying the stored QR code if you want
 				  echo "<div><img src='".$file3."'></div>";
 
-				//   // Upload to AWS S3
+				  // Upload to AWS S3
 
-				//   require 'vendor/autoload.php';
+				  require 'vendor/autoload.php';
 
-				// use Aws\S3\S3Client;
-				// use Aws\S3\Exception\S3Exception;
+				use Aws\S3\S3Client;
+				use Aws\S3\Exception\S3Exception;
 
-				// $bucket = 'oasis-appointment-group';
-				// $keyname = "qrcode/qr-" . $explode[0] . ".png";
+				$bucket = 'oasis-appointment-group';
+				$keyname = "qrcode/qr-" . $apt_id . ".png";
 				                        
-				// $s3 = new S3Client([
-				//     'version' => 'latest',
-				//     'region'  => 'ap-southeast-1',
-				//     'credentials' => [
-				//     	'key' => 'enter AWS key here',
-				//     	'secret' => 'enter AWS secret here',
-				//     ]
-				// ]);
+				$s3 = new S3Client([
+				    'version' => 'latest',
+				    'region'  => 'ap-southeast-1',
+				    'credentials' => [
+				    	'key' => $awsKey,
+				    	'secret' => $awsSecret,
+				    ]
+				]);
 
-				$s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
+				// $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
 
-				// try {
-				//     // Upload data.
-				//     $result = $s3->putObject([
-				//         'Bucket' => $bucket,
-				//         'Key'    => $keyname,
-				//         'SourceFile'   => $file3,
-				//         'ContentType' => "image/png",
-				//         'ACL'    => 'public-read'
-				//     ]);
+				try {
+				    // Upload data.
+				    $result = $s3->putObject([
+				        'Bucket' => $bucket,
+				        'Key'    => $keyname,
+				        'SourceFile'   => $file3,
+				        'ContentType' => "image/png",
+				        'ACL'    => 'public-read'
+				    ]);
 
-				//     $s3QrcodeURL = $result['ObjectURL'];
-				// } catch (S3Exception $e) {
-				//     echo $e->getMessage() . PHP_EOL;
-				// }
+				    $s3QrcodeURL = $result['ObjectURL'];
+				} catch (S3Exception $e) {
+				    echo $e->getMessage() . PHP_EOL;
+				}
  
 
 
@@ -192,8 +193,8 @@
 		$mail->SMTPSecure = "tls";
 		$mail->Port       = 587;
 		$mail->Host       = "smtp.gmail.com";
-		$mail->Username   = "oasis.appointment.group.2021@gmail.com";
-		$mail->Password   = "Aldrino2021";
+		$mail->Username   = $oasisEmail;
+		$mail->Password   = $oasisEmailPassword;
 
 		$receiverEmail = '';
 		$receiverName = '';
@@ -248,13 +249,19 @@
 			</tr>
 			<tr>
 				<td><br><b>Date & Time:</b> 
-				" . (DateTime::createFromFormat('Y-m-d H:i:s', $appointmentData['date_time']))->format('M. d, Y h:i A') ."
+				";
+
+			$aptDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $appointmentData['date_time']);
+
+			$acceptedMessage .= $aptDateTime->format('M. d, Y h:i A') ."
 				</td> 
 			</tr>		
 			</table>
 			<div>
 				<img src='" . $s3QrcodeURL. "'/>
-			</div>";
+			</div>
+			<br><br><br><br><br><br><br>
+			<b>***This email is auto generated, please do not reply.";
 
 		// header("Location: homepage.php");
 	 // 	exit();		
@@ -268,7 +275,7 @@
 		}
 
 
-		$URL="http://localhost/oasis/homepage.php";
+		$URL= $siteUrl . "/oasis/homepage.php";
 		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
 		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 		exit();

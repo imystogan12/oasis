@@ -15,7 +15,7 @@
 	border-bottom: 10px solid #FDB933;
 }
 img {
-	margin-left: 5px;
+	margin-left: 3px;
 }
 
 
@@ -89,7 +89,7 @@ img {
   border-radius: 5px;
   padding: 15px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 20px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
@@ -114,7 +114,7 @@ img {
   border-radius: 5px;
   padding: 15px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 20px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;

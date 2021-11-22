@@ -1,15 +1,12 @@
 <?php 
 	include('database.php');
-	session_start();
+	include('config.php');
+	require 'vendor/autoload.php';
 
-	// $servername = "localhost";
-	// 	$username = "root";
-	// 	$password = "root";
-	// 	$dbname = 'oasis';
-	// $conn = new mysqli($servername, $username, $password, $dbname);
-	// if ($conn->connect_error) {
-	// 	die("Connection failed: " . $conn->connect_error);
-	// }
+	use Aws\S3\S3Client;
+	use Aws\S3\Exception\S3Exception;
+
+	session_start();
 
 	$return = $_GET['return'];
 
@@ -34,12 +31,12 @@
 		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
 		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
 		exit();
-	} elseif (isset($_POST['btn']) || isset($_POST['reason'])) {
+	} elseif (isset($_POST['btn']) || !empty($_POST['declineAptId'])) {
 
 		$aptId = null;
 		$reason = null;
 		$status = null;
-		if (isset($_POST['reason'])) {
+		if (!empty($_POST['declineAptId'])) {
 			$reason = $_POST['reason'];
 			$aptId = $_POST['declineAptId'];
 			$status = "declined";
@@ -154,18 +151,19 @@
 			if ($status == "accepted") {
 				require dirname(__FILE__) . '/lib/qrcode/qrlib.php';
 
-			if 	($transaction_type === "student") {
-				$text = "Appointment ID: [[". $aptId . "]] </br>" .
-					"Full Name: ". $appointmentData['student_fname'] . " " .
-					$appointmentData['student_lname'] . "</br>" .
-					"Student Number: " . $appointmentData['student_num'] . "</br>" .
-					"Chosen Department: " . ucwords($appointmentData['department']) ."</br>" .
-					"Reason: " . ucwords($appointmentData['reason']) . "</br>" .
-					"Date & Time: " . $appointmentData['date_time'] . "</br>" .
-					"Faculty: " . ucwords($appointmentData['faculty']) . "</br>" .
-					"Section: " . $appointmentData['student_section'] . "</br>" .
-					"Course: " . $appointmentData['student_course'] . "</br>" .				
-					"Companion: " ;
+				if 	($transaction_type === "student") {
+					$text = "Appointment ID: [[". $aptId . "]] </br>" .
+						"Full Name: ". $appointmentData['student_fname'] . " " .
+						$appointmentData['student_lname'] . "</br>" .
+						"Student Number: " . $appointmentData['student_num'] . "</br>" .
+						"Chosen Department: " . ucwords($appointmentData['department']) ."</br>" .
+						"Reason: " . ucwords($appointmentData['reason']) . "</br>" .
+						// "Date & Time: " . $appointmentData['date_time'] . "</br>" .
+						
+						"Faculty: " . ucwords($appointmentData['faculty']) . "</br>" .
+						"Section: " . $appointmentData['student_section'] . "</br>" .
+						"Course: " . $appointmentData['student_course'] . "</br>" .				
+						"Companion: " ;
 
 					if (!empty($appointmentData['companions'])) {
 						foreach ($appointmentData['companions'] as $companion) {
@@ -187,15 +185,15 @@
 					if (!empty($appointmentData['companions'])) {
 						foreach ($appointmentData['companions'] as $companion) {
 							$text .= $companion['gCompanion_fname'] . " " . $companion['gCompanion_lname'] . ", ";
+						}
 					}
-				}
 				}
 
 				
 				// $text =	" hello\n\n\nbye";
 				$file3 = "public/qrcode/qr-" . $aptId . ".png";
 				$ecc = 'H';
-				$pixel_size = 3;
+				$pixel_size = 4;
 				$frame_size = 1;
   
 				// Generates QR Code and Save as PNG
@@ -206,39 +204,38 @@
 
 				//   // Upload to AWS S3
 
-				//   require 'vendor/autoload.php';
+			  	
 
-				// use Aws\S3\S3Client;
-				// use Aws\S3\Exception\S3Exception;
+				
 
-				// $bucket = 'oasis-appointment-group';
-				// $keyname = "qrcode/qr-" . $aptId . ".png";
+				$bucket = 'oasis-appointment-group';
+				$keyname = "qrcode/qr-" . $aptId . ".png";
 				                        
-				// $s3 = new S3Client([
-				//     'version' => 'latest',
-				//     'region'  => 'ap-southeast-1',
-				//     'credentials' => [
-				//     	'key' => 'enter AWS key here',
-				//     	'secret' => 'enter AWS secret here',
-				//     ]
-				// ]);
+				$s3 = new S3Client([
+				    'version' => 'latest',
+				    'region'  => 'ap-southeast-1',
+				    'credentials' => [
+				    	'key' => $awsKey,
+				    	'secret' => $awsSecret,
+				    ]
+				]);
 
-				$s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
+				// $s3QrcodeURL = 'https://oasis-appointment-group.s3.ap-southeast-1.amazonaws.com/qrcode/qr-32.png';
 
-				// try {
-				//     // Upload data.
-				//     $result = $s3->putObject([
-				//         'Bucket' => $bucket,
-				//         'Key'    => $keyname,
-				//         'SourceFile'   => $file3,
-				//         'ContentType' => "image/png",
-				//         'ACL'    => 'public-read'
-				//     ]);
+				try {
+				    // Upload data.
+				    $result = $s3->putObject([
+				        'Bucket' => $bucket,
+				        'Key'    => $keyname,
+				        'SourceFile'   => $file3,
+				        'ContentType' => "image/png",
+				        'ACL'    => 'public-read'
+				    ]);
 
-				//     $s3QrcodeURL = $result['ObjectURL'];
-				// } catch (S3Exception $e) {
-				//     echo $e->getMessage() . PHP_EOL;
-				// }
+				    $s3QrcodeURL = $result['ObjectURL'];
+				} catch (S3Exception $e) {
+				    echo $e->getMessage() . PHP_EOL;
+				}
  
 			}
 
@@ -259,8 +256,8 @@
 		$mail->SMTPSecure = "tls";
 		$mail->Port       = 587;
 		$mail->Host       = "smtp.gmail.com";
-		$mail->Username   = "oasis.appointment.group.2021@gmail.com";
-		$mail->Password   = "Aldrino2021";
+		$mail->Username   = $oasisEmail;
+		$mail->Password   = $oasisEmailPassword;
 
 		$receiverEmail = '';
 		$receiverName = '';
@@ -285,7 +282,11 @@
 		// $acceptedMessage = "<b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details.</b>"
 		$declinedMessage = "<div><b>Hi! " . $appointmentData["{$transaction_type}_fname"] . ", <br><br>This is a courtesy email to inform you that although we have received your request for an appointment at " . $appointmentData['date_time'] . ", it has unfortunately been declined. Please re-visit the OASIS website if you would like to schedule for another appointment.<br><br> 
 
-			Thank you!</b></div>";
+			Thank you!</b></div> <br>
+				
+			<b>Reason: " . $reason . " <br><br><br><br><br><br><br>
+
+			<b>***This email is auto generated, please do not reply.";
 		$acceptedMessage = "
 			
 			<div><b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details. <br><br>
@@ -323,7 +324,11 @@
 			</tr>
 			<tr>
 				<td><br><b>Date & Time:</b>
-				" . $appointmentData['date_time'] ."
+				";
+
+			$aptDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $appointmentData['date_time']);
+
+			$acceptedMessage .= $aptDateTime->format('M. d, Y h:i A') ."
 				</td> 
 			</tr>		
 			<tr>
@@ -331,10 +336,12 @@
 				" . ucwords($appointmentData['faculty']) ."
 				</td> 
 			</tr>
-			</table>
+			</table> <br>
 			<div>
 				<img src='" . $s3QrcodeURL. "'/>
-			</div>";
+			</div>
+			<br><br><br><br><br><br><br>
+			<b>***This email is auto generated, please do not reply.";
 
 		$mail->MsgHTML($status=="accepted" ? $acceptedMessage : $declinedMessage); 
 		if(!$mail->Send()) {
@@ -345,9 +352,9 @@
 		}
 
 
-		// $URL="http://localhost/oasis/" . $return . ".php";
-		// echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
-		// echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
-		// exit();
+		$URL=$siteUrl . "/oasis/" . $return . ".php";
+		echo "<script type='text/javascript'>document.location.href='{$URL}';</script>";
+		echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+		exit();
 	}
 ?>

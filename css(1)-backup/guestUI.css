@@ -1,7 +1,18 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}  
 
+body{
+	background-image: url("https://i.imgur.com/qlAvUvr.png");
+  	background-size: 20%;
+  	background-repeat: repeat;
+  	height: 100%;
+  	font-family: Numans;
+}
 .guest {
 	font-size: 50px;
-	color: #25548d;
+	color: #006cb7;
 	font-family: helvetica;
 	font-style: italic;
 	text-align: center;
@@ -10,8 +21,8 @@
 .header-div {
 	text-align: right;
 	display: flex;
-	background-color: #25548d;
-	border-top: 10px solid #eed15c;
+	background-color: #006cb7;
+	border-bottom: 10px solid #FDB933;
 }
 
 .oasis {
@@ -36,14 +47,14 @@
 	margin: 60px;
 	margin-top: 65px;
 	background: #F5F5F5;
-	border-bottom: 8px solid #25548D;
+	border-bottom: 8px solid #006cb7;
 	height: fit-content;
 }
 .right {
 	margin-top: 65px;
 	background: #e5e5e5;
 	background: #F5F5F5;
-	border-bottom: 8px solid #25548D;
+	border-bottom: 8px solid #006cb7;
 	height: fit-content;
 }
 p {
@@ -77,10 +88,9 @@ input[name="student-companion"]{
 .submit-cancel button {
 	margin: 10px;
 	padding: 5px 15px 5px 15px;
-	border: 1px solid black;
 	width: 75px;
 	font-family: Tahoma;
-	background-color: #25548d; 
+	background-color: #006cb7; 
 	color: white;
 }
 .submit-cancel{
@@ -106,14 +116,14 @@ input[name="student-companion"]{
 }
 .OK-btn{
 	padding: 5px 15px 5px 15px;
-	background-color: #25548d;
+	background-color: #006cb7;
 	color: white;
 
 }
 .top-info{
 	padding: 5px;
 	font-size: 50px;
-	color: #25548d;
+	color: #006cb7;
 	font-family: helvetica;
 	font-style: italic;
 	text-align: center;
@@ -128,9 +138,8 @@ input[name="student-companion"]{
 }
 .cancel-button{
 	text-decoration: none;
-	border: 1px solid black;
 	padding: 5px 15px 5px 15px;
-	background-color: #25548d; 
+	background-color: #006cb7; 
 	color: white;
 }
 .required{

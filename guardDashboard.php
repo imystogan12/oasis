@@ -51,24 +51,24 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.css">
-<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.min.css">
-<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="CSS/guardDashboard.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap.rtl.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-grid.rtl.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-reboot.rtl.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.min.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.css" />
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-utilities.rtl.min.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="CSS/guardDashboard.css" />
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
@@ -95,7 +95,7 @@
 	 	var barcode = '';
 		var interval;
 		document.addEventListener('keydown', function (evt) {
-			console.log(evt.key);
+			// console.log(evt.key);
 			if (interval) {
 				clearInterval(interval);
 			}
@@ -148,30 +148,33 @@
 	<img src="https://i.imgur.com/FTPJl6s.png" style="height:75px;"><?php include "logout.php";?>
 </div>
 
-<div class="head2">
+<div class="head2 mt-3">
 	<h2>Guard Dashboard</h2>
 </div>
+	<form action="updateAppointment.php?return=guardDashboard" method="POST">
 	<div class="auto">
 					<div>
 						<p class="note">Scanned appointment details will show here:</p>
 					</div>
 					<div class="dialogpopup" title="Appointment Details"></div>
-					<input class="blank" type="text" name="apt_id_scanned" id="apt_id_scanned" value="" readonly />
-					<button class="button" id="scanned-btn" name="scanned-btn">Set as scanned</button>
+					<div class="scanned-details">
+					<input class="blank mt-2" type="text" name="apt_id_scanned" id="apt_id_scanned" value="" readonly />
+					<button class="btn btn-primary" id="scanned-btn" name="scanned-btn">Set as scanned</button>
+				</div>
 	</div>
-	<form action="updateAppointment.php" method="POST">
+	
 	<div class="row align-items-center">
 	<div class="col">
 		
 	</div>
 
 	<div class="col-11">
-	<table class="table">
+	<table class="table bs-5">
 		
 		<tr>
 			<th class="col text-center" style="width: 1%;">Last Name</th>
 			<th class="col text-center" style="width: 5%;">First Name</th>
-			<th class="col text-center" style="width: 5%;">Type</th>
+			<th class="col text-center" style="width: 1%;">Type</th>
 			<!-- <th class="galit">Email</th> -->
 			<th class="col text-center" style="width: 5%;">Schedule</th>
 			<th class="col text-center" style="width: 1%;">Time Scanned</th>
@@ -182,12 +185,19 @@
 		<tr>
 			<td class="text-center"> <?php echo $apt[$transaction_type . '_lname']; ?>
 			<td class="text-center"> <?php echo  $apt[$transaction_type . '_fname']?>
-			<td class="text-center"><?php echo ucwords($transaction_type) ?></td>
+			<td class="text-center">
+				<button 
+					class=" btn text-center <?php echo($transaction_type == 'student') ? "btn-primary" : "btn-warning"  ?>" style="width: 80%;" >	<?php echo ucwords($transaction_type) ?></td>	
+				</button>
+				
 			<!-- <td> <?php echo  $apt[$transaction_type . '_email']?> -->
-			<td class="text-center"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?>
+			<td class="text-center"> <?php 
+				$aptDateTime = (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']));
+				echo $aptDateTime->format('M. d, Y h:i A') ?>
 			<td class="text-center"> 
 				<?php if (!empty($apt['scanned_at'])) {
-					echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']))->format('M. d, Y h:i A') ;
+					$aptScannedAt = (DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']));
+					echo $aptScannedAt->format('M. d, Y h:i A') ;
 				} else {
 					echo "N/A";
 				}

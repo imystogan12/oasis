@@ -143,7 +143,7 @@
 
 		$('#reasonmodal').modal('show');
 	});
-  } );
+  });
   </script>
 
 <div class="header-div-oasis">
@@ -302,7 +302,16 @@ function saveReason() {
 			<td>
 				<div class="text-center container">
 					<?php if ($apt['status'] == "pending"): ?>
-						<button type="button" value="<?php echo($apt['appointment_id'])?>-accepted" name="btn" class="btn btn-success text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Accept"><span class="material-icons">done</span></button>
+						<button 
+							type="submit" 
+							value="<?php echo($apt['appointment_id'])?>-accepted" 
+							name="btn" 
+							class="btn btn-success text-center" 
+							data-bs-toggle="tooltip" 
+							data-bs-placement="top" 
+							title="Accept">
+							<span class="material-icons">done</span>
+						</button>
 						<button 
 							type="button"
 							value="<?php echo($apt['appointment_id'])?>-declined"
@@ -312,9 +321,24 @@ function saveReason() {
 						>
 						<span class="material-icons" >close</span></button>
 					<?php endif ?>
-						<button class="btn btn-primary text-center view-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View"  data-apt-id="<?php echo $apt['appointment_id'] ?>"><span class="material-icons">visibility</span></button>
+						<button 
+							class="btn btn-primary text-center view-btn" 
+							data-bs-toggle="tooltip" 
+							data-bs-placement="top" 
+							title="View"  
+							data-apt-id="<?php echo $apt['appointment_id'] ?>">
+							<span class="material-icons">visibility</span>
+						</button>
 						<?php if ($apt['status'] == "accepted" || $apt['status'] == "declined"): ?>
-						<button value="<?php echo($apt['appointment_id'])?>-deleted" name="btn" class="btn btn-secondary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="material-icons">delete</span></button>
+						<button 
+							value="<?php echo($apt['appointment_id'])?>-deleted" 
+							name="btn" 
+							class="btn btn-secondary text-center" 
+							data-bs-toggle="tooltip" 
+							data-bs-placement="top" 
+							title="Delete">
+							<span class="material-icons">delete</span>
+						</button>
 						<?php endif ?>
 				</div>
 				<div class="dialog" data-apt-id="<?php echo $apt['appointment_id'] ?>" title="Appointment Details">
@@ -400,7 +424,7 @@ function saveReason() {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Please indicate the reason:</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -409,8 +433,7 @@ function saveReason() {
         <input type="reason" name="reason" id="reasonModalField"/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="saveReason()">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="saveReason()">Confirm</button>
       </div>
     </div>
   </div>

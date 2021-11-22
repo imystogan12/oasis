@@ -497,7 +497,7 @@ button.ui-button::-moz-focus-inner {
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
 	position: relative;
-	background-color: #25548d;
+	background-color: #006cb7;
 }
 .ui-dialog .ui-dialog-title {
 	float: left;
@@ -506,7 +506,7 @@ button.ui-button::-moz-focus-inner {
 	width: 90%;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	background-color: #25548d;
+	background-color: #006cb7;
 	color: white;
 }
 .ui-dialog .ui-dialog-titlebar-close {

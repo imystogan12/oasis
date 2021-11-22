@@ -13,7 +13,7 @@
 	font-style: italic;
 }
 img {
-	margin-left: 5px;
+	margin-left: 3px;
 }
 html, body {
 margin: 0;
@@ -179,7 +179,7 @@ table {
 	font-weight: bold;
 }
 .head {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	width: 70%;
 	margin-top: 20px;
 	text-align: center;

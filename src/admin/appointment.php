@@ -108,6 +108,10 @@
 		<a href="faculty.php"><button class="btn btn-primary">Faculty</button></a>
 	</div>
 
+	<div class="print-div">
+			<button class="bg-success btn" style="color: white;" onClick="window.print()">Print this page</button>
+</div>
+
 <div class="container">
 <!-- BUTTONS -->
 <div class="row row-cols-1 row-cols-1 row-cols-md-1 justify-content-left">
@@ -158,7 +162,10 @@
 			<td class="trans-type details"><?php echo ucwords($transaction_type) ?></td>
 			<td class="details"><?php echo $apt['department_name'] ?></td>
 			<td class="details"><?php echo $apt['user_fname'] . " " . $apt['user_lname'] ?></td>
-			<td class="details"> <?php echo (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']))->format('M. d, Y h:i A') ?> </td>
+			<td class="details"> <?php 
+				$aptDateTime = (DateTime::createFromFormat('Y-m-d H:i:s', $apt['date_time']));
+				echo $aptDateTime->format('M. d, Y h:i A')
+			?> </td>
 			<td><button  style="width: 100%;" onclick="return false" style="pointer-events: none; min-width: 100%;" class="text-center btn text-light <?php echo ($apt['status'] == "pending") ? "btn-warning" : 
 				($apt['status'] == "declined" ? "bg-danger" : "bg-success")  ?>"><?php echo ucwords($apt['status']) ?></button></td>
 			<td class="details">

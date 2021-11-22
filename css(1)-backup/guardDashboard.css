@@ -1,3 +1,9 @@
+.dialogpopup {
+	text-align: center;
+}
+img {
+	margin-left: 3px;
+}
 .trans-type {
 	text-transform: uppercase;
 }
@@ -46,7 +52,8 @@ input {
 	width: 15%;
 }
 .auto {
-	margin-left: 1000px;
+	margin: auto;
+}
 /*.sched {
 	width: 20%;
 }
@@ -58,8 +65,12 @@ input {
 }
 .fname {
 	width: 15%;
+}*/
+
+.scanned-details {
+	text-align: center;
 }
-.*/note {
+.note {
 	font-family: tahoma;
 	text-transform: uppercase;
 	font-size: 15px;
