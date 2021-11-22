@@ -4684,7 +4684,7 @@ class PHPMailer
 
             return '';
         }
-        $privstring = $this->DKIM_private_string
+        $privstring = $this->DKIM_private_string;
         $privKeyStr = !empty($privstring) ?
             $this->DKIM_private_string :
             file_get_contents($this->DKIM_private);
