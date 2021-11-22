@@ -1706,7 +1706,8 @@ class PHPMailer
         //Qmail docs: http://www.qmail.org/man/man8/qmail-inject.html
         //Example problem: https://www.drupal.org/node/1057954
         $sender = $this->Sender;
-        if (empty($sender) && !empty(ini_get('sendmail_from'))) {
+        $ini_sendmail_from = ini_get('sendmail_from');
+        if (empty($sender) && !empty($ini_sendmail_from)) {
             //PHP config has a sender address we can use
             $this->Sender = ini_get('sendmail_from');
         }
