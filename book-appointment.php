@@ -394,7 +394,7 @@
 								<th><button class="prev-btn" name="prev">prev</button></th>
 								<th class="date">Monday <br><?php echo $monday?><br></th>
 								<th class="date">Tuesday <br><?php echo $tuesday?><br></th>
-								<th class="date">Wednesday <br><?php echo $wednesday?><br></th>
+								<th class="date wed">Wednesday <br><?php echo $wednesday?><br></th>
 								<th class="date">Thursday <br><?php echo $thursday?><br></th>
 								<th class="date">Friday <br><?php echo $friday?><br></th>
 								<th class="date">Saturday <br><?php echo $saturday?><br></th>
