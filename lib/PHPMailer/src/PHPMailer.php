@@ -3907,7 +3907,7 @@ class PHPMailer
      */
     public function alternativeExists()
     {
-        $altBody  = $this->AltBody
+        $altBody  = $this->AltBody;
         return !empty($altBody);
     }
 
