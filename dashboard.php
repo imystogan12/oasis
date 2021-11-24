@@ -291,7 +291,7 @@ function saveReason() {
 			<td class="text-center"> 
 				<?php 
 					if (!empty($apt['scanned_at'])) {
-					$scannedAt = DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at'])->format('M. d, Y h:i A');
+					$scannedAt = DateTime::createFromFormat('Y-m-d H:i:s', $apt['scanned_at']);
 					echo $scannedAt->format('M. d, Y h:i A');
 				} else {
 					echo "N/A";

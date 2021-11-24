@@ -142,9 +142,9 @@
 				}
 				$conn->close();
 
-				echo "<pre>";
-				var_dump($appointmentData);
-				echo "</pre>";
+				// echo "<pre>";
+				// var_dump($appointmentData);
+				// echo "</pre>";
 
 			$text = '';
 			$s3QrcodeURL = '';

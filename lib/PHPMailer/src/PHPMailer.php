@@ -1303,8 +1303,7 @@ class PHPMailer
         }
         $this->From = $address;
         $this->FromName = $name;
-        $sender = $this->Sender;
-        if ($auto && empty($sender)) {
+        if ($auto && empty($this->Sender)) {
             $this->Sender = $address;
         }
 
@@ -1438,9 +1437,8 @@ class PHPMailer
     {
         //Verify we have required functions, CharSet, and at-sign.
         $pos = strrpos($address, '@');
-        $charset = $this->CharSet;
         if (
-            !empty($this->charSet) &&
+            !empty($this->CharSet) &&
             false !== $pos &&
             static::idnSupported()
         ) {
@@ -1544,8 +1542,7 @@ class PHPMailer
             //Validate From, Sender, and ConfirmReadingTo addresses
             foreach (['From', 'Sender', 'ConfirmReadingTo'] as $address_kind) {
                 $this->$address_kind = trim($this->$address_kind);
-                $addressKind = $this->$address_kind;
-                if (empty($address_kind)) {
+                if (empty($this->$address_kind)) {
                     continue;
                 }
                 $this->$address_kind = $this->punyencodeAddress($this->$address_kind);
@@ -1572,9 +1569,8 @@ class PHPMailer
             }
 
             $this->setMessageType();
-            $body = $this->body;
             //Refuse to send an empty message unless we are specifically allowing it
-            if (!$this->AllowEmpty && empty($body)) {
+            if (!$this->AllowEmpty && empty($this->Body)) {
                 throw new Exception($this->lang('empty_message'), self::STOP_CRITICAL);
             }
 
@@ -1602,16 +1598,12 @@ class PHPMailer
                 );
             }
 
-            $domain = $this->DKIM_domain;
-            $selector = $this->DKIM_selector;
-            $privStr = $this->DKIM_private_string;
-            $priv = $this->DKIM_private;
             //Sign with DKIM if enabled
             if (
-                !empty($domain)
-                && !empty( $selector)
-                && (!empty($privStr)
-                    || (!empty($priv)
+                !empty($this->DKIM_domain)
+                && !empty($this->DKIM_selector)
+                && (!empty($this->DKIM_private_string)
+                    || (!empty($this->DKIM_private)
                         && static::isPermittedPath($this->DKIM_private)
                         && file_exists($this->DKIM_private)
                     )
@@ -1705,15 +1697,12 @@ class PHPMailer
         //Sendmail docs: http://www.sendmail.org/~ca/email/man/sendmail.html
         //Qmail docs: http://www.qmail.org/man/man8/qmail-inject.html
         //Example problem: https://www.drupal.org/node/1057954
-        $sender = $this->Sender;
-        $ini_sendmail_from = ini_get('sendmail_from');
-        if (empty($sender) && !empty($ini_sendmail_from)) {
+        if (empty($this->Sender) && !empty(ini_get('sendmail_from'))) {
             //PHP config has a sender address we can use
             $this->Sender = ini_get('sendmail_from');
         }
         //CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
-        $sender = $this->Sender;
-        if (!empty($sender) && static::validateAddress($this->Sender) && self::isShellSafe($this->Sender)) {
+        if (!empty($this->Sender) && static::validateAddress($this->Sender) && self::isShellSafe($this->Sender)) {
             if ($this->Mailer === 'qmail') {
                 $sendmailFmt = '%s -f%s';
             } else {
@@ -1890,14 +1879,11 @@ class PHPMailer
         //Qmail docs: http://www.qmail.org/man/man8/qmail-inject.html
         //Example problem: https://www.drupal.org/node/1057954
         //CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
-        $sender = $this->Sender;
-        $initget = ini_get('sendmail_from');
-        if (empty($sender) && !empty($initget)) {
+        if (empty($this->Sender) && !empty(ini_get('sendmail_from'))) {
             //PHP config has a sender address we can use
             $this->Sender = ini_get('sendmail_from');
         }
-        $sender = $this->Sender;
-        if (!empty($sender) && static::validateAddress($this->Sender)) {
+        if (!empty($this->Sender) && static::validateAddress($this->Sender)) {
             if (self::isShellSafe($this->Sender)) {
                 $params = sprintf('-f%s', $this->Sender);
             }
@@ -2341,8 +2327,7 @@ class PHPMailer
      */
     public function getTranslations()
     {
-        $language = $this->language;
-        if (empty($language)) {
+        if (empty($this->language)) {
             $this->setLanguage(); // Set the default language.
         }
 
@@ -2855,8 +2840,7 @@ class PHPMailer
                 );
                 $body .= $this->encodeString($this->Body, $bodyEncoding);
                 $body .= static::$LE;
-                $ical = $this->Ical;
-                if (!empty($ical)) {
+                if (!empty($this->Ical)) {
                     $method = static::ICAL_METHOD_REQUEST;
                     foreach (static::$IcalMethods as $imethod) {
                         if (stripos($this->Ical, 'METHOD:' . $imethod) !== false) {
@@ -2924,8 +2908,7 @@ class PHPMailer
                 );
                 $body .= $this->encodeString($this->Body, $bodyEncoding);
                 $body .= static::$LE;
-                $ical = $this->Ical;
-                if (!empty($ical)) {
+                if (!empty($this->Ical)) {
                     $method = static::ICAL_METHOD_REQUEST;
                     foreach (static::$IcalMethods as $imethod) {
                         if (stripos($this->Ical, 'METHOD:' . $imethod) !== false) {
@@ -3002,8 +2985,7 @@ class PHPMailer
                 file_put_contents($file, $body);
 
                 //Workaround for PHP bug https://bugs.php.net/bug.php?id=69197
-                $sign_extracerts_file = $this->sign_extracerts_file;
-                if (empty($sign_extracerts_file)) {
+                if (empty($this->sign_extracerts_file)) {
                     $sign = @openssl_pkcs7_sign(
                         $file,
                         $signed,
@@ -3907,8 +3889,7 @@ class PHPMailer
      */
     public function alternativeExists()
     {
-        $altBody  = $this->AltBody;
-        return !empty($altBody);
+        return !empty($this->AltBody);
     }
 
     /**
@@ -4048,8 +4029,7 @@ class PHPMailer
     protected function serverHostname()
     {
         $result = '';
-        $hostname = $this->Hostname;
-        if (!empty($hostname)) {
+        if (!empty($this->Hostname)) {
             $result = $this->Hostname;
         } elseif (isset($_SERVER) && array_key_exists('SERVER_NAME', $_SERVER)) {
             $result = $_SERVER['SERVER_NAME'];
@@ -4684,8 +4664,7 @@ class PHPMailer
 
             return '';
         }
-        $privstring = $this->DKIM_private_string;
-        $privKeyStr = !empty($privstring) ?
+        $privKeyStr = !empty($this->DKIM_private_string) ?
             $this->DKIM_private_string :
             file_get_contents($this->DKIM_private);
         if ('' !== $this->DKIM_passphrase) {
@@ -5025,8 +5004,7 @@ class PHPMailer
      */
     protected function doCallback($isSent, $to, $cc, $bcc, $subject, $body, $from, $extra)
     {
-        $actionfunction = $this->action_function;
-        if (!empty($actionfunction) && is_callable($this->action_function)) {
+        if (!empty($this->action_function) && is_callable($this->action_function)) {
             call_user_func($this->action_function, $isSent, $to, $cc, $bcc, $subject, $body, $from, $extra);
         }
     }

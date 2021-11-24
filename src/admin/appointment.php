@@ -159,7 +159,11 @@
 		<tr>
 			<td class="details"><?php echo $apt['apt_id'] ?></td>
 			<td class="details"><?php echo $apt["{$transaction_type}_fname"] . " " . $apt["{$transaction_type}_lname"] ?></td>
-			<td class="trans-type details"><?php echo ucwords($transaction_type) ?></td>
+			<td class="text-center">
+				<button 
+					class=" btn text-center <?php echo($transaction_type == 'student') ? "btn-primary" : "btn-warning"  ?>" style="width: 80%;" >	<?php echo ucwords($transaction_type) ?>	
+				</button>
+				</td>
 			<td class="details"><?php echo $apt['department_name'] ?></td>
 			<td class="details"><?php echo $apt['user_fname'] . " " . $apt['user_lname'] ?></td>
 			<td class="details"> <?php 

@@ -141,7 +141,9 @@ function showConfirm(form) {
 <form id="search" method="GET" action="autoAcceptDashboard.php">
 <div class="search">
 		
-			<div class="fullname-search"><b>Full Name:</b> <input type="text" name="fullname" value="<?php echo isset($_GET['fullname']) ? $_GET['fullname'] : ''  ?>" /></div>
+			<div class="fullname-search"><b>Full Name:</b></div> 
+			<div><input type="text" name="fullname" value="<?php echo isset($_GET['fullname']) ? $_GET['fullname'] : ''  ?>" style="width: 500px; margin-right: 10px;" />
+			</div>
 			<!-- <div class="status-search"><b>Status:</b>
 				<select name="status">
 					<option value="">All</option>
@@ -203,8 +205,8 @@ function showConfirm(form) {
 							<tr>
 								<td class="data"><div>Name:</div> <div><div><?php echo $apt[$transaction_type . '_fname']?> <?php echo $apt[$transaction_type . '_lname']?></div>
 								</td>
-								<td class="data"><div>Email:</div> <div><?php echo  $apt[$transaction_type . '_email']?></div>
-								</td>
+								<td class="data"><div>Type:</div><?php echo ucwords($transaction_type) ?></td>
+								
 							</tr>
 							<tr>
 								<td class="data"><div><?php echo ($transaction_type === "guest" ? "Contact" : "Student")?> Number:</div> <div><?php echo ($transaction_type === "guest" ? $apt['guest_number'] : $apt['student_num'])?></div>
@@ -226,6 +228,11 @@ function showConfirm(form) {
 									<td class="data"><div>Reason:</div> <div><?php echo ucwords($apt['reason_name'])?></div>
 									</td>
 								</tr>
+								<tr>
+									<td class="data"><div>Email:</div> <div><?php echo  $apt[$transaction_type . '_email']?></div>
+									</td>
+								</tr>
+								
 								<?php endif; ?>
 							
 

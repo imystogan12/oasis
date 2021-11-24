@@ -1,7 +1,16 @@
 /*.dialog{
 	background-color: white;
 }*/
+
 @import url('https://fonts.googleapis.com/css?family=Numans');
+.fullname-search {	
+	margin-right: 5px;
+	margin-left: 550px;
+}
+/*input {
+	width: 400px;
+	margin-right: 10px;
+}*/
 .search {
 	margin-left: 60px;
 	display: flex;
