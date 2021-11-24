@@ -63,6 +63,17 @@
 		echo "not";
 	}
 
+	// $sql = "INSERT INTO faculty (dept_id, fname, lname, user_report_id)
+	// 		VALUES ( " . $_POST['dept_id'] . " , '" . $_POST['fname'] . "' , '" . $_POST['lname'] . "' , " . $_POST['program-head'] . ")";
+
+	// 		if ($conn->query($sql) === TRUE) {
+ //  					echo "New record created successfully";
+ //  				} else {
+ //  					echo "Error: " . $sql . "<br>" . $conn->error;
+ //  				}
+  				// header("Location: faculty.php");
+  				// exit;
+
 	// echo "<pre>";
 	// var_dump($faculty);
 	// echo "</pre>";
@@ -201,23 +212,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        
-        <!-- BODY START -->
-
 
 
 					<label class="name">First Name:</label>
-					<input type="text" name="fname" required class="form-control">
+					<input type="text" name="fname" required class="form-control" />
 
 
 					<label class="name">Last Name:</label>
-					<input type="text" name="lname" required class="form-control">
+					<input type="text" name="lname" required class="form-control" />
 
-
-
-
-
-        <!-- BODY END -->
+					<label class="name">Program Head:</label>
+					<select name="program-head" id="program-head" required>
+					<option>Please Select</option>
+					</select>		
 
       </div>
       <div class="modal-footer">

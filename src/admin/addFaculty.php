@@ -29,6 +29,8 @@
 
 	$departments = [];
 
+	
+
 	$sql = "SELECT id, name, value FROM department WHERE value='faculty'" ;
 	$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
