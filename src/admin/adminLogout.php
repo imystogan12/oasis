@@ -1,9 +1,10 @@
 <?php 
+	include '../../config.php';
 	//session_start();
 	if (isset($_POST['logout'])) {
 		unset($_SESSION);
 		
-		header("Location: homepage.php");
+		header("Location: " . $siteUrl . "/oasis/homepage.php");
    		exit;
 	}
 ?>

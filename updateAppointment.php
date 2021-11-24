@@ -19,7 +19,7 @@
 
 		$sql = 'UPDATE appointment SET scanned_at = "' .  date('Y-m-d H:i:s') . '" 
 				WHERE id=' . $id;
-				var_dump($sql);
+				// var_dump($sql);
 
 		if ($conn->query($sql) === TRUE) {
  			 echo "Record updated successfully";
@@ -54,7 +54,7 @@
 
 		$sql = 'UPDATE appointment SET status = "' . $status . '" , reason = "' . $reason . '" 
 				WHERE id=' . $aptId;
-				var_dump($sql);
+				// var_dump($sql);
 
 		if ($conn->query($sql) === TRUE) {
  			 echo "Record updated successfully";
@@ -200,7 +200,7 @@
 				QRcode::png($text, $file3, $ecc, $pixel_size, $frame_size);
 				  
 				// Displaying the stored QR code if you want
-				  echo "<div><img src='".$file3."'></div>";
+				  // echo "<div><img src='".$file3."'></div>";
 
 				//   // Upload to AWS S3
 
@@ -346,7 +346,7 @@
 		$mail->MsgHTML($status=="accepted" ? $acceptedMessage : $declinedMessage); 
 		if(!$mail->Send()) {
   		echo "Error while sending Email.";
-  		var_dump($mail);
+  		// var_dump($mail);
 		} else {
   		echo "Email sent successfully";
 		}

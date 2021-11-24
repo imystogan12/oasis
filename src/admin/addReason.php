@@ -1,5 +1,6 @@
 <?php
-	include('database.php');  
+	// include('database.php');
+	include '../../database.php';  
 	session_start();
 	// $servername = "localhost";
 	// $username = "root";

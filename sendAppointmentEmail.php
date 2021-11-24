@@ -87,9 +87,9 @@
 				}
 				$conn->close();
 
-				echo "<pre>";
-				var_dump($appointmentData);
-				echo "</pre>";
+				// echo "<pre>";
+				// var_dump($appointmentData);
+				// echo "</pre>";
 
 
 			$text = '';
@@ -269,7 +269,7 @@
 		$mail->MsgHTML($acceptedMessage); 
 		if(!$mail->Send()) {
   		echo "Error while sending Email.";
-  		var_dump($mail);
+  		// var_dump($mail);
 		} else {
   		echo "Email sent successfully";
 		}
