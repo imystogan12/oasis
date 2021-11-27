@@ -291,7 +291,8 @@
 			
 			<div><b>Congratulations, your appointment has been approved. This is a confirmation email of your appointment at STI College Sta. Maria. Please check for your appointment details. <br><br>
 				Please make sure to show up no earlier than 15 minutes prior to your appointment.
-				Failure to show up during your scheduled appointment may result in forfeiture of your scheduled appointment and/or longer wait time.
+				Failure to show up during your scheduled appointment may result in forfeiture of your scheduled appointment and/or longer wait time. <br><br>
+				When attending your appointment, please be sure to bring your approval email along with the QR code to be shown to the security personnel at STI College Sta. Maria.
 			</b></div>
 			<div>
 				<br><h2>Appointment Details:</h2>

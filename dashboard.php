@@ -219,8 +219,8 @@ function saveReason() {
 
 	<form onsubmit="return showConfirm(this)" action="updateAppointment.php?return=dashboard" method="POST" id="updateAppointment-form">
 
-		<input type="hidden" name="reason" id="reasonHidden"/>
-		<input type="hidden" name="declineAptId" id="declineAptId"/>
+		<input type="hidden" name="reason" id="reasonHidden" required />
+		<input type="hidden" name="declineAptId" id="declineAptId" required />
 
 	<!-- <div class="modal fade" id="dashboardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   	<div class="modal-dialog">
@@ -430,7 +430,7 @@ function saveReason() {
         </button>
       </div>
       <div class="modal-body">
-        <input type="reason" name="reason" id="reasonModalField"/>
+        <input type="reason" name="reason" id="reasonModalField" required />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="saveReason()">Confirm</button>

@@ -177,7 +177,7 @@
 			<th class="col text-center" style="width: 1%;">Type</th>
 			<!-- <th class="galit">Email</th> -->
 			<th class="col text-center" style="width: 5%;">Schedule</th>
-			<th class="col text-center" style="width: 1%;">Time Scanned</th>
+			<th class="col text-center" style="width: 2%;">Time Scanned</th>
 			<!-- <th class="galit">Action</th> -->
 		</tr>
 		<?php foreach($appointment as $apt): ?> 

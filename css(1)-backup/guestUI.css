@@ -92,6 +92,7 @@ input[name="student-companion"]{
 	font-family: Tahoma;
 	background-color: #006cb7; 
 	color: white;
+	border-style: none;
 }
 .submit-cancel{
 	text-align: center;
@@ -118,6 +119,7 @@ input[name="student-companion"]{
 	padding: 5px 15px 5px 15px;
 	background-color: #006cb7;
 	color: white;
+	border-style: none;
 
 }
 .top-info{

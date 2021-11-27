@@ -51,7 +51,7 @@ include '../../database.php';
 				$appointments[] = $row;
 			}
 	} else {
-		echo "not";
+		// echo "not";
 	}
 
 
